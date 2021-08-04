@@ -328,7 +328,7 @@ a.forgetPassword:hover{
     top: 80px;
     left: -100%;
     text-align: center;
-    transition: all .8s cubic-bezier(0.55, -0.44, 0.46, 1.43);
+    transition: all .6s cubic-bezier(0.55, -0.44, 0.46, 1.43);
   }
   .navigationbar ul{
     margin: -26px 0 0 0;
@@ -353,6 +353,9 @@ a.forgetPassword:hover{
   }
   #check:checked ~ ul{
     left: 0;
+  }
+  .container{
+    margin-top:75px;
   }
 
 }
