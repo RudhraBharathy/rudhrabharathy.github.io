@@ -10,8 +10,7 @@ body{
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover; 
-  overflow-y: hidden;
+  background-size: cover;
   position: relative;
   bottom:2px;
 }
