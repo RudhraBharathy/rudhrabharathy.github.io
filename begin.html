@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My First Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="shortcut icon" type="image/jpg" href="../Images/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body class="homeBGColor">
+    <header>
+        <nav class="navigationbar">
+            <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+                <i class="far fa-bars"></i>
+            </label>
+            <label for="check" class="checkbtn">
+                <i class="far fa-arrow-left" ></i>
+            </label>
+            <button class="leaflogobut" id="leaflogo" onclick="pageReload()">
+                <img src="../Images/leaflogo.jpg" style="height: 53px;padding: 0px;">
+            </button>
+            <div class="searchContainer">
+                <button class="searchBtn" id="myBtn" onclick="searchResult()"><i class="fas fa-search "></i></button>
+                <input class="searchbox" id="Input" type="search" name="input" placeholder="Search">
+            </div>
+            <ul>
+                <li><a href="#Home" style="text-decoration: none;">Home</a></li>
+                <li><a href="contact.html" style="text-decoration: none;">Contact-me</a></li>
+                <li><a href="begin.html#about" style="text-decoration: none;">About-me</a></li>
+                <li><a href="login.html" style="text-decoration: none;">Login</a></li>
+            </ul>
+        </nav>
+        <div class="naruto" id="Home">
+            <img src="https://3.bp.blogspot.com/-knNnz6cSvF0/UIgPqdiB2VI/AAAAAAAARPo/iPVRbPb5TN8/s1600/naruto-shippuden.jpg" />
+            <div style="font-size:6vw;" class="narutotext">
+                Welcome To My Page...
+            </div>
+        </div>
+    </header>
+    <div class="aboutMe">
+        <img src="https://avatars.githubusercontent.com/u/74898301?s=400&u=65571394b310feec0c4aabf302b215f1ba4827a7&v=4">
+        <div class="abtMeText">
+            <p>Hello Viewer This is Rudhra Bharathy...<br>This my First Website...<br>You Can Give Your Qureies <br>in Contact-me Section..</p>
+        </div>
+    </div>
+    <footer>
+        <div id="about" class="downbox">
+            <div class="checkouttext" style="font-size:3.9vw;">
+                My Social Media Profiles
+            </div>
+            <div class="logos">
+                <a href="https://www.facebook.com/bharathyganeshan/" target="_blank" class="fb"><i class="fab fa-facebook fa-3x"></i></a>
+                <a href="https://www.instagram.com/ig_rudhrabharathy/" target="_blank" class="inst"><i class="fab fa-instagram fa-3x"></i></a>
+                <a href="https://www.linkedin.com/in/rudhra-bharathy-g-b6b2b5200/" target="_blank" class="linkin" style="padding: 0px 0px 0px 18px;"><i class="fab fa-linkedin-in fa-3x"></i></a>
+                <a href="https://twitter.com/RudhraBharathy" target="_blank" class="twit"><i class="fab fa-twitter fa-3x"></i></a>
+                <a href="https://github.com/RudhraBharathy" target="_blank" class="github" style="padding: 0px 0px 0px 0px;"><i class="fab fa-github fa-3x"></i></a>
+            </div>
+            <div>
+                <i class="far fa-envelope"> bharathyganeshan@gmail.com</i>
+            </div>  
+            <div class="copyrightText">
+                Copyright ©-<span id="copyright-year">2021</span>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="../javascript/page.js"></script>
+</body>
+
+</html>
+

@@ -1,0 +1,359 @@
+html, body{
+  display: grid;
+  height: 100vh;
+  width: 100%;
+  place-items: center;
+}
+
+body{
+  background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(../Images/img3.jpg);
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; 
+  overflow-y: hidden;
+  position: relative;
+  bottom:2px;
+}
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color:#f29c11;
+  height:55px;
+  width:100%;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.navigationbar ul{
+  padding: 0;
+  margin: -13px 20px -11px -26px;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+button.navbut{
+  height: 50px;
+  margin-left: 32px;
+    padding: 0px;
+    border:none;
+    font-family:"Times New Roman", Times, serif;
+}
+.leaflogobut{
+  height: 53px;
+    padding:0px;
+    border: none;
+    margin: 0 5px 0 15px;
+    cursor: pointer;
+}
+.searchBtn{
+  background: none;
+  border: none;
+  position: relative;
+  left: 6px;
+  z-index: 2;
+  cursor: pointer;
+}
+.searchContainer{
+  display: flex;
+}
+.fa-search{
+  font-size:1.5em;
+  color: #f29c11;
+
+}
+input#Input.searchbox{
+  height: 45px;
+  border: none;
+  width: 100%;
+  border-radius: 50px;
+  position: relative;
+  right: 30px;
+  display: block;
+}
+
+input[type="search"] {
+  appearance: auto;
+  box-sizing: border-box;
+  padding: 0px 20px 0px 35px;
+  font-size: 20px;
+  font-family: "Times new roman";
+}
+nav ul{
+  float: right;
+  margin-right: 20px;
+}
+
+nav ul li{
+  display: inline-block;
+  line-height: 51px;
+  margin: 0 5px;
+}
+nav ul li a{
+  color: white;
+  font-size: 17px;
+  padding: 7px 5px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+a.active,a:hover{
+  background: #000000;
+  transition: .5s;
+}
+.checkbtn{
+  font-size: 30px;
+  color: white;
+  float: left;
+  line-height: 60px;
+  margin-left: 20px;
+  cursor: pointer;
+
+}
+i.fa-bars{
+  position: absolute;
+    bottom: 13px;
+}
+ i.fa-arrow-left{
+    display:none;
+    position: absolute;
+    left: 18px;
+    top: 12px;
+  }
+i.fa-bars.active,i.fa-bars:hover{
+  color: #000000;
+  transition: .5s;
+}
+i.fa-arrow-left.active,i.fa-arrow-left:hover{
+  color: #000000;
+  transition: .5s;
+}
+
+#check{
+  display: none;
+}
+
+
+.container{
+    max-width: 350px;
+    width: 100%;
+    padding: 25px 30px;
+    background: rgba( 255, 255, 255, 0.10 );
+    box-shadow: 20px 20px 50px rgb(0,0,0,0.5);
+    backdrop-filter: blur( 4.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
+    border-radius: 50px;
+    box-sizing: border-box;
+    border-top:1px solid rgba(255, 255, 255,0.5);
+    border-left:1px solid rgba(255, 255, 255,0.5);
+    overflow: hidden;
+    font-family:"Times New Roman", Times, serif;
+    }
+
+.content form .title{
+  font-size: 30px;
+  font-weight: 600;
+  margin: 15px 0 10px 0;
+  position: relative;
+}
+.content form .title:before{
+  content: '';
+  position: absolute;
+  height: 4px;
+  width: 36px;
+  left: 0px;
+  bottom: 2px;
+  border-radius: 5px;
+  background:#f29c11;
+}
+.content form .input-box{
+  width: 100%;
+  height: 45px;
+  margin-top: 25px;
+  position: relative;
+
+}
+.content form .input-box input{
+  width: 97%;
+  height: 100%;
+  outline: none;
+  font-size: 16px;
+  border: none;
+  border-radius:5px; 
+  font-family:"Times New Roman", Times, serif;
+}
+.content form .underline::after{
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 99%;
+  background:linear-gradient(90deg, rgba(0,0,0,1) 60%, rgba(255,255,255,1) 100%);
+  left: 0;
+  bottom: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 0.3s ease;
+}
+.content form .input-box input:focus ~ .underline::after,
+.content form .input-box input:valid ~ .underline::after{
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.content form .button{
+  margin: 40px 0 20px 0;
+}
+.content .input-box input[type="submit"]{
+  background:#f29c11;
+  border: 2px solid black;
+  font-size: 17px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+.content .input-box input[type="submit"]:hover{
+  letter-spacing: 1px;
+  background:#f29c11;
+  border: 6px solid black;
+  transition: all 0.3s ease;
+  border-radius:20px; 
+}
+input[placeholder="Name@mail.com"],input[placeholder="Enter Password"]{
+  padding-left: 5px;
+}
+input[type="password" i]{
+  font: small-caption;
+  font-size: 10px;
+}
+.forgetPassword{
+  position: absolute;
+    top: 57px;
+    color: #2e7fea;
+}
+a.forgetPassword:hover{
+  background-color: transparent;
+}
+.content .option{
+  font-size: 16px;
+  text-align: center;
+}
+.content .facebook a,
+.content .google a{
+  display: block;
+  height: 45px;
+  width: 93%;
+  font-size: 15px;
+  text-decoration: none;
+  padding-left: 20px;
+  line-height: 45px;
+  color: #fff;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.content .facebook i,
+.content .google i{
+  padding-right: 20px;
+  font-size: 20px;
+}
+.content .google a{
+  background: linear-gradient(to right,  #00acee 0%, #4285f4 100%);
+  margin: 20px 0 15px 0;
+}
+.content .google a:hover{
+  background: linear-gradient(to left,  #00acee 0%, #4285f4 100%);
+  margin: 20px 0 15px 0;
+}
+.content .facebook a{
+  background: linear-gradient( to right,  #3b5998 0%, #476bb8 100%);
+  margin: 20px 0 20px 0;
+}
+.content .facebook a:hover{
+  background: linear-gradient( to left,  #3b5998 0%, #476bb8 100%);
+  margin: 20px 0 20px 0;
+}
+
+/*
+********************************************************************************************************************************
+**************************************************MEDIA QUERIES**************************************************************
+*********************************************************************************************************************************/
+
+/* Laptop View */
+@media screen and (min-device-width: 1200px) and (max-device-width: 2500px) { 
+  .searchContainer{
+    width: 40rem;
+  }
+  .leaflogobut{
+    position: relative;
+    right: 30px;
+  }
+  .fa-bars{
+    display: none;
+  }
+}
+@media screen and (min-device-width: 900px) and (max-device-width:1199px) {
+  .searchContainer{
+    width: 23rem;
+  }
+  .fa-bars{
+    display: none;
+  }
+}
+
+
+/* Mobile&Tablet View */
+@media screen and (min-device-width: 700px) and (max-device-width:899px) {
+  .searchContainer{
+    width: 15rem;
+}
+  .fa-bars{
+    display: none;
+  }
+}
+@media screen and (min-device-width:700px) and (max-device-width: 799px){
+  nav ul li{
+    margin: 0px;
+  }
+}
+
+/* Mobile view */
+@media screen and (min-device-width: 300px) and (max-device-width: 699px) {
+  ul{
+    position: fixed;
+    width: 18rem;
+    height: 100vh;
+    background: #f29c11;
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all .8s cubic-bezier(0.55, -0.44, 0.46, 1.43);
+  }
+  .navigationbar ul{
+    margin: -26px 0 0 0;
+    list-style: none;
+    box-sizing: border-box;
+  }
+  nav ul li{
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a{
+  color: white;
+  font-size: 20px;
+  padding: 7px 5px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  }
+  a.active,a:hover{
+  background: #000000;
+  transition: .5s;
+  }
+  #check:checked ~ ul{
+    left: 0;
+  }
+
+}
