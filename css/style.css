@@ -533,6 +533,9 @@ input.btn:focus::after {
   input.box0{
       margin-left: 1.1rem;
   }
+  .abtMeText {
+    margin-right: 15px;
+}
 }
 @media screen and (min-device-width: 500px) and (max-device-width: 699px) {
   .aboutMe img{
