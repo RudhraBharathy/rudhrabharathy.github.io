@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rudhra Bharathy | My Portfolio</title>
+    <link rel="shortcut icon" href="Images/RB Logo 2.png" type="image/x-icon">
+    <meta name="description" content="Hi,This is Personal Portfolio">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/particle.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.3.0/css/all.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <section class="landingpage-container-main">
+        <header id="landingpage">
+            <nav class="navbar">
+                <div class="header__logo-container">
+                    <div class="header__logo-img-cont">
+                        <img src="Images/RB Logo 2.png" alt="Rudhra Bharathy Logo Image" class="header__logo-img">
+                    </div>
+                    <p class="header__logo-sub">Rudhra Bharathy</p>
+                </div>
+
+                <div class="bars" id="nav-action">
+                    <span class="bar"> </span>
+                </div>
+
+                <div id="radial-nav">
+                    <ul>
+                        <li class="shape-circle circle-one"><a href="#landingpage">Home</a></li>
+                        <li class="shape-circle circle-two"><a href="#Aboutme">About</a></li>
+                        <li class="shape-circle circle-three"><a href="#myprojects">Projects</a></li>
+                        <li class="shape-circle circle-four"><a href="#Contact">Contact</a></li>
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="home-hero">
+            <div id="particles-js"></div>
+            <div class="home-hero_content">
+                <div class="home-hero_content-1">
+                    <div class="home-hero_content-name">
+                        <h1>Hi, I'm Rudhra Bharathy<h1>
+                    </div>
+                    <div class="hero-short-intro">
+                        <h1>A <span id="typed"></span></h1>
+                    </div>
+                    <div class="home-hero_content-info">
+                        <p>Computer Science & Engineering Student</p>
+                    </div>
+                    <div class="home-hero_content-socialmedia">
+                        <div class="socialmedia sm-linkedin">
+                            <a href="https://linkedin.com/in/rudhrabharathy" class="home-hero__social-icon-link"
+                                rel="noopener noreferrer" target="_blank">
+                                <i class="fab fa-linkedin-in fa-2x"></i>
+                            </a>
+                        </div>
+                        <div class="socialmedia sm-github">
+                            <a href="https://github.com/RudhraBharathy" class="home-hero__social-icon-link"
+                                rel="noopener noreferrer" target="_blank">
+                                <i class="fab fa-github fa-2x"></i>
+                            </a>
+                        </div>
+                        <div class="socialmedia sm-twitter">
+                            <a href="https://twitter.com/RudhraBharathy" class="home-hero__social-icon-link"
+                                rel="noopener noreferrer" target="_blank">
+                                <i class="fab fa-twitter fa-2x"></i>
+                            </a>
+                        </div>
+                        <div class="socialmedia sm-instagram">
+                            <a href="https://www.instagram.com/ig_rudhrabharathy" class="home-hero__social-icon-link"
+                                rel="noopener noreferrer" target="_blank">
+                                <i class="fab fa-instagram fa-2x"></i>
+                            </a>
+                        </div>
+                        <div class="socialmedia sm-dev">
+                            <a href="mailto:bharathyganeshan@gmail.com" class="home-hero__social-icon-link"
+                                rel="noopener noreferrer" target="_blank">
+                                <i class="fas fa-envelope fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="home-hero_content-2" id="container">
+                    <img class="my_photo" src="./Images/my photo 1.png" alt="My Profile Photo">
+                </div>
+            </div>
+            <div class="mouse"></div>
+        </div>
+    </section>
+    <section class="aboutme-container-main" id="Aboutme">
+        <div>
+            <div class="aboutme-container-1">
+                <h1 class="aboutme-heading"><i class="fas fa-user-alt"></i>About Me</h1>
+            </div>
+            <div class="aboutme-container">
+                <!-- <div class="aboutme-picture">
+                    <img src="./Images/my photo 2.jpg" alt="Rudhra Bharathy">
+                </div> -->
+                <div class="aboutme-info">
+                    <div class="aboutme-container-2">
+                        <div class="aboutme-container-2-content">
+                            <div class="aboutme-content-division">
+                                <p>Hello!! <span class="emoji hello"></span></p>
+                            </div>
+                            <div class="aboutme-content-division">
+                                <p>I am Rudhra Bharathy, a </p>
+                                <p id="myageinyear">20</p>
+                                <p>year old aspiring Computer Science & Engineering student from Coimbatore, India. I'm
+                                    currently
+                                    pursuing my bachelor's degree at SNS College of Technology, and I am an innovative
+                                    web developer as a part-time
+                                    freelancer.<span class="emoji man-tech"></span></p>
+                            </div>
+                            <div class="aboutme-content-division">
+                                <p>
+                                    I learned Web Developing from various online courses and attended various events to
+                                    gain
+                                    knowledge and also worked on real-time projects,
+                                    I love to collaborate.<span class="emoji handshake"></span>
+                                </p>
+                            </div>
+                            <div class="aboutme-content-division">
+                                <p>
+                                    I'm interested in job prospects where I can develop,
+                                    learn, and contribute. Please get in touch with
+                                    me if you have a great opportunity that matches my experience and skills.
+                                </p>
+                            </div>
+                        </div>
+                        <a class="custom-btn contact-me-abt" href="#Contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="my-skil-exp-edu-container-main">
+        <div class="my-skil-exp-edu-container">
+            <div class="tab-titles">
+                <p class="tab-links active-link" onclick="opentab('skills')"><i class="fas fa-laptop-code"></i>Skills
+                </p>
+                <p class="tab-links" onclick="opentab('experience')"><i class="fas fa-briefcase"></i>Experience</p>
+                <p class="tab-links" onclick="opentab('education')"><i class="fas fa-graduation-cap"></i>Education</p>
+            </div>
+            <div class="tab-contents active-tab" id="skills">
+                <div class="technical-skills-grid">
+                    <div class="Technical-skills">
+                        <img src="./svg/html5.svg" alt="html5">
+                        <p>HTML5</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/css3.svg" alt="css3">
+                        <p>CSS3</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/javascript.svg" alt="javascript">
+                        <p>JavaScript</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/java.svg" alt="java">
+                        <p>Java</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/c++.svg" alt="cpp">
+                        <p>C++</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/python.svg" alt="python">
+                        <p>Python</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/react.svg" alt="react">
+                        <p>ReactJs</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/nodejs.svg" alt="nodejs">
+                        <p>NodeJs</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/responsive.svg" alt="ResponsiveDesign">
+                        <p>Responsive</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/terminal.svg" alt="CLI">
+                        <p>CLI</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/mysql.svg" alt="mysql">
+                        <p>MySQL</p>
+                    </div>
+                    <div class="Technical-skills">
+                        <img src="./svg/git.svg" alt="git">
+                        <p>Git</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-contents" id="experience">
+                <div class="experience-container">
+                    <p class="company-name"><a href="https://tospace.in" target="_blank">ToSpace Pvt. Ltd.</a></p>
+                    <p class="experience-duration">December 2021 - May 2022</p>
+                    <p class="experience-job-title">Web Developer</p>
+                    <div class="job-descreption">
+                        <ul>
+                            <li>
+                                Designed, Developed and tested the official ToSpace website, which has been deployed
+                                successfully.
+                                The company's profile and forthcoming projects are displayed on the website.
+                            </li>
+                            <li>
+                                The website was created using a variety of technologies to improve browser user
+                                interaction.
+                            </li>
+                            <li>
+                                Ensured that the technology used encouraged efficiency, speed, and smooth performance.
+                                I kept checking the website for issues while also testing it for usability.
+                            </li>
+                            <li>
+                                <b>Tools : </b>HTML5, CSS3, JavaScript, PHP.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-contents" id="education">
+                <div class="education-clg">
+                    <p class="clg-degree">Bachelor of Computer Science and Engineering</p>
+                    <p class="clg-name">SNS College of Technology</p>
+                    <p class="clg-duration">2020-2024 | Pursuing</p>
+                </div>
+                <div class="education-scl">
+                    <div class="education-scl-cont-1">
+                        <p class="scl-course">HSC</p>
+                        <p class="scl-name">Infant Jesus Matric. Hr. Sec. School</p>
+                        <p class="scl-duration">2019-2020 | Completed</p>
+                    </div>
+                    <div class="education-scl-cont-2">
+                        <p class="scl-course">SSLC</p>
+                        <p class="scl-name">Infant Jesus Matric. Hr. Sec. School</p>
+                        <p class="scl-duration">2017-2018 | Completed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="myprojects-container-main" id="myprojects">
+        <div class="myprojects-container-1">
+            <h1><i class="fa-solid fa-lightbulb-on"></i>My Projects</h1>
+        </div>
+        <div class="myprojects-container-2">
+            <div class="projects-container-main">
+                <div class="projects-card-main" data-tilt>
+                    <div class="project-photo">
+                        <img src="/Images/Project Images/weather-app.png" alt="weather-app">
+                    </div>
+                    <div class="project-text-content">
+                        <div class="project-decsp-1"><span>Tools : HTML,CSS,JS,WeatherAPI</span></div>
+                        <div class="project-decsp-2"><span>This is <br>
+                                <a class="proj-custom-btn projects-btn"
+                                    href="https://rudhrabharathy.github.io/Weather-App/" target="_blank"><i
+                                        class="fa-regular fa-link"></i> View Page</a>
+                                <a class="proj-custom-btn projects-btn"
+                                    href="https://github.com/RudhraBharathy/Weather-App" target="_blank"><i
+                                        class="fab fa-github proj-github"></i> Github</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <p class="project-card-title">Weather App</p>
+            </div>
+            <div class="projects-container-main">
+                <div class="projects-card-main" data-tilt>
+                    <div class="project-photo">
+                        <img src="/Images/Project Images/login&regForm.png" alt="Login&Register">
+                    </div>
+                    <div class="project-text-content">
+                        <div class="project-decsp-1"><span>Tools : ReactJs,NodeJs,MySQL</span></div>
+                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
+                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                                <a class="proj-custom-btn projects-btn"
+                                    href="https://github.com/RudhraBharathy/Login-and-Register-Form" target="_blank"><i
+                                        class="fab fa-github proj-github"></i> Github</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <p class="project-card-title">Register & Login Page</p>
+            </div>
+            <div class="projects-container-main">
+                <div class="projects-card-main" data-tilt>
+                    <div class="project-photo">
+                        <img src="/Images/Project Images/atm.jpg" alt="ATM Validator">
+                    </div>
+                    <div class="project-text-content">
+                        <div class="project-decsp-1"><span>Tools : C++,CLI</span></div>
+                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
+                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                                <a class="proj-custom-btn projects-btn"
+                                    href="https://github.com/RudhraBharathy/ATMcardValidator" target="_blank"><i
+                                        class="fab fa-github proj-github"></i> Github</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <p class="project-card-title">ATM card Validator</p>
+            </div>
+            <div class="projects-container-main">
+                <div class="projects-card-main" data-tilt>
+                    <div class="project-photo">
+                        <img src="/Images/Project Images/Attendance-Management-System.png"
+                            alt="Attendance-Management-System">
+                    </div>
+                    <div class="project-text-content">
+                        <div class="project-decsp-1"><span>Tools : Python,MySQL</span></div>
+                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
+                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                                <a class="proj-custom-btn projects-btn"
+                                    href="https://github.com/RudhraBharathy/AttendanceManagementSystem"
+                                    target="_blank"><i class="fab fa-github proj-github"></i> Github</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <p class="project-card-title">Attendance Management System</p>
+            </div>
+            <div class="projects-container-main">
+                <div class="projects-card-main" data-tilt>
+                    <div class="project-photo">
+                        <img src="/Images/Project Images/ai-Voice.png" alt="ai-Voice-Assistant">
+                    </div>
+                    <div class="project-text-content">
+                        <div class="project-decsp-1"><span>Attendance Management System</span></div>
+                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
+                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                                <a class="proj-custom-btn projects-btn"
+                                    href="https://github.com/RudhraBharathy/AI-Voice-Assistant" target="_blank"><i
+                                        class="fab fa-github proj-github"></i> Github</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <p class="project-card-title">AI Voice Assistant</p>
+            </div>
+            <div class="projects-container-main" >
+                <div class="projects-card-main" data-tilt>
+                    <div class="project-photo">
+                        <img src="/Images/Project Images/first-portfolio.jpg" alt="Portfolio">
+                    </div>
+                    <div class="project-text-content">
+                        <div class="project-decsp-1"><span>Tools : HTML,CSS,JS</span></div>
+                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
+                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                                <a class="proj-custom-btn projects-btn" href="https://rudhrabharathy.github.io"
+                                    target="_blank"><i class="fa-regular fa-link"></i> View Page</a>
+                                <a class="proj-custom-btn projects-btn"
+                                    href="https://github.com/RudhraBharathy/rudhrabharathy.github.io" target="_blank"><i
+                                        class="fab fa-github proj-github"></i> Github</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <p class="project-card-title">My Personal Portfolio</p>
+            </div>
+        </div>
+
+    </section>
+    <section class="contact-container-main" id="Contact">
+        <div class="contactform-container-1">
+            <h1><i class="fa-solid fa-phone"></i>  Contact</h1>
+        </div>
+        <div class="contactform-container-2" id="myCanvas">
+            <form action="" class="contact-form-container">
+                <div class="contact-form-group">
+                    <input class="contactform-input" type="text" name="name" autocomplete="off" spellcheck="false" required/>
+                    <label class="input-value" for="name">Name</label>
+                </div>
+                <div class="contact-form-group">
+                    <input class="contactform-input" type="text" name="email" autocomplete="off" spellcheck="false" required />
+                    <label class="input-value" for="email">Email</label>
+                </div>
+                <div class="contact-form-group">
+                    <textarea cols="30" rows="10" class="contactform-input contactform-textarea" autocomplete="off" spellcheck="false" name="message"
+                        id="message" required></textarea>
+                    <label class="input-value" for="message">Message</label>
+                </div>
+                <button type="submit" class="contact-btn contact-btn-glow">Submit</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        
+        <p>Made With ❤️ by RB.</p>
+    </footer>
+
+    <script type="text/javascript" src="./js/typed.min.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script type="text/javascript" src="./js/particle.js"></script>
+    <script type="text/javascript" src="./js/vanilla-tilt.js"></script>
+</body>
+
+</html>
+
+<!-- 1.contact-mail
+2.scroll animation
+3.google analytics
+4.head tag all content
+5.alginment -->
