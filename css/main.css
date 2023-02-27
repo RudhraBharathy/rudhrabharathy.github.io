@@ -13,6 +13,8 @@
     --font-size-9: calc(7px + (26 - 14) * ((100vw - 320px) / (1600 - 300)));
     --font-size-10: calc(8px + (26 - 14) * ((100vw - 320px) / (1600 - 300)));
     --font-size-11: calc(30px + (26 - 14) * ((100vw - 320px) / (1600 - 300)));
+    --font-size-12: calc(15px + (26 - 14) * ((100vw - 320px) / (1600 - 300)));
+    
 
     --contact-rotation: 3.14rad;
     --speed: 350ms;
@@ -475,9 +477,8 @@ input[type="checkbox"] {
         line-height: 90vw !important;
         text-indent: 10vw !important;
     }
-
-    .hero-short-intro {
-        font-size: var(--font-size-6) !important;
+    .my_photo{
+        height: 250px !important;
     }
 }
 
@@ -580,7 +581,7 @@ input[type="checkbox"] {
     .home-hero_content-info p,
     .home-hero_content-socialmedia,
     .hero-short-intro {
-        padding-top: 10px !important;
+        padding-top: 15px !important;
     }
 
     .mouse {
@@ -589,8 +590,8 @@ input[type="checkbox"] {
 }
 
 
-.home-hero_content-name {
-    font-size: var(--font-size-4);
+.home-hero_content-name{
+    font-size: var(--font-size-11);
 }
 
 .home-hero_content-name h1,
@@ -603,7 +604,7 @@ input[type="checkbox"] {
 .home-hero_content-info p {
     padding-top: 20px;
     width: 100%;
-    font-size: var(--font-size-2);
+    font-size: var(--font-size-12);
 }
 
 .home-hero_content-socialmedia {
@@ -612,7 +613,10 @@ input[type="checkbox"] {
     flex-direction: row;
     padding-top: 20px;
 }
-
+.hero-short-intro {
+    font-size: var(--font-size-12);
+    padding-top: 20px;
+}
 .socialmedia {
     padding: 15px;
 
@@ -675,17 +679,17 @@ input[type="checkbox"] {
     /* box-shadow: 0 0 3rem 1.1rem #fff; */
 }
 
+
+.fa-2x {
+    font-size: 2.5em !important;
+}
+
 .my_photo {
     height: 320px;
     border-radius: 50%;
 }
 
 
-
-.hero-short-intro {
-    font-size: var(--font-size-5);
-    padding-top: 20px;
-}
 
 
 #typed::after {
@@ -904,6 +908,9 @@ input[type="checkbox"] {
 @media screen and (min-device-width: 916px) and (max-device-width: 1500px) {
     .aboutme-container-2-content p {
         font-size: var(--font-size-10);
+    }
+    .hero-short-intro {
+        font-size: var(--font-size-2);
     }
 }
 
