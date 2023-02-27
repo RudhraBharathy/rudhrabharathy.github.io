@@ -662,14 +662,22 @@ input[type="checkbox"] {
 .fa-envelope:hover,
 .fa-envelope::after {
     color: #B1B1B1;
+    font-weight: 400;
+    transition: all .1s ease-in;
     /* box-shadow: 0 0 3rem 1.1rem #fff; */
 }
 
+.fa-phone:hover,
+.fa-phone::after {
+    color: #B1B1B1;
+    font-weight: 400;
+    transition: all .1s ease-in;
+    /* box-shadow: 0 0 3rem 1.1rem #fff; */
+}
 
 .my_photo {
-    height: 300px;
+    height: 320px;
     border-radius: 50%;
-    filter: brightness(85%);
 }
 
 
@@ -813,10 +821,6 @@ input[type="checkbox"] {
 
     .aboutme-container-2 {
         padding: 0px 20px;
-    }
-
-    #Aboutme {
-        padding: 30px 0px;
     }
 
 }
@@ -1152,21 +1156,12 @@ input[type="checkbox"] {
         flex-direction: column;
         padding: 10px 0;
     }
-
-    #Aboutme {
-        padding: 10px 0px;
-    }
-
     #experience {
         width: 95%;
     }
 }
 
 @media (max-width:425px) {
-    #Aboutme {
-        padding: 5px 0px;
-    }
-
     #skills {
         padding: 20px;
     }
@@ -1193,7 +1188,7 @@ input[type="checkbox"] {
 }
 
 .myprojects-container-1 {
-    padding: 30px 20px;
+    padding: 3rem 2rem;
 }
 
 .myprojects-container-1 h1 {
@@ -1256,8 +1251,8 @@ input[type="checkbox"] {
     position: relative;
     z-index: 1;
     display: block;
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     overflow: hidden;
     background-color: #000;
     border-radius: 5%;
@@ -1306,7 +1301,7 @@ input[type="checkbox"] {
 .projects-container-main .project-text-content .project-decsp-2 {
     margin-top: 2px;
     height: 90%;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 30px;
     transform: translateY(2px);
 }
@@ -1399,15 +1394,20 @@ input[type="checkbox"] {
     color: #000;
 }
 
-@media (max-width:1000px) {
+@media (max-width:1200px) {
     .myprojects-container-2 {
         grid-template-columns: repeat(2, 1fr);
     }
+    
 }
 
-@media (max-width:670px) {
+@media (max-width:750px) {
     .myprojects-container-2 {
         grid-template-columns: repeat(1, 1fr);
+    }
+    .projects-container-main .project-photo {
+        width: 300px;
+        height: 300px;
     }
 }
 
@@ -1420,7 +1420,7 @@ input[type="checkbox"] {
 }
 
 .contactform-container-1 {
-    padding: 5rem 2rem 3rem 2rem;
+    padding: 6rem 2rem 3rem 2rem;
 }
 
 .contactform-container-1::after {
@@ -1476,6 +1476,7 @@ input[type="checkbox"] {
 }
 
 .contactform-textarea {
+    font-family: 'Poppins', sans-serif;
     resize: none;
 }
 
@@ -1596,5 +1597,80 @@ input[type="checkbox"] {
 
     .contact-btn {
         padding: 0.5rem 2rem;
+    }
+}
+
+.footer-main{
+    background: #1f1f1f;
+    color: #fff;
+    padding: 4rem 3rem 0rem 3rem;
+}
+.footer-sub-container{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.footer-main a{
+    text-decoration: none;
+    color: currentColor;
+}
+.footer-name-content h1{
+    font-size: var(--font-size-7);
+    font-weight: 500;
+    line-height: 1.2;
+}
+.footer-head-container p{
+    font-size: var(--font-size-10);
+    margin: 10px 15px 10px 0;
+    width: 60%;
+}
+.footer-page-links-container{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 20px;
+    width: 40%;
+}
+.footer-page-links-container a{
+    font-size: var(--font-size-3);
+    padding: 5px 0;
+}
+.fa-arrow-right{
+    padding: 7px;
+    
+}
+.footer-ss-content{
+    padding-top: 45px;
+}
+.footer-mydescp-container{
+    padding: 2rem 0;
+    border-top: 1px solid #444;
+    text-align: center;
+}
+.footer-mydescp-container{
+    font-size: 16px;
+}
+@media (max-width:700px) {
+    .footer-main{
+        padding: 1rem 3rem;
+    }
+    .footer-sub-container{
+        display: block;
+    }
+    .footer-head-container p{
+        width: 100%;
+    }
+    .footer-page-links-container{
+        padding:0px;
+    }
+    .home-hero_content-socialmedia{
+        padding-top: 0px;
+    }
+    .footer-mydescp-container{
+        font-size: 13px;
+        padding: 1rem 0;
     }
 }

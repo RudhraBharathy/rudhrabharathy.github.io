@@ -70,18 +70,47 @@ $('#myageinyear').innerText = new Date().getFullYear() - 2002 - 1;
 
 let root = document.documentElement;
 
-var canvas = document.getElementById( 'myCanvas' );
-canvas.addEventListener( 'mousemove', function( e ) {
-    var mousePos = getMousePos( canvas, e );
+var canvas = document.getElementById('myCanvas');
+canvas.addEventListener('mousemove', function (e) {
+    var mousePos = getMousePos(canvas, e);
     root.style.setProperty('--contact-rotation', mousePos['val'] + "rad");
-} );
+});
 
 
-function getMousePos( canvas, e ) {
+function getMousePos(canvas, e) {
     var rect = canvas.getBoundingClientRect();
     a = (rect.left + rect.right) / 2
     s = (rect.top + rect.bottom) / 2
     return {
-        val : Math.atan2(a - e.clientX, e.clientY - s)
+        val: Math.atan2(a - e.clientX, e.clientY - s)
     };
+}
+
+
+function sendMail() {
+    var params = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        message: document.getElementById("message").value,
+    };
+
+    const serviceID = "service_molucuf";
+    const templateID = "template_m49tvm9";
+
+    if (params.name && params.email && params.message) {
+        emailjs.send(serviceID, templateID, params)
+        .then(res => {
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("message").value = "";
+            alert("Your message sent successfully!!")
+
+        })
+        .catch(err => console.log(err));
+    }
+
+}
+
+function pageReload(){
+    return window.location.reload(true);
 }

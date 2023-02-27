@@ -4,23 +4,43 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Rudhra Bharathy | My Portfolio</title>
     <link rel="shortcut icon" href="Images/RB Logo 2.png" type="image/x-icon">
-    <meta name="description" content="Hi,This is Personal Portfolio">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rudhra Bharathy | My Portfolio</title>
+    <meta name="description" content="I am Rudhra Bharathy,an aspiring Computer Science Engineer and I am an innovative Software Developer as a part-time freelancer.
+    I am passionate about learning new things and applying the skills to solve business problems creatively." />
+    <meta name="author" content="Rudhra Bharathy" />
+    <meta name="google-site-verification" content="" />
+    <meta property="og:title" content="Rudhra Bharathy" />
+    <meta property="og:site_name" content="Rudhra Bharathy Portfolio Website" />
+    <meta property="og:url" content="https://rudhrabharathy.github.io/" />
+    <meta property="og:description" content="I am Rudhra Bharathy,an aspiring Computer Science Engineer and I am an innovative Software Developer as a part-time freelancer.
+    I am passionate about learning new things and applying the skills to solve business problems creatively." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/particle.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.3.0/css/all.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- contact form mail response -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("qcuAWJUVw92ehor6B");
+        })();
+    </script>
 </head>
 
 <body>
     <section class="landingpage-container-main">
         <header id="landingpage">
             <nav class="navbar">
-                <div class="header__logo-container">
+                <div onclick="pageReload()" class="header__logo-container">
                     <div class="header__logo-img-cont">
                         <img src="Images/RB Logo 2.png" alt="Rudhra Bharathy Logo Image" class="header__logo-img">
                     </div>
@@ -33,7 +53,7 @@
 
                 <div id="radial-nav">
                     <ul>
-                        <li class="shape-circle circle-one"><a href="#landingpage">Home</a></li>
+                        <li class="shape-circle circle-one"><a href="./">Home</a></li>
                         <li class="shape-circle circle-two"><a href="#Aboutme">About</a></li>
                         <li class="shape-circle circle-three"><a href="#myprojects">Projects</a></li>
                         <li class="shape-circle circle-four"><a href="#Contact">Contact</a></li>
@@ -89,7 +109,7 @@
                     </div>
                 </div>
                 <div class="home-hero_content-2" id="container">
-                    <img class="my_photo" src="./Images/my photo 1.png" alt="My Profile Photo">
+                    <img class="my_photo" src="./Images/rudhra photo.jpeg" alt="My Profile Photo">
                 </div>
             </div>
             <div class="mouse"></div>
@@ -101,9 +121,6 @@
                 <h1 class="aboutme-heading"><i class="fas fa-user-alt"></i>About Me</h1>
             </div>
             <div class="aboutme-container">
-                <!-- <div class="aboutme-picture">
-                    <img src="./Images/my photo 2.jpg" alt="Rudhra Bharathy">
-                </div> -->
                 <div class="aboutme-info">
                     <div class="aboutme-container-2">
                         <div class="aboutme-container-2-content">
@@ -116,11 +133,12 @@
                                 <p>year old aspiring Computer Science & Engineering student from Coimbatore, India. I'm
                                     currently
                                     pursuing my bachelor's degree at SNS College of Technology, and I am an innovative
-                                    web developer as a part-time
+                                    Software Developer as a part-time
                                     freelancer.<span class="emoji man-tech"></span></p>
                             </div>
                             <div class="aboutme-content-division">
-                                <p>
+                                <p>I am passionate about learning new things and applying the skills to solve business
+                                    problems creatively.
                                     I learned Web Developing from various online courses and attended various events to
                                     gain
                                     knowledge and also worked on real-time projects,
@@ -262,7 +280,7 @@
                     </div>
                     <div class="project-text-content">
                         <div class="project-decsp-1"><span>Tools : HTML,CSS,JS,WeatherAPI</span></div>
-                        <div class="project-decsp-2"><span>This is <br>
+                        <div class="project-decsp-2"><span>This Weather Web Application provides current and next 5 days forecasted weather information for a specific location. Users can view temperature, clouds percentage, and other relevant details in real-time.<br>
                                 <a class="proj-custom-btn projects-btn"
                                     href="https://rudhrabharathy.github.io/Weather-App/" target="_blank"><i
                                         class="fa-regular fa-link"></i> View Page</a>
@@ -282,9 +300,7 @@
                     </div>
                     <div class="project-text-content">
                         <div class="project-decsp-1"><span>Tools : ReactJs,NodeJs,MySQL</span></div>
-                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
-                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
-                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                        <div class="project-decsp-2"><span>This Register and Login pages allow users to create an account and securely log in and it is an full-stack web application and stores data in the database and also have forget password by sending OTP to mailid.<br>
                                 <a class="proj-custom-btn projects-btn"
                                     href="https://github.com/RudhraBharathy/Login-and-Register-Form" target="_blank"><i
                                         class="fab fa-github proj-github"></i> Github</a>
@@ -301,9 +317,7 @@
                     </div>
                     <div class="project-text-content">
                         <div class="project-decsp-1"><span>Tools : C++,CLI</span></div>
-                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
-                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
-                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                        <div class="project-decsp-2"><span>ATM card validator project is a command-line interface application that validates and verifies the authenticity of ATM cards. Users can input card information, and the application checks the card number against industry standards to determine if the card is valid.<br>
                                 <a class="proj-custom-btn projects-btn"
                                     href="https://github.com/RudhraBharathy/ATMcardValidator" target="_blank"><i
                                         class="fab fa-github proj-github"></i> Github</a>
@@ -320,10 +334,8 @@
                             alt="Attendance-Management-System">
                     </div>
                     <div class="project-text-content">
-                        <div class="project-decsp-1"><span>Tools : Python,MySQL</span></div>
-                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
-                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
-                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                        <div class="project-decsp-1"><span>Tools : Python,CLI,MySQL</span></div>
+                        <div class="project-decsp-2"><span>This attendance management system with face recognition enables users to record attendance using facial recognition technology. The programme analyses faces of the students matches them and logs attendance for those who match.<br>
                                 <a class="proj-custom-btn projects-btn"
                                     href="https://github.com/RudhraBharathy/AttendanceManagementSystem"
                                     target="_blank"><i class="fab fa-github proj-github"></i> Github</a>
@@ -339,10 +351,8 @@
                         <img src="/Images/Project Images/ai-Voice.png" alt="ai-Voice-Assistant">
                     </div>
                     <div class="project-text-content">
-                        <div class="project-decsp-1"><span>Attendance Management System</span></div>
-                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
-                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
-                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                        <div class="project-decsp-1"><span>Tools : Python,CLI</span></div>
+                        <div class="project-decsp-2"><span>This AI Voice Assistant project is to create a voice interaction with the user that can carry out actions like showing the weather, taking notes, web surfing, etc.<br>
                                 <a class="proj-custom-btn projects-btn"
                                     href="https://github.com/RudhraBharathy/AI-Voice-Assistant" target="_blank"><i
                                         class="fab fa-github proj-github"></i> Github</a>
@@ -352,16 +362,14 @@
                 </div>
                 <p class="project-card-title">AI Voice Assistant</p>
             </div>
-            <div class="projects-container-main" >
+            <div class="projects-container-main">
                 <div class="projects-card-main" data-tilt>
                     <div class="project-photo">
                         <img src="/Images/Project Images/first-portfolio.jpg" alt="Portfolio">
                     </div>
                     <div class="project-text-content">
                         <div class="project-decsp-1"><span>Tools : HTML,CSS,JS</span></div>
-                        <div class="project-decsp-2"><span>@Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
-                                incidunt officia iure nulla qui fugiat obcaecati. Nemo provident recusandae, corrupti,
-                                temporibus fugiat nihil laudantium tempore ea eius fugit neque iure.<br>
+                        <div class="project-decsp-2"><span>This portfolio website project will showcase my ablities, skills, education, training, experience through an aesthetically pleasing and user-friendly design.<br>
                                 <a class="proj-custom-btn projects-btn" href="https://rudhrabharathy.github.io"
                                     target="_blank"><i class="fa-regular fa-link"></i> View Page</a>
                                 <a class="proj-custom-btn projects-btn"
@@ -378,31 +386,87 @@
     </section>
     <section class="contact-container-main" id="Contact">
         <div class="contactform-container-1">
-            <h1><i class="fa-solid fa-phone"></i>  Contact</h1>
+            <h1><i class="fa-solid fa-phone"></i> Contact</h1>
         </div>
         <div class="contactform-container-2" id="myCanvas">
-            <form action="" class="contact-form-container">
+            <div class="contact-form-container">
                 <div class="contact-form-group">
-                    <input class="contactform-input" type="text" name="name" autocomplete="off" spellcheck="false" required/>
+                    <input id="name" class="contactform-input" type="text" name="name" autocomplete="off" spellcheck="false"
+                        required />
                     <label class="input-value" for="name">Name</label>
                 </div>
                 <div class="contact-form-group">
-                    <input class="contactform-input" type="text" name="email" autocomplete="off" spellcheck="false" required />
+                    <input id="email" class="contactform-input" type="text" name="email" autocomplete="off" spellcheck="false"
+                        required />
                     <label class="input-value" for="email">Email</label>
                 </div>
                 <div class="contact-form-group">
-                    <textarea cols="30" rows="10" class="contactform-input contactform-textarea" autocomplete="off" spellcheck="false" name="message"
-                        id="message" required></textarea>
+                    <textarea id="message" cols="30" rows="10" class="contactform-input contactform-textarea" autocomplete="off"
+                        spellcheck="false" name="message" required></textarea>
                     <label class="input-value" for="message">Message</label>
                 </div>
-                <button type="submit" class="contact-btn contact-btn-glow">Submit</button>
-            </form>
+                <button onclick="sendMail()" class="contact-btn contact-btn-glow">Submit</button>
+            </div>
         </div>
     </section>
-    
-    <footer>
-        
-        <p>Made With ❤️ by RB.</p>
+
+    <footer class="footer-main">
+        <div class="footer-sub-container">
+            <div class="footer-head-container">
+                <div class="footer-name-content">
+                    <h1>Rudhra's Portfolio<h1>
+                </div>
+                <p>Thank for visiting my Personal Portfolio.Your interest and support means a lot to me.</p>
+            </div>
+            <div class="footer-page-links-container">
+                <a class="footer-page-links" href="./"><i class="fa-light fa-arrow-right fa-xs"></i>Home</a>
+                <a class="footer-page-links" href="#Aboutme"><i class="fa-light fa-arrow-right fa-xs"></i>About</a>
+                <a class="footer-page-links" href="#myprojects"><i
+                        class="fa-light fa-arrow-right fa-xs"></i>Projects</a>
+                <a class="footer-page-links" href="#Contact"><i class="fa-light fa-arrow-right fa-xs"></i>Contact</a>
+            </div>
+            <div class="home-hero_content-socialmedia footer-ss-content">
+                <div class="socialmedia sm-linkedin">
+                    <a href="https://linkedin.com/in/rudhrabharathy" class="home-hero__social-icon-link"
+                        rel="noopener noreferrer" target="_blank">
+                        <i class="fab fa-linkedin-in fa-2x"></i>
+                    </a>
+                </div>
+                <div class="socialmedia sm-github">
+                    <a href="https://github.com/RudhraBharathy" class="home-hero__social-icon-link"
+                        rel="noopener noreferrer" target="_blank">
+                        <i class="fab fa-github fa-2x"></i>
+                    </a>
+                </div>
+                <div class="socialmedia sm-twitter">
+                    <a href="https://twitter.com/RudhraBharathy" class="home-hero__social-icon-link"
+                        rel="noopener noreferrer" target="_blank">
+                        <i class="fab fa-twitter fa-2x"></i>
+                    </a>
+                </div>
+                <div class="socialmedia sm-instagram">
+                    <a href="https://www.instagram.com/ig_rudhrabharathy" class="home-hero__social-icon-link"
+                        rel="noopener noreferrer" target="_blank">
+                        <i class="fab fa-instagram fa-2x"></i>
+                    </a>
+                </div>
+                <div class="socialmedia sm-dev">
+                    <a href="mailto:bharathyganeshan@gmail.com" class="home-hero__social-icon-link"
+                        rel="noopener noreferrer" target="_blank">
+                        <i class="fas fa-envelope fa-2x"></i>
+                    </a>
+                </div>
+                <div class="socialmedia sm-dev">
+                    <a href="tel:+918870562981" class="home-hero__social-icon-link" rel="noopener noreferrer"
+                        target="_blank">
+                        <i class="fa-solid fa-phone fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-mydescp-container">
+            <p>Made With ❤️ by <a href="https://rudhrabharathy.github.io">Rudhra Bharathy</a></p>
+        </div>
     </footer>
 
     <script type="text/javascript" src="./js/typed.min.js"></script>
