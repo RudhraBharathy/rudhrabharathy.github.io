@@ -31,7 +31,6 @@
 html {
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
-    transition: all ease-in-out 0.3s;
 }
 
 body {
@@ -125,13 +124,13 @@ nav {
 }
 
 .bars.active .bar::before {
-    animation: top-bar 1s;
+    animation: top-bar .2s;
     animation-fill-mode: forwards;
     background-color: black;
 }
 
 .bars.active .bar::after {
-    animation: bottom-bar 1s;
+    animation: bottom-bar .2s;
     animation-fill-mode: forwards;
     background-color: black;
 }
@@ -243,7 +242,7 @@ nav ul li a {
     padding: 8px 15px;
     border-radius: 5px;
     letter-spacing: 1px;
-    transition: all 0.3s ease;
+    transition: all .2s linear;
 }
 
 
@@ -294,7 +293,7 @@ input[type="checkbox"] {
         right: 0;
         text-indent: 50vw;
         border-radius: 50%;
-        transition: all .5s;
+        /* transition: all .5s; */
     }
 
     #radial-nav a:hover {
@@ -318,7 +317,8 @@ input[type="checkbox"] {
         top: -10vw;
         right: -10vw;
         position: absolute;
-        transition: all 1s ease-in-out;
+        /* transition: all 1s ease-in-out; */
+        transition: all .2s linear; 
         background: white;
         box-shadow: 0 0px 0px rgba(4, 26, 62, 0.5);
     }
@@ -329,7 +329,8 @@ input[type="checkbox"] {
         top: -100vw;
         right: -100vw;
         z-index: 5;
-        transition: all .5s ease-in-out;
+        transition: all .2s linear;
+        /* transition: all .5s ease-in-out; */
         box-shadow: none;
     }
 
@@ -339,7 +340,8 @@ input[type="checkbox"] {
         top: -75vw;
         right: -75vw;
         z-index: 6;
-        transition: all .6s ease-in-out;
+        transition: all .2s linear;
+        /* transition: all .6s ease-in-out; */
         box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
     }
 
@@ -349,7 +351,8 @@ input[type="checkbox"] {
         top: -50vw;
         right: -50vw;
         z-index: 7;
-        transition: all .7s ease-in-out;
+        transition: all .2s linear;
+        /* transition: all .7s ease-in-out; */
         box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
     }
 
@@ -359,7 +362,8 @@ input[type="checkbox"] {
         top: -25vw;
         right: -25vw;
         z-index: 8;
-        transition: all .8s ease-in-out;
+        transition: all .2s linear;
+        /* transition: all .8s ease-in-out; */
         box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
     }
 
@@ -1575,7 +1579,7 @@ input[type="checkbox"] {
 
 @media (max-width:600px) {
     .contactform-container-2 {
-        padding: 0rem 3rem 1rem 3rem;
+        padding: 0rem 1.5rem 1rem 1.5rem;
     }
 
     .contact-form-container {
@@ -1599,7 +1603,7 @@ input[type="checkbox"] {
 
 @media (max-width:400px) {
     .contactform-container-2 {
-        padding: 0rem 2rem 1rem 2rem;
+        padding: 0rem 1rem 1rem 1rem;
     }
 
     .contact-btn {
