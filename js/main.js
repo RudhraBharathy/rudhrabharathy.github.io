@@ -1,4 +1,4 @@
-
+$(document).ready(function(){
 var bars = document.getElementById("nav-action");
 var nav = document.querySelector(".nav_links_container");
 
@@ -7,6 +7,7 @@ var menu2 = document.querySelector(".navlink-two");
 var menu3 = document.querySelector(".navlink-three");
 var menu4 = document.querySelector(".navlink-four");
 
+window.sr = ScrollReveal();
 
 bars.addEventListener("click", barClicked, false);
 
@@ -33,7 +34,7 @@ $(window).scroll(function () {
         $('.navbar').removeClass('color-change');
     }
 });
-$(document).ready(function(){
+
 
     $('.bars').click(function(event){
     $('.nav_links_container').slideToggle(500);
@@ -46,8 +47,8 @@ $(document).ready(function(){
       });
 });
 
-});
 
+});
 
 var typed = new Typed("#typed", {
     strings: ["Coder", "Web Developer", "Fast Learner"],
@@ -127,3 +128,38 @@ function sendMail() {
 function pageReload(){
     return window.location.reload(true);
 }
+
+window.sr = ScrollReveal({
+    viewFactor : 0.15,
+    duration   : 500,
+    distance   : "0px",
+    scale      : 0.9
+});
+
+sr.reveal(".reveal", {
+    easing: 'ease-in',
+    origin: "top",
+    duration: 1000,
+    delay: 0,
+    distance: "20px",
+    mobile: true,
+    reset: true,
+    useDelay: "always",
+    viewFactor: 0.2,
+    viewOffset: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    }
+}, 250);
+
+
+sr.reveal('.home-hero_content');
+sr.reveal('.projects-container-main');
+sr.reveal('.aboutme-container-2');
+sr.reveal('.my-skil-exp-edu-container-main');
+sr.reveal('.contact-sub-container');
+
+
+
