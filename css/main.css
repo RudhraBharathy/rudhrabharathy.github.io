@@ -1679,6 +1679,11 @@ input[type="checkbox"] {
     opacity: 100;
 }
 
+#messageNote{
+    color : #00ff00cb;
+    margin: 30px 10px 0px 10px;
+}
+
 @media (max-width:900px) {
     .contactform-container-2 {
         padding: 0rem 5rem 1rem 5rem;

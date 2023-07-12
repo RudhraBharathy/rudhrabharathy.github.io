@@ -117,8 +117,11 @@ function sendMail() {
             document.getElementById("name").value = "";
             document.getElementById("email").value = "";
             document.getElementById("message").value = "";
-            alert("Your message sent successfully!!")
-
+            document.getElementById("messageNote").innerHTML = "Your message sent successfully!!! ThankYou 🤝";
+            const messageAppearTime = setTimeout(setMessageAppearTime ,2500);
+            function setMessageAppearTime(){
+                document.getElementById("messageNote").innerHTML = "";
+            }
         })
         .catch(err => console.log(err));
     }
