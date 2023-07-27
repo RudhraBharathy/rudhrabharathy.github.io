@@ -157,6 +157,9 @@ sr.reveal(".reveal", {
     }
 }, 250);
 
+const d = new Date();
+let year = d.getFullYear();
+document.getElementById("footer-year").innerHTML = year;
 
 sr.reveal('.home-hero_content');
 sr.reveal('.projects-container-main');
