@@ -313,8 +313,6 @@ nav ul li a {
     transition: all .2s linear;
 }
 
-
-
 nav .menu-btn i {
     color: #fff;
     font-size: 22px;
@@ -1843,4 +1841,26 @@ input[type="checkbox"] {
         .footer-ss-content {
             padding-bottom: 10px;
         }
+    }
+    .scrollToTopBtn {
+        background-color: #3d3d3d;
+        border: none;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+        font-size: 30px;
+        line-height: 48px;
+        width: 48px;
+        position: fixed;
+        bottom: 80px;
+        right: 40px;
+        z-index: 100;
+        opacity: 0;
+        transform: translateY(100px);
+        transition: all .5s ease
+    }
+        
+    .showBtn {
+        opacity: 1;
+        transform: translateY(0)
     }
