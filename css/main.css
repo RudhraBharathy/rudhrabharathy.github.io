@@ -546,7 +546,8 @@ input[type="checkbox"] {
 }
 
 .fab,
-.fas {
+.fas,
+.fa-brands {
     color: white;
     -webkit-transition: all .2s linear;
     -o-transition: all .2s linear;
@@ -563,9 +564,9 @@ input[type="checkbox"] {
     /* box-shadow: 0 0 3rem 0.9rem #0A66C2; */
 }
 
-.fa-twitter:hover,
-.fa-twitter::after {
-    color: #00acee;
+.fa-x-twitter:hover,
+.fa-x-twitter::after {
+    color: #bbbbbb;
     /* box-shadow: 0 0 3rem 1rem #00acee; */
 }
 
