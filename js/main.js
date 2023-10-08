@@ -51,7 +51,7 @@ $(window).scroll(function () {
 });
 
 var typed = new Typed("#typed", {
-    strings: ["Coder", "Web Developer", "Fast Learner"],
+    strings: ["Software Developer", "Problem Solver", "Fast Learner"],
     typeSpeed: 40,
     backSpeed: 30,
     smartBackspace: true,
