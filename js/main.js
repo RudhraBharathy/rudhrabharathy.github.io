@@ -35,10 +35,6 @@ $(document).ready(function () {
 
   var typed = new Typed("#typed", {
     strings: ["Web Developer", "Freelancer", "Problem Solver"],
-  });
-
-  var typed = new Typed("#typed", {
-    strings: ["Software Developer", "Problem Solver", "Fast Learner"],
     typeSpeed: 40,
     backSpeed: 30,
     smartBackspace: true,
