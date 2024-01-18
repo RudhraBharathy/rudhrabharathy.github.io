@@ -33,15 +33,12 @@ $(document).ready(function () {
     });
   });
 
-<<<<<<< HEAD
   var typed = new Typed("#typed", {
     strings: ["Web Developer", "Freelancer", "Problem Solver"],
-=======
-});
+  });
 
-var typed = new Typed("#typed", {
+  var typed = new Typed("#typed", {
     strings: ["Software Developer", "Problem Solver", "Fast Learner"],
->>>>>>> 3810b2cdf1772c07090bd0d6d8d88f58b31c7d9b
     typeSpeed: 40,
     backSpeed: 30,
     smartBackspace: true,
@@ -199,8 +196,6 @@ function opentab(tabname) {
   event.currentTarget.classList.add("active-link");
   document.getElementById(tabname).classList.add("active-tab");
 }
-<<<<<<< HEAD
-=======
-scrollToTopBtn.addEventListener("click", scrollToTop)
-document.addEventListener("scroll", handleScroll)
->>>>>>> 3810b2cdf1772c07090bd0d6d8d88f58b31c7d9b
+
+scrollToTopBtn.addEventListener("click", scrollToTop);
+document.addEventListener("scroll", handleScroll);
