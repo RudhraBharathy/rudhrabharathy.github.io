@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaLinkedinIn,
   FaInstagram,
@@ -12,13 +12,17 @@ import {
   FaFacebookF,
   FaEnvelope,
 } from "react-icons/fa6";
+import RollingText from "@/components/RollingText";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const calculateMyAge = new Date().getFullYear() - 2002;
 
   if (!mounted) {
     return <div className="min-h-screen"></div>;
@@ -65,11 +69,50 @@ export default function Home() {
     { name: "CONTACT", href: "/contact" },
   ];
 
+  const hoverContent = {
+    ABOUT: {
+      text: `😎\u00A0\u00A0${calculateMyAge} years old!`,
+      image: "/images/about.jpg",
+    },
+    EXPERIENCE: {
+      text: "💼\u00A0\u00A0Working @ Beamer x Userflow",
+      image: "/images/experience.jpg",
+    },
+    PROJECTS: {
+      text: "🛠️\u00A0\u00A0Crafting ideas into reality",
+      image: "/images/projects.jpg",
+    },
+    GALLERY: {
+      text: "📸\u00A0\u00A0Capturing moments",
+      image: "/images/gallery.jpg",
+    },
+    CONTACT: {
+      text: "✉️\u00A0\u00A0Reach me anytime",
+      image: "/images/contact.jpg",
+    },
+  };
+
+  const hoverPositions = {
+    ABOUT: "left-[-50px] top-[-30px]",
+    EXPERIENCE: "left-[-170px] top-[-60px]",
+    PROJECTS: "left-[-180px] top-[-10px]",
+    GALLERY: "left-[-140px] top-[-20px]",
+    CONTACT: "left-[-120px] top-[-30px]",
+  };
+
+  const hoverImagePositions = {
+    ABOUT: "right-[-80px] top-[-20px]",
+    EXPERIENCE: "right-[-100px] top-[-80px]",
+    PROJECTS: "right-[-90px] top-[-60px]",
+    GALLERY: "right-[-110px] top-[-90px]",
+    CONTACT: "right-[-110px] top-[-30px]",
+  };
+
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between">
         <motion.div
-          className="mt-6 md:sticky md:top-24 md:w-1/2 lg:w-2/5"
+          className="mt-5 md:sticky md:top-24 md:w-1/2 lg:w-2/5"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -97,8 +140,8 @@ export default function Home() {
                     rel="noopener noreferrer"
                     aria-label={link.label}
                     className="text-slate-950 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 * index, duration: 0.3 }}
                   >
                     {link.icon}
@@ -126,8 +169,7 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
               >
-                Specialized in Web Design, UX / UI, Webflow, and Front End
-                Development.
+                Specialized in Front End Development, Web Design, UX / UI.
               </motion.p>
             </div>
           </div>
@@ -137,10 +179,10 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="m-auto"
+          className="m-auto z-30"
         >
-          <nav className="flex flex-col items-center mb-8">
-            <ul className="space-y-4 md:space-y-8 text-center font-space_grotesk tracking-tighter">
+          <nav className="flex flex-col items-center mb-10">
+            <ul className="space-y-6 text-center font-space_grotesk tracking-tighter relative">
               {navLinks.map((link, index) => (
                 <motion.li
                   key={index}
@@ -148,12 +190,84 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + 0.1 * index, duration: 0.3 }}
                 >
-                  <Link
-                    href={link.href}
-                    className="text-4xl md:text-5xl lg:text-[5rem] !leading-[0.7] font-black hover:text-slate-600 dark:hover:text-slate-300"
-                  >
-                    {link.name}
-                  </Link>
+                  <div className="relative group">
+                    <Link
+                      href={link.href}
+                      className="text-4xl md:text-5xl lg:text-[5rem] !leading-[0.8] font-black"
+                      onMouseEnter={() => setHoveredNav(link.name)}
+                      onMouseLeave={() => setHoveredNav(null)}
+                    >
+                      <RollingText>{link.name}</RollingText>
+                    </Link>
+                    <AnimatePresence>
+                      {hoveredNav === link.name && (
+                        <motion.div
+                          key={link.name}
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          transition={{ duration: 0.3 }}
+                          className={`absolute ${
+                            hoverPositions[
+                              link.name as keyof typeof hoverPositions
+                            ]
+                          } transform translate-y-1/2 mt-3 text-xs md:text-sm bg-slate-800 text-white dark:bg-white dark:text-slate-800 py-2 px-4 rounded-xl shadow-md whitespace-nowrap z-10`}
+                        >
+                          <p>
+                            {
+                              hoverContent[
+                                link.name as keyof typeof hoverContent
+                              ].text
+                            }
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                    <AnimatePresence>
+                      {hoveredNav === link.name && (
+                        <motion.div
+                          key={link.name + "-image"}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.4 }}
+                          className={`absolute ${
+                            hoverImagePositions[
+                              link.name as keyof typeof hoverImagePositions
+                            ]
+                          } transform translate-y-1/2 mt-3 z-[-10]`}
+                        >
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ duration: 0.4 }}
+                            className="relative"
+                          >
+                            <div
+                              className={`relative ${
+                                link.name === "GALLERY"
+                                  ? "w-[150px] h-[220px]"
+                                  : "w-[150px] h-[100px]"
+                              }`}
+                            >
+                              <Image
+                                src={
+                                  hoverContent[
+                                    link.name as keyof typeof hoverContent
+                                  ].image
+                                }
+                                alt="hover image"
+                                fill
+                                className="object-cover rounded-lg shadow-xl"
+                                loading="eager"
+                              />
+                            </div>
+                          </motion.div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </motion.li>
               ))}
             </ul>

@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${manrope.variable} ${space_grotesk.variable}`}
+        className={`${inter.variable} ${manrope.variable} ${space_grotesk.variable} flex flex-col min-h-screen bg-gradient-to-br from-white via-gray-100 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950`}
       >
         <ThemeProvider
           attribute="class"
@@ -39,7 +39,7 @@ export default function RootLayout({
           <main
             className={cn(
               "min-h-screen w-full transition-colors duration-300",
-              "px-4 md:px-12 lg:px-16 py-6"
+              "px-4 md:px-12 lg:px-16 py-4"
             )}
           >
             <Navbar />
