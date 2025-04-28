@@ -31,32 +31,32 @@ export default function Home() {
   const socialLinks = [
     {
       icon: <FaLinkedinIn className="w-6 h-6" />,
-      href: "https://linkedin.com",
+      href: "https://linkedin.com/in/rudhrabharathy",
       label: "LinkedIn",
     },
     {
       icon: <FaInstagram className="w-6 h-6" />,
-      href: "https://instagram.com",
+      href: "https://www.instagram.com/ig_rudhrabharathy",
       label: "Instagram",
     },
     {
       icon: <FaGithub className="w-6 h-6" />,
-      href: "https://github.com",
+      href: "https://github.com/RudhraBharathy",
       label: "GitHub",
     },
     {
       icon: <FaXTwitter className="w-6 h-6" />,
-      href: "https://twitter.com",
+      href: "https://x.com/RudhraBharathy",
       label: "Twitter",
     },
     {
       icon: <FaFacebookF className="w-6 h-6" />,
-      href: "https://facebook.com",
+      href: "https://www.facebook.com/bharathyganeshan/",
       label: "Facebook",
     },
     {
       icon: <FaEnvelope className="w-6 h-6" />,
-      href: "mailto:contact@example.com",
+      href: "mailto:bharathyganeshan@gmail.com",
       label: "Email",
     },
   ];

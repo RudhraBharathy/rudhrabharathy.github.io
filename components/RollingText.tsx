@@ -8,49 +8,47 @@ interface RollingTextProps {
   children: ReactNode;
   className?: string;
   staggerDelay?: number;
-  hoverColor?: string; // For custom hover color
-  normalColor?: string; // For normal state color
+  hoverColor?: string;
+  normalColor?: string;
 }
 
 export default function RollingText({
   children,
   className = "",
   staggerDelay = 0.03,
-  hoverColor = "text-slate-600 dark:text-slate-300", // Default hover color classes
-  normalColor = "", // Default to inherit from parent
+  hoverColor = "text-slate-600 dark:text-slate-300",
+  normalColor = "",
 }: RollingTextProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [characters, setCharacters] = useState<string[]>([]);
   const textRef = useRef<HTMLDivElement>(null);
-  
-  // Convert children to string for SplitType
-  const textContent = typeof children === "string" ? children : String(children);
-  
+
+  const textContent =
+    typeof children === "string" ? children : String(children);
+
   useEffect(() => {
-    // Split the text into characters when component mounts
     if (textRef.current) {
       const text = new SplitType(textRef.current, { types: "chars" });
       if (text.chars) {
-        setCharacters(Array.from(text.chars.map(char => char.textContent || "")));
+        setCharacters(
+          Array.from(text.chars.map((char) => char.textContent || ""))
+        );
       }
     }
   }, [textContent]);
 
-  // Determine which color class to use
   const colorClass = isHovered ? hoverColor : normalColor;
-  
+
   return (
     <div
       className={`relative inline-block overflow-hidden ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Hidden div used only for SplitType text processing */}
       <div ref={textRef} className="absolute opacity-0 pointer-events-none">
         {children}
       </div>
-      
-      {/* Visible animated text */}
+
       <div className="inline-flex">
         {characters.map((char, index) => (
           <div key={`top-${index}`} className="relative overflow-hidden">
