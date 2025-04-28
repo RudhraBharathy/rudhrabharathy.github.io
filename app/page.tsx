@@ -109,7 +109,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col cursor-default">
       <div className="flex items-center justify-between">
         <motion.div
           className="mt-5 md:sticky md:top-24 md:w-1/2 lg:w-2/5"
@@ -139,7 +139,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.label}
-                    className="text-slate-950 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                    className="text-black dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors transition-300"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 * index, duration: 0.3 }}
@@ -150,7 +150,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex items-end justify-evenly">
+            <div className="flex items-end justify-evenly mt-3">
               <motion.h1
                 className="text-5xl md:text-[7rem] font-normal mt-4 mb-2 font-manrope"
                 initial={{ opacity: 0 }}
@@ -197,7 +197,13 @@ export default function Home() {
                       onMouseEnter={() => setHoveredNav(link.name)}
                       onMouseLeave={() => setHoveredNav(null)}
                     >
-                      <RollingText>{link.name}</RollingText>
+                      <RollingText
+                        staggerDelay={0.02}
+                        normalColor="text-black dark:text-white"
+                        hoverColor="text-emerald-600 dark:text-emerald-400"
+                      >
+                        {link.name}
+                      </RollingText>
                     </Link>
                     <AnimatePresence>
                       {hoveredNav === link.name && (
