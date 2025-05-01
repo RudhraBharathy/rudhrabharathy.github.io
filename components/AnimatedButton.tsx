@@ -1,70 +1,138 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useRef } from "react";
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
-export default function AnimatedButton() {
+interface GSAPButtonProps {
+  label?: string;
+  href?: string;
+  className?: string;
+}
+
+const GSAPButton: React.FC<GSAPButtonProps> = ({
+  label = "Get GSAP",
+  href = "#",
+  className = "",
+}) => {
   const buttonRef = useRef<HTMLAnchorElement>(null);
-  const x = useMotionValue(50);
-  const y = useMotionValue(50);
-  const scale = useMotionValue(0);
+  const flairRef = useRef<HTMLSpanElement>(null);
 
-  const springConfig = { stiffness: 300, damping: 20 };
-  const xSpring = useSpring(x, springConfig);
-  const ySpring = useSpring(y, springConfig);
-  const scaleSpring = useSpring(scale, springConfig);
+  useGSAP(
+    () => {
+      if (!buttonRef.current || !flairRef.current) return;
 
-  const getXY = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!buttonRef.current) return { x: 50, y: 50 };
-    const rect = buttonRef.current.getBoundingClientRect();
-    const xPos = ((e.clientX - rect.left) / rect.width) * 100;
-    const yPos = ((e.clientY - rect.top) / rect.height) * 100;
-    return {
-      x: Math.min(Math.max(xPos, 0), 100),
-      y: Math.min(Math.max(yPos, 0), 100),
-    };
-  };
+      const xSet = gsap.quickSetter(flairRef.current, "xPercent");
+      const ySet = gsap.quickSetter(flairRef.current, "yPercent");
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const { x: newX, y: newY } = getXY(e);
-    x.set(newX);
-    y.set(newY);
-    scale.set(1);
-  };
+      const getXY = (e: MouseEvent) => {
+        const { left, top, width, height } =
+          buttonRef.current!.getBoundingClientRect();
+        const xTransformer = gsap.utils.pipe(
+          gsap.utils.mapRange(0, width, 0, 100),
+          gsap.utils.clamp(0, 100)
+        );
+        const yTransformer = gsap.utils.pipe(
+          gsap.utils.mapRange(0, height, 0, 100),
+          gsap.utils.clamp(0, 100)
+        );
+        return {
+          x: xTransformer(e.clientX - left),
+          y: yTransformer(e.clientY - top),
+        };
+      };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const { x: newX, y: newY } = getXY(e);
-    x.set(newX);
-    y.set(newY);
-  };
+      const handleMouseEnter = (e: MouseEvent) => {
+        const { x, y } = getXY(e);
+        xSet(x);
+        ySet(y);
+        gsap.to(flairRef.current, {
+          scale: 1,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+      };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const { x: newX, y: newY } = getXY(e);
-    x.set(newX > 90 ? newX + 20 : newX < 10 ? newX - 20 : newX);
-    y.set(newY > 90 ? newY + 20 : newY < 10 ? newY - 20 : newY);
-    scale.set(0);
-  };
+      const handleMouseLeave = (e: MouseEvent) => {
+        const { x, y } = getXY(e);
+        gsap.killTweensOf(flairRef.current);
+        gsap.to(flairRef.current, {
+          xPercent: x > 90 ? x + 20 : x < 10 ? x - 20 : x,
+          yPercent: y > 90 ? y + 20 : y < 10 ? y - 20 : y,
+          scale: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
+
+      const handleMouseMove = (e: MouseEvent) => {
+        const { x, y } = getXY(e);
+        gsap.to(flairRef.current, {
+          xPercent: x,
+          yPercent: y,
+          duration: 0.4,
+          ease: "power2",
+        });
+      };
+
+      const button = buttonRef.current;
+      button.addEventListener("mouseenter", handleMouseEnter as EventListener);
+      button.addEventListener("mouseleave", handleMouseLeave as EventListener);
+      button.addEventListener("mousemove", handleMouseMove as EventListener);
+
+      return () => {
+        button.removeEventListener(
+          "mouseenter",
+          handleMouseEnter as EventListener
+        );
+        button.removeEventListener(
+          "mouseleave",
+          handleMouseLeave as EventListener
+        );
+        button.removeEventListener(
+          "mousemove",
+          handleMouseMove as EventListener
+        );
+      };
+    },
+    { scope: buttonRef }
+  );
 
   return (
     <a
-      href="#"
+      href={href}
       ref={buttonRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border-2 border-white text-white font-semibold text-lg tracking-tight overflow-hidden cursor-pointer hover:text-black transition-colors duration-300 ease-in-out"
+      className={`relative inline-flex items-center justify-center overflow-hidden rounded-full py-4 px-6 text-lg font-semibold text-white bg-transparent cursor-pointer ${className}`}
+      style={
+        {
+          "--ease-in-out-quart": "cubic-bezier(0.76, 0, 0.24, 1)",
+        } as React.CSSProperties
+      }
     >
-      <motion.span
-        className="absolute top-0 left-0 w-[170%] aspect-square bg-white rounded-full pointer-events-none"
+      <span
+        ref={flairRef}
+        className="absolute inset-0 pointer-events-none"
         style={{
-          x: xSpring,
-          y: ySpring,
-          scale: scaleSpring,
-          translateX: "-50%",
-          translateY: "-50%",
+          transform: "scale(0)",
+          transformOrigin: "0 0",
+          willChange: "transform",
         }}
-      />
-      <span className="relative z-10">Get GSAP</span>
+      >
+        <span className="absolute block w-[170%] aspect-square bg-white rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></span>
+      </span>
+
+      <span className="absolute inset-0 border-2 border-white rounded-full pointer-events-none"></span>
+
+      <span
+        className="relative text-center z-10 transition-colors duration-50"
+        style={{
+          transitionTimingFunction: "var(--ease-in-out-quart)",
+        }}
+      >
+        {label}
+      </span>
     </a>
   );
-}
+};
+
+export default GSAPButton;

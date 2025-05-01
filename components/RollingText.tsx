@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useRef, ReactNode } from "react";
-import { motion } from "framer-motion";
-import SplitType from "split-type";
+import React, { useRef, useState, useMemo, useCallback } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 interface RollingTextProps {
-  children: ReactNode;
+  children: string;
   className?: string;
   staggerDelay?: number;
   hoverColor?: string;
@@ -19,23 +19,52 @@ export default function RollingText({
   hoverColor = "text-slate-600 dark:text-slate-300",
   normalColor = "",
 }: RollingTextProps) {
+  const charsTopRef = useRef<HTMLSpanElement[]>([]);
+  const charsBottomRef = useRef<HTMLSpanElement[]>([]);
   const [isHovered, setIsHovered] = useState(false);
-  const [characters, setCharacters] = useState<string[]>([]);
-  const textRef = useRef<HTMLDivElement>(null);
 
-  const textContent =
-    typeof children === "string" ? children : String(children);
+  const characters = useMemo(
+    () => children.split("").map((char) => (char === " " ? "\u00A0" : char)),
+    [children]
+  );
 
-  useEffect(() => {
-    if (textRef.current) {
-      const text = new SplitType(textRef.current, { types: "chars" });
-      if (text.chars) {
-        setCharacters(
-          Array.from(text.chars.map((char) => char.textContent || ""))
-        );
-      }
-    }
-  }, [textContent]);
+  const animateChars = useCallback(() => {
+    const topChars = charsTopRef.current;
+    const bottomChars = charsBottomRef.current;
+
+    const toTop = {
+      y: "-100%",
+      duration: 0.4,
+      ease: "power2.out",
+      stagger: staggerDelay,
+    };
+
+    const toBottom = {
+      y: "0%",
+      duration: 0.4,
+      ease: "power2.out",
+      stagger: staggerDelay,
+    };
+
+    const resetTop = {
+      y: "0%",
+      duration: 0.4,
+      ease: "power2.out",
+      stagger: staggerDelay,
+    };
+
+    const resetBottom = {
+      y: "100%",
+      duration: 0.4,
+      ease: "power2.out",
+      stagger: staggerDelay,
+    };
+
+    gsap.to(topChars, isHovered ? toTop : resetTop);
+    gsap.to(bottomChars, isHovered ? toBottom : resetBottom);
+  }, [isHovered, staggerDelay]);
+
+  useGSAP(animateChars, [isHovered, characters]);
 
   const colorClass = isHovered ? hoverColor : normalColor;
 
@@ -45,46 +74,26 @@ export default function RollingText({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div ref={textRef} className="absolute opacity-0 pointer-events-none">
-        {children}
-      </div>
-
       <div className="inline-flex">
         {characters.map((char, index) => (
-          <div key={`top-${index}`} className="relative overflow-hidden">
-            <motion.span
+          <div key={index} className="relative overflow-hidden">
+            <span
+              ref={(el) => {
+                if (el) charsTopRef.current[index] = el;
+              }}
               className={`inline-block transition-colors duration-300 ${colorClass}`}
-              style={{ transformOrigin: "50% 50% 0px" }}
-              animate={{
-                transform: isHovered ? "translateY(-100%)" : "none",
-              }}
-              transition={{
-                duration: 0.4,
-                ease: "easeOut",
-                delay: index * staggerDelay,
-              }}
             >
-              {char === " " ? "\u00A0" : char}
-            </motion.span>
-
-            <motion.span
+              {char}
+            </span>
+            <span
+              ref={(el) => {
+                if (el) charsBottomRef.current[index] = el;
+              }}
               aria-hidden="true"
               className={`absolute top-0 left-0 inline-block transition-colors duration-300 ${colorClass}`}
-              style={{ transformOrigin: "50% 50% 0px" }}
-              initial={{
-                transform: "translateY(100%)",
-              }}
-              animate={{
-                transform: isHovered ? "none" : "translateY(100%)",
-              }}
-              transition={{
-                duration: 0.4,
-                ease: "easeOut",
-                delay: index * staggerDelay,
-              }}
             >
-              {char === " " ? "\u00A0" : char}
-            </motion.span>
+              {char}
+            </span>
           </div>
         ))}
       </div>
