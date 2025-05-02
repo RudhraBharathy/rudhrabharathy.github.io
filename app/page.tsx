@@ -109,7 +109,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col cursor-default">
+    <div className="flex flex-col">
       <div className="flex items-center justify-between">
         <motion.div
           className="mt-5 md:sticky md:top-24 md:w-1/2 lg:w-2/5"
@@ -193,7 +193,7 @@ export default function Home() {
                   <div className="relative group">
                     <Link
                       href={link.href}
-                      className="text-4xl md:text-5xl lg:text-[5rem] !leading-[0.8] font-black"
+                      className="text-4xl md:text-5xl lg:text-[5rem] !leading-[0.8] font-black !cursor-pointer"
                       onMouseEnter={() => setHoveredNav(link.name)}
                       onMouseLeave={() => setHoveredNav(null)}
                     >

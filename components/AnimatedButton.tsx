@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Link from "next/link";
 
 interface GSAPButtonProps {
   label?: string;
@@ -99,7 +100,7 @@ const GSAPButton: React.FC<GSAPButtonProps> = ({
   );
 
   return (
-    <a
+    <Link
       href={href}
       ref={buttonRef}
       className={`relative inline-flex items-center justify-center overflow-hidden rounded-full py-4 px-6 text-lg font-semibold text-white bg-transparent cursor-pointer ${className}`}
@@ -131,7 +132,7 @@ const GSAPButton: React.FC<GSAPButtonProps> = ({
       >
         {label}
       </span>
-    </a>
+    </Link>
   );
 };
 

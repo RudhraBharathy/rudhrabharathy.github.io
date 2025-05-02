@@ -70,7 +70,7 @@ export default function RollingText({
 
   return (
     <div
-      className={`relative inline-block overflow-hidden ${className}`}
+      className={`relative inline-block overflow-hidden cursor-pointer ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

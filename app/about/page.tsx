@@ -2,20 +2,22 @@
 
 import Image from "next/image";
 import TechStack from "@/components/tech-stack";
+import { DotPattern } from "@/components/ui/DotPattern";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
     <section className="max-w-6xl mx-auto px-4">
       <div className="relative min-h-[700px] mb-44">
-        <h1 className="text-[8rem] md:text-[20rem] z-5 font-manrope font-light leading-none text-center pointer-events-none select-none">
+        <h1 className="text-[8rem] md:text-[20rem] z-5 font-manrope font-light leading-none text-center">
           About
         </h1>
 
         <div
           data-speed="0.9"
-          className="absolute !pt-40 z-[-1] top-1/2 left-1/2 -translate-x-1/2 -translate-y-32 bg-gray-200 dark:bg-gray-800 p-6 md:p-10 rounded-lg w-full max-w-7xl shadow-lg"
+          className="absolute !pt-40 z-[-1] top-1/2 left-1/2 -translate-x-1/2 -translate-y-36 bg-gray-200 dark:bg-gray-800 p-6 md:p-10 rounded-lg w-full max-w-7xl"
         >
-          <div className="mb-2 relative bottom-9">
+          <div className="mb-2 relative bottom-9 font-manrope">
             <div className="flex justify-around items-center">
               <div>
                 <p className="uppercase text-sm font-medium mb-1">
@@ -31,9 +33,11 @@ export default function AboutPage() {
             <div>
               <div className="flex items-center justify-center">
                 <div>
-                  <h2 className="text-5xl font-bold mb-6">Hey!</h2>
+                  <h2 className="text-8xl font-light mb-6 font-space_grotesk">
+                    Hey!
+                  </h2>
 
-                  <div className="space-y-4 text-sm md:text-base leading-relaxed">
+                  <div className="space-y-4 text-sm md:text-base leading-relaxed font-manrope">
                     <p>
                       I'm passionate about creating things that are useful,
                       beautiful, and make a difference. I enjoy working on
@@ -47,6 +51,11 @@ export default function AboutPage() {
                       loves what they do.
                     </p>
                   </div>
+                  <DotPattern
+                    width={20}
+                    height={20}
+                    className="[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
+                  />
                 </div>
               </div>
             </div>
@@ -67,12 +76,8 @@ export default function AboutPage() {
       </div>
 
       <div className="flex justify-between items-center mb-12">
-        <button className="flex items-center gap-2 hover:underline">
-          Scroll <span className="text-xl">↓</span>
-        </button>
-        <button className="flex items-center gap-2 hover:underline">
-          Contact <span className="text-xl">+</span>
-        </button>
+        <Link href={'/'} className="flex items-center gap-2 hover:underline">Home +</Link>
+        <Link href={'/contact'} className="flex items-center gap-2 hover:underline">Contact +</Link>
       </div>
 
       <section>
