@@ -90,3 +90,17 @@ body {
   background-color: hsl(0 0% 100%);
   color: hsl(222.2 84% 4.9%);
 }
+
+@layer components {
+  .underline-effect {
+    @apply relative heading-text p-0;
+  }
+
+  .underline-effect::after {
+    @apply content-[''] absolute w-full h-[2px] left-0 bottom-[-4px] bg-black dark:bg-white origin-bottom-right hover:origin-bottom-left scale-x-0 hover:scale-x-100 transition-transform duration-300;
+  }
+
+  .heading-text {
+    @apply bg-gradient-to-br;
+  }
+}

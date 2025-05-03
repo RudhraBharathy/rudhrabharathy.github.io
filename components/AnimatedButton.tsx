@@ -1,22 +1,21 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { ReactNode, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Link from "next/link";
+import { FaTelegramPlane } from "react-icons/fa";
 
-interface GSAPButtonProps {
-  label?: string;
-  href?: string;
+interface AnimatedButtonProps {
   className?: string;
+  value: string;
+  children?: ReactNode;
 }
 
-const GSAPButton: React.FC<GSAPButtonProps> = ({
-  label = "Get GSAP",
-  href = "#",
+const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   className = "",
+  value = "",
 }) => {
-  const buttonRef = useRef<HTMLAnchorElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
   const flairRef = useRef<HTMLSpanElement>(null);
 
   useGSAP(
@@ -100,10 +99,9 @@ const GSAPButton: React.FC<GSAPButtonProps> = ({
   );
 
   return (
-    <Link
-      href={href}
+    <div
       ref={buttonRef}
-      className={`relative inline-flex items-center justify-center overflow-hidden rounded-full py-4 px-6 text-lg font-semibold text-white bg-transparent cursor-pointer ${className}`}
+      className={`w-1/4 relative group overflow-hidden rounded-full py-2 pl-6 pr-2 font-semibold text-white bg-transparent cursor-pointer ${className}`}
       style={
         {
           "--ease-in-out-quart": "cubic-bezier(0.76, 0, 0.24, 1)",
@@ -119,21 +117,32 @@ const GSAPButton: React.FC<GSAPButtonProps> = ({
           willChange: "transform",
         }}
       >
-        <span className="absolute block w-[170%] aspect-square bg-white rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></span>
+        <span className="absolute block w-[180%] aspect-square bg-black dark:bg-white rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></span>
       </span>
 
-      <span className="absolute inset-0 border-2 border-white rounded-full pointer-events-none"></span>
+      <span className="absolute inset-0 rounded-full pointer-events-none"></span>
 
       <span
-        className="relative text-center z-10 transition-colors duration-50"
+        className="flex items-center justify-between text-2xl w-full z-10 text-black group-hover:text-white dark:text-white dark:group-hover:text-black transition-colors duration-150"
         style={{
           transitionTimingFunction: "var(--ease-in-out-quart)",
         }}
       >
-        {label}
+        {value}{" "}
+        <div
+          className="inline-flex items-center justify-center 
+                rounded-full p-3
+                bg-black text-white 
+                group-hover:bg-white group-hover:text-black
+                dark:bg-white dark:text-black 
+                dark:group-hover:bg-slate-900 dark:group-hover:text-white
+                transition-colors duration-150"
+        >
+          <FaTelegramPlane size={30} />
+        </div>
       </span>
-    </Link>
+    </div>
   );
 };
 
-export default GSAPButton;
+export default AnimatedButton;

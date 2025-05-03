@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function AboutPage() {
   return (
     <section className="max-w-6xl mx-auto px-4">
-      <div className="relative min-h-[700px] mb-44">
+      <div className="relative min-h-[700px] mb-40">
         <h1 className="text-[8rem] md:text-[20rem] z-5 font-manrope font-light leading-none text-center">
           About
         </h1>
@@ -76,8 +76,8 @@ export default function AboutPage() {
       </div>
 
       <div className="flex justify-between items-center mb-12">
-        <Link href={'/'} className="flex items-center gap-2 hover:underline">Home +</Link>
-        <Link href={'/contact'} className="flex items-center gap-2 hover:underline">Contact +</Link>
+        <Link href={'/'} className="flex items-center gap-2 underline-effect">Home +</Link>
+        <Link href={'/contact'} className="flex items-center gap-2 underline-effect">Contact +</Link>
       </div>
 
       <section>

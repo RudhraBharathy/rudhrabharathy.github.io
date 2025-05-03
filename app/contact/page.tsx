@@ -1,52 +1,68 @@
+"use client";
+
 import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa6";
 import SocialLinks from "@/components/social-links";
+import { useState } from "react";
+import Input from "@/components/ui/input";
+import AnimatedButton from "@/components/AnimatedButton";
 
 export default function ContactPage() {
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+
   return (
-    <div className="">
-      <h1 className="text-[5rem] md:text-[8rem] font-normal leading-none mb-12">
+    <div>
+      <h1 className="text-[8rem] md:text-[18rem] z-5 font-manrope font-light leading-none text-center mb-4">
         Contact
       </h1>
 
-      <form className="">
-        <div className="mb-8">
-          <input
-            type="text"
+      <form className="font-manrope">
+        <div className="mb-12">
+          <Input
+            type="name"
             placeholder="Enter your name"
-            className="w-full border-b border-gray-300 dark:border-gray-700 pb-2 outline-none bg-transparent text-black dark:text-white placeholder-gray-500"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            name="name"
+            id="nameInput"
+            className="text-4xl"
           />
         </div>
 
-        <div className="mb-8">
-          <input
+        <div className="mb-16">
+          <Input
             type="email"
             placeholder="Enter your email"
-            className="w-full border-b border-gray-300 dark:border-gray-700 pb-2 outline-none bg-transparent text-black dark:text-white placeholder-gray-500"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            id="emailInput"
+            className="text-4xl"
           />
         </div>
 
-        <div className="mb-8">
-          <input
-            type="text"
+        <div className="mb-12">
+          <Input
+            type="message"
             placeholder="Enter your message"
-            className="w-full border-b border-gray-300 dark:border-gray-700 pb-2 outline-none bg-transparent text-black dark:text-white placeholder-gray-500"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            name="message"
+            id="messageInput"
+            className="text-4xl"
           />
         </div>
 
         <div className="flex justify-between items-center mb-12">
-          <button
-            type="submit"
+          <AnimatedButton
             className="flex items-center gap-2 border border-black dark:border-white rounded-full px-6 py-2"
+            value="Submit"
           >
-            Submit
-            <span className="bg-black dark:bg-white text-white dark:text-black rounded-full p-1">
-              <FaArrowRight size={16} />
-            </span>
-          </button>
+          </AnimatedButton>
 
-          <Link href="/" className="flex items-center gap-1 hover:underline">
-            Home <span>+</span>
+          <Link href="/" className="flex items-center gap-1 underline-effect">
+            Home +
           </Link>
         </div>
       </form>

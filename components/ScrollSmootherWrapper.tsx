@@ -29,7 +29,7 @@ export default function ScrollSmootherWrapper({
   );
 
   return (
-    <div id="smooth-wrapper cursor-default" ref={smootherRef}>
+    <div id="smooth-wrapper" ref={smootherRef}>
       <div id="smooth-content">{children}</div>
     </div>
   );
