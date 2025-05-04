@@ -1,22 +1,82 @@
 "use client";
 
-import React, { ReactNode, useRef } from "react";
+import React, {
+  ReactNode,
+  useRef,
+  useEffect,
+  HTMLAttributes,
+  useState,
+} from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { FaTelegramPlane } from "react-icons/fa";
 
-interface AnimatedButtonProps {
-  className?: string;
+interface AnimatedButtonProps extends HTMLAttributes<HTMLDivElement> {
   value: string;
   children?: ReactNode;
+  padding?: number;
+  disabled?: boolean;
+  magnetStrength?: number;
+  activeTransition?: string;
+  inactiveTransition?: string;
+  wrapperClassName?: string;
+  innerClassName?: string;
 }
 
 const AnimatedButton: React.FC<AnimatedButtonProps> = ({
+  value,
+  onClick,
   className = "",
-  value = "",
+  padding = 100,
+  disabled = false,
+  magnetStrength = 13,
+  activeTransition = "transform 0.3s ease-out",
+  inactiveTransition = "transform 0.5s ease-in-out",
+  wrapperClassName = "",
+  innerClassName = "",
+  ...props
 }) => {
   const buttonRef = useRef<HTMLDivElement>(null);
   const flairRef = useRef<HTMLSpanElement>(null);
+
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [position, setPosition] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+  useEffect(() => {
+    if (disabled) {
+      setPosition({ x: 0, y: 0 });
+      return;
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!buttonRef.current) return;
+
+      const { left, top, width, height } =
+        buttonRef.current.getBoundingClientRect();
+      const centerX = left + width / 2;
+      const centerY = top + height / 2;
+
+      const distX = Math.abs(centerX - e.clientX);
+      const distY = Math.abs(centerY - e.clientY);
+
+      if (distX < width / 2 + padding && distY < height / 2 + padding) {
+        setIsActive(true);
+        const offsetX = (e.clientX - centerX) / magnetStrength;
+        const offsetY = (e.clientY - centerY) / magnetStrength;
+        setPosition({ x: offsetX, y: offsetY });
+      } else {
+        setIsActive(false);
+        setPosition({ x: 0, y: 0 });
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [padding, disabled, magnetStrength]);
 
   useGSAP(
     () => {
@@ -98,12 +158,18 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
     { scope: buttonRef }
   );
 
+  const transitionStyle = isActive ? activeTransition : inactiveTransition;
+
   return (
     <div
       ref={buttonRef}
+      onClick={onClick}
       className={`w-1/4 relative group overflow-hidden rounded-full py-2 pl-6 pr-2 font-semibold text-white bg-transparent cursor-pointer ${className}`}
       style={
         {
+          transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
+          transition: transitionStyle,
+          willChange: "transform",
           "--ease-in-out-quart": "cubic-bezier(0.76, 0, 0.24, 1)",
         } as React.CSSProperties
       }
