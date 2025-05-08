@@ -7,8 +7,8 @@ import React, {
   HTMLAttributes,
   useState,
 } from "react";
+import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { FaTelegramPlane } from "react-icons/fa";
 
 interface AnimatedButtonProps extends HTMLAttributes<HTMLDivElement> {

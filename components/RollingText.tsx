@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useRef, useState, useMemo, useCallback } from "react";
+import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 
 interface RollingTextProps {
   children: string;

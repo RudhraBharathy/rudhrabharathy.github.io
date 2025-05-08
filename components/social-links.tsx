@@ -64,8 +64,8 @@ export default function SocialLinks() {
           key={idx}
           className="flex justify-between items-center group cursor-pointer border-b border-gray-300 dark:border-gray-700 pb-5 mb-5"
         >
-          <div className=" text-4xl md:text-[12rem] font-normal hover:translate-x-8 transition-transform duration-500">
-            <span className="flex items-center gap-2">
+          <div className="text-4xl md:text-[12rem] font-normal group-hover:translate-x-8 transition-transform duration-500">
+            <span className="flex items-center gap-2 group-hover:text-gray-900 dark:group-hover:text-gray-200">
               {labelParts?.[0]}
               {icon}
               {labelParts?.[2]}

@@ -101,6 +101,6 @@ body {
   }
 
   .heading-text {
-    @apply bg-gradient-to-br;
+    @apply bg-none;
   }
 }

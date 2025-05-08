@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
       onChange={onChange}
       name={name}
       id={id}
-      className={`w-full border-b border-gray-300 dark:border-gray-700 pb-2 outline-none bg-transparent text-black dark:text-white placeholder-gray-500 ${className}`}
+      className={`w-full border-b-2 focus:border-black dark:focus:border-white transition-colors duration-300 focus:outline-none peer border-gray-300 dark:border-gray-700 pb-2 outline-none bg-transparent text-black dark:text-white placeholder-gray-500 ${className}`}
       {...rest}
     />
   );
