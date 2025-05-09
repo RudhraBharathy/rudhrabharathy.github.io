@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"],
@@ -54,6 +54,19 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
-export default config
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }: any) {
+      const newUtilities = {
+        ".stroke-dash-1": { "stroke-dasharray": "1" },
+        ".stroke-dash-2": { "stroke-dasharray": "2" },
+        ".stroke-dash-4": { "stroke-dasharray": "4" },
+        ".stroke-dash-8": { "stroke-dasharray": "8" },
+        ".stroke-dash-12": { "stroke-dasharray": "12" },
+        ".stroke-dash-16": { "stroke-dasharray": "16" },
+      };
+      addUtilities(newUtilities, ["responsive"]);
+    },
+  ],
+};
+export default config;

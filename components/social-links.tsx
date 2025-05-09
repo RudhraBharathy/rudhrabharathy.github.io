@@ -32,7 +32,7 @@ const socialLinks: SocialLink[] = [
   },
   {
     name: "Instagram",
-    url: "https://instagram.com",
+    url: "https://www.instagram.com/ig_rudhrabharathy",
     icon: <FaSquareInstagram />,
     labelParts: ["Inst", "", "gram"],
   },
@@ -44,13 +44,13 @@ const socialLinks: SocialLink[] = [
   },
   {
     name: "Twitter",
-    url: "https://twitter.com",
+    url: "https://x.com/RudhraBharathy",
     icon: <FaXTwitter />,
     labelParts: ["Twitter\u00A0", "", ""],
   },
   {
     name: "Facebook",
-    url: "https://facebook.com",
+    url: "https://www.facebook.com/bharathyganeshan/",
     icon: <FaFacebook />,
     labelParts: ["", "", "acebook"],
   },
@@ -58,31 +58,29 @@ const socialLinks: SocialLink[] = [
 
 export default function SocialLinks() {
   return (
-    <div className="space-y-6">
+    <div className="mt-10">
       {socialLinks.map(({ url, icon, labelParts }, idx) => (
-        <div
+        <Link
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
           key={idx}
-          className="flex justify-between items-center group cursor-pointer border-b border-gray-300 dark:border-gray-700 pb-5 mb-5"
+          className="flex justify-between items-center group !cursor-pointer border-b border-gray-300 dark:border-gray-700 py-10"
         >
           <div className="text-4xl md:text-[12rem] font-normal group-hover:translate-x-8 transition-transform duration-500">
-            <span className="flex items-center gap-2 group-hover:text-gray-900 dark:group-hover:text-gray-200">
+            <span className="flex items-center gap-2">
               {labelParts?.[0]}
               {icon}
               {labelParts?.[2]}
             </span>
           </div>
-          <Link
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group bg-black dark:bg-white text-white dark:text-black group-hover:bg-emerald-600 dark:group-hover:bg-emerald-400 rounded-full p-7 transition-all duration-300"
-          >
+          <div className="group bg-black dark:bg-white text-white dark:text-black group-hover:bg-emerald-600 dark:group-hover:bg-emerald-400 rounded-full p-7 transition-all duration-300">
             <FaArrowRight
               size={50}
               className="transform transition-all duration-500 group-hover:rotate-[-40deg] rounded-full"
             />
-          </Link>
-        </div>
+          </div>
+        </Link>
       ))}
     </div>
   );

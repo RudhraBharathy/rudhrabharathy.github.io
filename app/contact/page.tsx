@@ -22,7 +22,7 @@ export default function ContactPage() {
   const handleSubmit = async () => {
     if (!name.trim() && !email.trim()) {
       setFormState("error");
-      toast.error("Please enter either your name or email.");
+      toast.error("Please enter either your name or email!");
       return;
     }
 
@@ -30,14 +30,14 @@ export default function ContactPage() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         setFormState("error");
-        toast.error("Please enter a valid email address.");
+        toast.error("Please enter a valid email address!");
         return;
       }
     }
 
     if (!message.trim()) {
       setFormState("error");
-      toast.error("Please enter your message.");
+      toast.error("Please enter your message!");
       return;
     }
 
@@ -140,7 +140,7 @@ export default function ContactPage() {
         </div>
 
         <div className="pt-4 mb-8">
-          <h2 className="text-5xl font-medium pb-5 mb-5 border-b border-gray-300 dark:border-gray-700">
+          <h2 className="text-5xl font-medium pb-5 border-b border-gray-300 dark:border-gray-700">
             Social Media
           </h2>
           <SocialLinks />
