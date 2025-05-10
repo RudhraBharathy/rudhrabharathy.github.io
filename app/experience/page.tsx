@@ -1,236 +1,188 @@
 "use client";
 
-import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
-
-gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
-
-type ExperienceType = 'work' | 'education';
-
-interface ExperienceItem {
-  id: string;
-  type: ExperienceType;
-  organization: string;
-  role: string;
-  period: string;
-  description: string;
-  skills: string[];
-  location?: string;
-}
-
-const experiences: ExperienceItem[] = [
-  // Work Experience (chronological order - most recent first)
-  {
-    id: "work1",
-    type: "work",
-    organization: "Google",
-    role: "Senior Frontend Developer",
-    period: "2022 - Present",
-    description: "Led the development of core user-facing features for Google Workspace applications. Improved performance optimizations resulting in 40% faster load times and enhanced user engagement metrics across all platforms.",
-    skills: ["React", "TypeScript", "Next.js", "GSAP", "TailwindCSS"],
-    location: "Mountain View, CA"
-  },
-  {
-    id: "work2",
-    type: "work",
-    organization: "Microsoft",
-    role: "UI/UX Engineer",
-    period: "2019 - 2022",
-    description: "Designed and implemented responsive interfaces for Microsoft Teams. Collaborated with product managers to refine user experiences across platforms.",
-    skills: ["React", "Redux", "SCSS", "Figma", "Accessibility"],
-    location: "Redmond, WA"
-  },
-  {
-    id: "intern1",
-    type: "work",
-    organization: "Amazon",
-    role: "Web Development Intern",
-    period: "Summer 2019",
-    description: "Developed and maintained e-commerce platforms with focus on performance and seamless user experience. Implemented A/B testing strategies.",
-    skills: ["JavaScript", "Vue.js", "AWS", "Node.js", "GraphQL"],
-    location: "Seattle, WA"
-  },
-  // Education (chronological order - most recent first)
-  {
-    id: "edu1",
-    type: "education",
-    organization: "Stanford University",
-    role: "Master of Computer Science",
-    period: "2017 - 2019",
-    description: "Specialized in Human-Computer Interaction and Web Technologies. Achieved Dean's List recognition for academic excellence.",
-    skills: ["Algorithms", "UI/UX Design", "Machine Learning", "Web Development"],
-    location: "Palo Alto, CA"
-  },
-  {
-    id: "edu2",
-    type: "education",
-    organization: "University of California, Berkeley",
-    role: "Bachelor of Science in Computer Science",
-    period: "2013 - 2017",
-    description: "Graduated with honors. Active member of the Web Development Club and participated in multiple hackathons.",
-    skills: ["Data Structures", "Algorithms", "Software Engineering", "Database Systems"],
-    location: "Berkeley, CA"
-  },
-  {
-    id: "edu3",
-    type: "education",
-    organization: "Westlake High School",
-    role: "High School Diploma",
-    period: "2009 - 2013",
-    description: "Graduated top of class with focus on STEM subjects. Led the coding club and participated in regional programming competitions.",
-    skills: ["Mathematics", "Computer Science", "Physics", "Leadership"],
-    location: "Los Angeles, CA"
-  }
-];
+import type React from "react";
+import { Timeline } from "@/components/ui/timeline";
+import { FaBriefcase, FaCalendar } from "react-icons/fa";
+import Link from "next/link";
 
 const ExperiencePage: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const svgPathRef = useRef<SVGSVGElement | null>(null);
-  const expRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const experiences = [
+    {
+      company: "GetBeamer Pvt. Ltd. & Userflow",
+      role: "Technical Solutions Engineer",
+      duration: "August 2024 - Present",
+      description:
+        "Working with enterprise clients to implement and customize the GetBeamer notification system. Providing technical support and ensuring smooth integration with various platforms.",
+      techStack: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "REST API",
+        "Webhooks",
+        "Git",
+        "Github",
+        "Agile",
+      ],
+    },
+    {
+      company: "Freelancing",
+      role: "Frontend Web Development",
+      duration: "August 2022 - July 2024",
+      description:
+        "Designing and developing responsive, user-friendly websites and web applications for various clients across different industries. Focus on performance optimization and accessibility.",
+      techStack: [
+        "HTML",
+        "CSS",
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Figma",
+      ],
+    },
+    {
+      company: "ToSpace Pvt. Ltd.",
+      role: "Frontend Web Developer (Internship)",
+      duration: "December 2021 - May 2022",
+      description:
+        "Contributed to the development of the company's main product, a space management platform for businesses and educational institutions.",
+      techStack: ["HTML", "CSS", "JavaScript", "Git", "Github", "PHP"],
+    },
+  ];
 
-  useGSAP(() => {
-    if (!svgPathRef.current) return;
-    
-    const svgPath = svgPathRef.current.querySelector("#svg-timeline");
+  const getDurationLength = (duration: string): string => {
+    const [startStr, endStr] = duration.split(" - ");
+    const parseDate = (str: string): Date => {
+      if (str.toLowerCase() === "present") return new Date();
+      return new Date(`${str} 1`);
+    };
 
-    if (svgPath && containerRef.current) {
-      // Make SVG path invisible initially
-      gsap.set(svgPath, { drawSVG: "0%" });
-      
-      // Create main timeline for the path drawing
-      const pathTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 10%",
-          end: "bottom bottom",
-          scrub: 1,
-          // pin: true,
-          // pinSpacing: true,
-          markers: true,
-          anticipatePin: 1, // Helps prevent jumping
-        },
-      });
-      
-      // Draw the SVG path as we scroll
-      pathTimeline.to(svgPath, { 
-        drawSVG: "100%", 
-        ease: "none",
-        duration: 1
-      });
-      
-      // Make the first experience visible immediately (without scrolling) and slightly bigger
-      if (expRefs.current[0]) {
-        gsap.set(expRefs.current[0], { 
-          opacity: 1, 
-          y: 0,
-          scale: 1.05 // Make first card slightly bigger in animation
-        });
-      }
-      
-      // Animate each remaining experience section (starting from the second one)
-      experiences.slice(1).forEach((exp, index) => {
-        const realIndex = index + 1; // Because we're starting from the second item
-        const progress = realIndex / (experiences.length + 1); // Add +1 to ensure proper spacing
-        const ref = expRefs.current[realIndex];
-        
-        if (ref) {
+    const start = parseDate(startStr);
+    const end = parseDate(endStr);
 
-          gsap.set(ref, { 
-            opacity: 0,
-            y: 50
-          });
-          
-          pathTimeline.add(
-            gsap.to(ref, { 
-              opacity: 1, 
-              y: 0,
-              duration: 0.15,
-              ease: "power2.out"
-            }), 
-            progress * 0.8
-          );
-        }
-      });
-    }
-  }, []);
+    let months =
+      (end.getFullYear() - start.getFullYear()) * 12 +
+      (end.getMonth() - start.getMonth()) +
+      1;
 
-  const getTypeIcon = (type: ExperienceType): string => {
-    return type === 'work' 
-      ? '💼'
-      : '🎓';
+    if (months <= 0) return "Less than a month";
+
+    if (months < 12) return `${months} month${months !== 1 ? "s" : ""}`;
+
+    const years = Math.floor(months / 12);
+    const remMonths = months % 12;
+
+    if (remMonths === 0) return `${years} year${years !== 1 ? "s" : ""}`;
+
+    return `${years} year${years !== 1 ? "s" : ""} ${remMonths} month${
+      remMonths !== 1 ? "s" : ""
+    }`;
   };
 
-  return (
-    <div className="flex flex-col items-center justify-center px-4 py-12 min-h-screen">
-      <h1 className="md:text-[16rem] font-light leading-none text-center mb-20 text-black dark:text-white">
-        Experience
-      </h1>
-      
-      <div 
-        ref={containerRef}
-        className="w-full max-w-7xl relative min-h-[200vh]"
-      >
-        <svg
-          ref={svgPathRef}
-          className="w-full h-auto sticky top-0 pt-20"
-          viewBox="0 0 1200 2000"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            id="svg-timeline"
-            d="M0 .5H671C697.264 1 723.272 6.1731 747.537 16.2246 771.802 26.276 793.85 41.007 812.421 59.5786 830.993 78.1502 845.725 100.198 855.776 124.463 865.827 148.728 871 174.736 871 201S865.827 253.272 855.776 277.537C845.725 301.802 830.993 323.85 812.421 342.421 793.85 360.993 771.802 375.725 747.537 385.776S697.264 401 671 401H227C200.736 401 174.728 406.173 150.463 416.224 126.198 426.275 104.15 441.007 85.5786 459.579 67.0069 478.15 52.275 500.198 42.2241 524.463S27 574.736 27 601 32.1732 653.272 42.2241 677.537 67.0069 723.85 85.5786 742.421C104.15 760.993 126.198 775.725 150.463 785.776 174.728 795.827 200.736 801 227 801H1110C1136.26 801 1162.27 806.173 1186.54 816.224 1210.8 826.275 1232.85 841.007 1251.42 859.579 1269.99 878.15 1284.72 900.198 1294.78 924.463 1304.83 948.728 1310 974.736 1310 1001 1310 1027.26 1304.83 1053.27 1294.78 1077.54 1284.72 1101.8 1269.99 1123.85 1251.42 1142.42 1232.85 1160.99 1210.8 1175.72 1186.54 1185.78 1162.27 1195.83 1136.26 1201 1110 1201H449C422.736 1201 396.728 1206.17 372.463 1216.22 348.198 1226.28 326.15 1241.01 307.579 1259.58 289.007 1278.15 274.275 1300.2 264.224 1324.46 254.173 1348.73 249 1374.74 249 1401S254.173 1453.27 264.224 1477.54C274.275 1501.8 289.007 1523.85 307.579 1542.42 326.15 1560.99 348.198 1575.72 372.463 1585.78 396.728 1595.83 422.736 1601 449 1601H1110"
-            className="stroke-emerald-600 dark:stroke-emerald-400"
-            strokeWidth="4"
-            strokeLinecap="round"
-            fill="none"
-          />
-        </svg>
-        
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-          {experiences.map((exp, index) => {
-            const isEven = index % 2 === 0;
-            const topPosition = 150 + index * 300;
-            const isFirst = index === 0;
-            
-            return (
-              <div
-                key={exp.id}
-                ref={(el: HTMLDivElement | null) => { expRefs.current[index] = el }}
-                className={`absolute pointer-events-auto ${isFirst ? 'w-80 md:w-[450px] p-8' : 'w-72 md:w-96 p-6'} bg-white dark:bg-gray-800 rounded-lg shadow-lg ${
-                  isEven ? 'left-8 md:left-16' : 'right-8 md:right-16'
-                }`}
-                style={{ top: `${topPosition}px` }}
-              >
-                <div className="flex items-center mb-2">
-                  <span className="text-xl mr-2">{getTypeIcon(exp.type)}</span>
-                  <h3 className="text-xl font-bold text-black dark:text-white">{exp.organization}</h3>
-                </div>
-                <p className="text-lg font-medium text-emerald-600 dark:text-emerald-400">{exp.role}</p>
-                <div className="flex justify-between items-center mb-2">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{exp.period}</p>
-                  {exp.location && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{exp.location}</p>
-                  )}
-                </div>
-                <p className="text-black dark:text-white mb-3">{exp.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {exp.skills.map(skill => (
-                    <span 
-                      key={skill} 
-                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-black dark:text-white text-xs font-medium rounded-full"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+  const uniqueExperiences = experiences.filter(
+    (exp, index, self) =>
+      index ===
+      self.findIndex((e) => e.company === exp.company && e.role === exp.role)
+  );
+
+  const timelineData = uniqueExperiences.map((exp) => ({
+    title: exp.company,
+    content: (
+      <div className="space-y-5">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center space-x-2">
+            <FaBriefcase className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            <h3 className="text-lg font-medium text-black dark:text-white">
+              {exp.role}
+            </h3>
+          </div>
+
+          <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+            <FaCalendar className="h-4 w-4" />
+            <span>
+              {exp.duration} &middot;{" "}
+              <span className="italic">{getDurationLength(exp.duration)}</span>
+            </span>
+          </div>
         </div>
+
+        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+          {exp.description}
+        </p>
+
+        <div className="pt-2">
+          <div className="flex flex-wrap gap-2">
+            {exp.techStack.map((tech, i) => (
+              <span
+                key={i}
+                className="px-3 py-1 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+  }));
+
+  return (
+    <div className="font-manrope">
+      <div className="pb-24">
+        <h1 className="text-6xl md:text-8xl lg:text-[15rem] font-light leading-none text-center my-6">
+          Experience
+        </h1>
+      </div>
+      <div className="flex flex-col md:flex-row items-center justify-center w-full gap-16 mb-20">
+        <div className="w-full md:w-1/3">
+          <h2 className="text-lg md:text-7xl mb-6 text-black dark:text-white max-w-4xl font-light tracking-tight">
+            Steps in <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-400 font-medium">
+              My Journey
+            </span>{" "}
+          </h2>
+          <p className="text-black dark:text-white text-sm md:text-base max-w-lg leading-relaxed mt-14">
+            Every role has been a step forward, here’s the journey that shaped
+            who I am today.
+          </p>
+        </div>
+        <div className="w-full md:w-2/3">
+          <p className="text-sm md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-justify">
+            Over the years, I’ve had the privilege of contributing to diverse
+            teams, scaling impactful projects, and growing through hands-on
+            challenges across multiple domains. From collaborating with startups
+            to refining strategies in mature product environments, each role has
+            added a unique chapter to my professional journey. I approach every
+            opportunity with a learner’s mindset, a builder’s passion, and a
+            commitment to driving results. Below is a detailed timeline of the
+            milestones, achievements, and roles that have shaped my career.
+          </p>
+
+          <div className="flex items-end justify-between mt-10">
+            <Link href={"/contact"}>
+              <button
+                className="group relative bg-white dark:bg-slate-900 h-16 w-64 border-2 border-teal-600 text-black dark:text-white 
+                          text-3xl font-light rounded-xl overflow-hidden transform transition-all duration-500 hover:scale-105 
+                          hover:border-emerald-400 p-3 text-left before:absolute before:w-10 before:h-10 before:content[''] 
+                          before:right-2 before:top-2 before:z-10 before:bg-indigo-500 before:rounded-full before:blur-lg 
+                          before:transition-all before:duration-500 after:absolute after:z-10 after:w-16 after:h-16 after:content[''] 
+                          after:bg-teal-400 after:right-6 after:top-4 after:rounded-full after:blur-lg after:transition-all after:duration-500 
+                          hover:before:right-10 hover:before:-bottom-4 hover:before:blur hover:after:-right-6 hover:after:scale-110"
+              >
+                Hire Me
+              </button>
+            </Link>
+            <Link
+              href="/projects"
+              className="flex items-center gap-1 underline-effect"
+            >
+              Projects +
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className="relative w-full overflow-clip">
+        <Timeline data={timelineData} />
       </div>
     </div>
   );

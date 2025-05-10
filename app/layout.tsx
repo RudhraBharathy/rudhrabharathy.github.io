@@ -52,11 +52,10 @@ export default function RootLayout({
         <ScrollSmootherWrapper>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
-            enableSystem={false}
+            defaultTheme="system"
+            enableSystem={true}
             disableTransitionOnChange={false}
             storageKey="theme"
-            forcedTheme={undefined}
           >
             <main
               className={cn(
