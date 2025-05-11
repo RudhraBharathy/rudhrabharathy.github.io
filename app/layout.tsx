@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import ScrollSmootherWrapper from "@/components/ScrollSmootherWrapper";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
@@ -66,6 +67,7 @@ export default function RootLayout({
               <Navbar />
               {children}
             </main>
+            <Footer />
           </ThemeProvider>
         </ScrollSmootherWrapper>
       </body>
