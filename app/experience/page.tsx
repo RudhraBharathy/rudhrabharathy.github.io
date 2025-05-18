@@ -17,6 +17,7 @@ const ExperiencePage: React.FC = () => {
         "HTML",
         "CSS",
         "JavaScript",
+        "React",
         "REST API",
         "Webhooks",
         "Git",
@@ -128,8 +129,8 @@ const ExperiencePage: React.FC = () => {
 
   return (
     <div className="font-manrope">
-      <div className="pb-24">
-        <h1 className="text-6xl md:text-8xl lg:text-[15rem] font-light leading-none text-center my-6">
+      <div className="pb-12">
+        <h1 data-speed="1.2" className="text-6xl md:text-8xl lg:text-[15rem] font-light leading-none text-center my-12">
           Experience
         </h1>
       </div>

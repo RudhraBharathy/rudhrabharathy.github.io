@@ -72,23 +72,23 @@ export default function Home() {
   const hoverContent = {
     ABOUT: {
       text: `😎\u00A0\u00A0${calculateMyAge} years old!`,
-      image: "/images/about.jpg",
+      image: "/images/home/about.jpg",
     },
     EXPERIENCE: {
       text: "💼\u00A0\u00A0Working @ Beamer x Userflow",
-      image: "/images/experience.jpg",
+      image: "/images/home/experience.jpg",
     },
     PROJECTS: {
       text: "🛠️\u00A0\u00A0Crafting ideas into reality",
-      image: "/images/projects.jpg",
+      image: "/images/home/projects.jpg",
     },
     GALLERY: {
       text: "📸\u00A0\u00A0Capturing moments",
-      image: "/images/gallery.jpg",
+      image: "/images/home/gallery.jpg",
     },
     CONTACT: {
       text: "✉️\u00A0\u00A0Reach me anytime",
-      image: "/images/contact.jpg",
+      image: "/images/home/contact.jpg",
     },
   };
 
@@ -124,7 +124,7 @@ export default function Home() {
                 style={{ boxShadow: "-7px 7px 14px 2px rgba(0,0,0,0.3)" }}
               >
                 <Image
-                  src="/images/profile.png"
+                  src="/images/home/profile.png"
                   alt="Profile"
                   fill
                   className="object-cover"
@@ -150,7 +150,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex items-end justify-evenly mt-3">
+            <div className="flex items-end justify-evenly">
               <motion.h1
                 className="text-5xl md:text-[7rem] font-normal mt-4 mb-2 font-manrope"
                 initial={{ opacity: 0 }}

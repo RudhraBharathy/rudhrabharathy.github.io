@@ -26,7 +26,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     offset: ["start 70%", "end 90%"],
   });
 
-  const heightTransform = useTransform(scrollYProgress, [0, 1.05], [0, height]);
+  const heightTransform = useTransform(scrollYProgress, [0, 1.08], [0, height]);
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (

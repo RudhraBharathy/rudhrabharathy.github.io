@@ -1,5 +1,5 @@
 import type React from "react";
-import "./globals.css";
+import "./styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Manrope, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -61,7 +61,7 @@ export default function RootLayout({
             <main
               className={cn(
                 "min-h-screen w-full transition-colors duration-300",
-                "px-4 md:px-12 lg:px-16 py-6"
+                "px-4 md:px-12 lg:px-16 py-5"
               )}
             >
               <Navbar />
