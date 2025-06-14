@@ -39,7 +39,7 @@ export default function Footer() {
   return (
     <footer
       data-speed="1.2"
-      className="w-full pb-6 pt-12 text-center bg-transparent font-manrope border-t-2 border-gray-200 dark:border-gray-700"
+      className="relative w-full pb-6 pt-12 text-center bg-transparent font-manrope border-t-2 border-gray-200 dark:border-gray-700"
     >
       <div className="z-10 relative">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10 px-6 md:px-20">

@@ -1,6 +1,10 @@
 "use client";
 
-import type React from "react";
+import InstagramPortfolio from "@/components/InstagramPortfolio";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const GalleryPage: React.FC = () => {
   return (
@@ -8,19 +12,13 @@ const GalleryPage: React.FC = () => {
       <div className="pb-12">
         <h1
           data-speed="1.2"
-          className="text-6xl md:text-8xl lg:text-[15rem] font-light leading-none text-center my-12"
+          className="text-6xl md:text-8xl lg:text-[16rem] font-light leading-none text-center my-12"
         >
-          Gallery
+          My Gallery
         </h1>
       </div>
-      <div>
-        <p>
-          Here is a collection of my best travel pictures that I took while
-          travelling places all around the world.
-        </p>
-      </div>
+      <InstagramPortfolio />
     </div>
   );
 };
-
 export default GalleryPage;

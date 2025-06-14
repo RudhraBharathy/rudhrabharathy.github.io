@@ -5,7 +5,6 @@ import { Inter, Manrope, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
-import ScrollSmootherWrapper from "@/components/ScrollSmootherWrapper";
 import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -50,26 +49,24 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${manrope.variable} ${space_grotesk.variable} flex flex-col min-h-screen bg-gradient-to-br from-white via-gray-100 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950`}
       >
-        <ScrollSmootherWrapper>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem={true}
-            disableTransitionOnChange={false}
-            storageKey="theme"
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+          disableTransitionOnChange={false}
+          storageKey="theme"
+        >
+          <main
+            className={cn(
+              "min-h-screen w-full transition-colors duration-300",
+              "px-4 md:px-12 lg:px-16 py-5"
+            )}
           >
-            <main
-              className={cn(
-                "min-h-screen w-full transition-colors duration-300",
-                "px-4 md:px-12 lg:px-16 py-5"
-              )}
-            >
-              <Navbar />
-              {children}
-            </main>
-            <Footer />
-          </ThemeProvider>
-        </ScrollSmootherWrapper>
+            <Navbar />
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

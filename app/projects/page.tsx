@@ -44,7 +44,7 @@ const projects = [
     name: "Collaborative Task Management",
     year: "2024",
     techStack: ["React", "Supabase", "Tailwind CSS", "Zustand"],
-    image: "/images/projects/InProgress.png",
+    image: "/images/projects/inprogress.png",
     githubLink:
       "https://github.com/RudhraBharathy/Collaborative-Task-Management-App",
     externalLink: "",
