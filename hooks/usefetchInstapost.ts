@@ -8,6 +8,7 @@ interface InstagramPost {
   caption?: string;
   timestamp: string;
   media_type: string;
+  like_count?: number;
 }
 const getSamplePosts = (): InstagramPost[] => {
   return Array(9)

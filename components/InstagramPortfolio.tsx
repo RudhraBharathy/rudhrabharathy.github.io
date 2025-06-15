@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { AiOutlineLink } from "react-icons/ai";
 import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
+import { HiOutlineHeart } from "react-icons/hi2";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useFetchInstapost from "@/hooks/usefetchInstapost";
@@ -162,7 +162,7 @@ export default function InstagramPortfolio() {
           {posts.map((post, index) => (
             <motion.div
               key={post.id}
-              className="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              className="pb-4 md:pb-0 overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
               whileHover="hover"
               layout
             >
@@ -215,7 +215,7 @@ export default function InstagramPortfolio() {
             >
               <motion.button
                 onClick={closeModal}
-                className="absolute top-4 right-4 z-30 p-2 text-white hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full"
+                className="absolute top-4 right-4 z-30 p-2 text-white hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full cursor-pointer"
                 aria-label="Close modal"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -227,7 +227,7 @@ export default function InstagramPortfolio() {
 
               <motion.button
                 onClick={goToPrevious}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 p-3 text-white hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 p-3 text-white hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full cursor-pointer"
                 aria-label="Previous image"
                 whileHover={{ scale: 1.1, x: -5 }}
                 whileTap={{ scale: 0.9 }}
@@ -239,7 +239,7 @@ export default function InstagramPortfolio() {
 
               <motion.button
                 onClick={goToNext}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 p-3 text-white hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 p-3 text-white hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full cursor-pointer"
                 aria-label="Next image"
                 whileHover={{ scale: 1.1, x: 5 }}
                 whileTap={{ scale: 0.9 }}
@@ -249,8 +249,8 @@ export default function InstagramPortfolio() {
                 <FiChevronRight className="w-6 h-6" />
               </motion.button>
 
-              <div className="w-full h-full flex flex-col items-center justify-center space-y-4">
-                <div className="relative w-full max-w-4xl flex-1 flex items-center justify-center">
+              <div className="w-full h-full flex flex-col items-center justify-center gap-8 space-y-4">
+                <div className="relative w-full max-w-4xl flex items-center justify-center">
                   <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                       key={currentImageIndex}
@@ -288,7 +288,7 @@ export default function InstagramPortfolio() {
                 </div>
 
                 <motion.div
-                  className="w-full max-w-2xl text-center text-white px-4 py-2"
+                  className="w-full max-w-xl text-center text-white px-4 py-2"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
@@ -309,6 +309,11 @@ export default function InstagramPortfolio() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
                   >
+                    <span className="inline-flex justify-center items-center gap-2">
+                      <HiOutlineHeart size={20} />
+                      {posts[currentImageIndex].like_count || null}
+                    </span>
+                    <span>•</span>
                     <span>
                       {new Date(
                         posts[currentImageIndex].timestamp
@@ -324,7 +329,6 @@ export default function InstagramPortfolio() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-400 hover:text-blue-300 transition-colors"
-                      whileHover={{ scale: 1.05 }}
                     >
                       View on Instagram
                     </motion.a>

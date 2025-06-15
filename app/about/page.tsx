@@ -14,7 +14,6 @@ export default function AboutPage() {
         </h1>
 
         <div
-          data-speed="0.9"
           className="absolute !pt-40 z-[-1] top-1/2 left-1/2 -translate-x-1/2 -translate-y-36 bg-gray-200 dark:bg-gray-800 p-6 md:p-10 rounded-lg w-full max-w-7xl"
         >
           <div className="mb-2 relative bottom-9 font-manrope">
