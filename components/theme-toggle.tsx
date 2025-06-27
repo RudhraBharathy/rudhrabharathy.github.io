@@ -26,9 +26,9 @@ export default function ThemeToggle() {
       className="rounded-full bg-slate-200 hover:bg-slate-200 dark:bg-slate-800"
     >
       {resolvedTheme === "dark" ? (
-        <FiSun className="h-5 w-5 text-yellow-500" />
+        <FiSun className="text-yellow-500" />
       ) : (
-        <BsMoonFill className="h-5 w-5 text-slate-700" />
+        <BsMoonFill className="text-slate-700" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

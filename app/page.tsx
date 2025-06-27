@@ -30,32 +30,44 @@ export default function Home() {
 
   const socialLinks = [
     {
-      icon: <FaLinkedinIn className="w-6 h-6" />,
+      icon: (
+        <FaLinkedinIn className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
+      ),
       href: "https://linkedin.com/in/rudhrabharathy",
       label: "LinkedIn",
     },
     {
-      icon: <FaInstagram className="w-6 h-6" />,
+      icon: (
+        <FaInstagram className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
+      ),
       href: "https://www.instagram.com/ig_rudhrabharathy",
       label: "Instagram",
     },
     {
-      icon: <FaGithub className="w-6 h-6" />,
+      icon: (
+        <FaGithub className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
+      ),
       href: "https://github.com/RudhraBharathy",
       label: "GitHub",
     },
     {
-      icon: <FaXTwitter className="w-6 h-6" />,
+      icon: (
+        <FaXTwitter className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
+      ),
       href: "https://x.com/RudhraBharathy",
       label: "Twitter",
     },
     {
-      icon: <FaFacebookF className="w-6 h-6" />,
+      icon: (
+        <FaFacebookF className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
+      ),
       href: "https://www.facebook.com/bharathyganeshan/",
       label: "Facebook",
     },
     {
-      icon: <FaEnvelope className="w-6 h-6" />,
+      icon: (
+        <FaEnvelope className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
+      ),
       href: "mailto:bharathyganeshan@gmail.com",
       label: "Email",
     },
@@ -109,18 +121,18 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center justify-between">
+    <div className="flex items-center flex-col">
+      <div className="flex items-center justify-between flex-col w-fit xl:gap-24 1xl:gap-4 2xl:gap-60 xl:flex-row">
         <motion.div
-          className="mt-5 md:sticky md:top-24 md:w-1/2 lg:w-2/5"
+          className="mt-3  lg:mt-5 2xl:mt-10 custom1xl:!mt-10 md:sticky md:top-24"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex flex-col items-center md:items-start">
-            <div className="w-full flex flex-row items-center justify-start gap-6">
+          <div className="flex flex-col items-start">
+            <div className="w-full flex flex-row items-center justify-start gap-6 2xl:gap-9 custom1xl:!gap-9">
               <div
-                className="relative w-64 h-64 md:w-72 md:h-72 rounded-3xl overflow-hidden select-none"
+                className="relative w-52 h-52 md:w-80 md:h-80 2xl:w-[22rem] 2xl:h-[22rem] custom1xl:!w-[22rem] custom1xl:!h-[22rem] rounded-3xl overflow-hidden select-none"
                 style={{ boxShadow: "-7px 7px 14px 2px rgba(0,0,0,0.3)" }}
               >
                 <Image
@@ -131,7 +143,7 @@ export default function Home() {
                   priority
                 />
               </div>
-              <div className="flex flex-col gap-5">
+              <div className="grid grid-cols-2 gap-10 lg:flex lg:flex-col lg:gap-4">
                 {socialLinks.map((link, index) => (
                   <motion.a
                     key={index}
@@ -139,7 +151,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.label}
-                    className="text-black dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors transition-300"
+                    className="text-black dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-300"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 * index, duration: 0.3 }}
@@ -150,9 +162,9 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex items-end justify-evenly">
+            <div className="flex items-start md:items-end justify-evenly flex-col md:flex-row">
               <motion.h1
-                className="text-5xl md:text-[7rem] font-normal mt-4 mb-2 font-manrope"
+                className="text-5xl xs:text-6xl 2xl:text-[9rem] custom1xl:!text-[8rem] font-normal mt-4 2xl:mt-6 mb-2 font-manrope"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
@@ -164,7 +176,7 @@ export default function Home() {
                 Bhararthy
               </motion.h1>
               <motion.p
-                className="w-[14rem] pb-4 pl-8 text-sm md:text-left text-slate-700 dark:text-slate-300"
+                className="w-[14rem] xs:py-4 md:pb-4 md:pl-8 text-sm 2xl:text-lg custom1xl:!text-lg md:text-left text-slate-700 dark:text-slate-300"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
@@ -181,8 +193,8 @@ export default function Home() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="m-auto z-30"
         >
-          <nav className="flex flex-col items-center mb-10">
-            <ul className="space-y-6 text-center font-space_grotesk tracking-tighter relative">
+          <nav className="flex flex-col items-center mt-6 md:mb-10">
+            <ul className="space-y-3 md:space-y-6 text-center font-space_grotesk tracking-tighter relative">
               {navLinks.map((link, index) => (
                 <motion.li
                   key={index}
@@ -193,7 +205,7 @@ export default function Home() {
                   <div className="relative group">
                     <Link
                       href={link.href}
-                      className="text-4xl md:text-5xl lg:text-[5rem] !leading-[0.8] font-black !cursor-pointer"
+                      className="text-4xl xxs:text-5xl md:text-5xl lg:text-[5rem] 2xl:text-[7rem] custom1xl:!text-[6rem] !leading-[0.8] font-black !cursor-pointer"
                       onMouseEnter={() => setHoveredNav(link.name)}
                       onMouseLeave={() => setHoveredNav(null)}
                     >
@@ -281,8 +293,8 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <div className="mt-auto pt-8 pb-4 text-center w-full md:absolute md:bottom-6 lg:right-16 md:text-right md:w-auto font-manrope font-bold">
-        <p className="text-sm text-slate-600 dark:text-slate-400">
+      <div className="mt-auto pt-4 md:pt-8 pb-4 text-center w-full md:absolute md:bottom-6 lg:right-16 md:text-right md:w-auto font-manrope font-bold">
+        <p className="text-sm 2xl:text-lg custom1xl:!text-lg text-slate-600 dark:text-slate-400">
           Made with ❤️
         </p>
       </div>

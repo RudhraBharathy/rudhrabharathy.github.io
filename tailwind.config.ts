@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
   darkMode: ["class"],
@@ -12,6 +13,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        fluid: "clamp(1rem, 2.5vw, 1.5rem)",
+        "fluid-lg": "clamp(2.5rem, 5vw, 4.5rem)",
+        "fluid-xl": "clamp(3rem, 7vw, 6.5rem)",
+        "fluid-xs": "clamp(0.7rem, 1.5vw, 0.875rem)",
+      },
+      screens: {
+        'xxs': '390px',
+        'xs': '430px',
+        '1xl': '1440px',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -53,15 +65,15 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       dropShadow: {
-        '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
-        '4xl': [
-          '0 35px 35px rgba(0, 0, 0, 0.25)',
-          '0 45px 65px rgba(0, 0, 0, 0.15)'
-        ]
+        "3xl": "0 35px 35px rgba(0, 0, 0, 0.25)",
+        "4xl": [
+          "0 35px 35px rgba(0, 0, 0, 0.25)",
+          "0 45px 65px rgba(0, 0, 0, 0.15)",
+        ],
       },
       boxShadow: {
-        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
-      }
+        "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+      },
     },
   },
   plugins: [
@@ -77,6 +89,16 @@ const config: Config = {
       };
       addUtilities(newUtilities, ["responsive"]);
     },
+    plugin(function ({ addVariant }) {
+      addVariant(
+        'custom1xl',
+        '@media (min-width: 1440px) and (min-height: 900px)'
+      );
+      addVariant(
+        'custom2xlipad',
+        '@media (min-width: 1024px) and (min-height: 1200px)'
+      );
+    }),
   ],
 };
 export default config;
