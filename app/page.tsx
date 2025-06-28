@@ -14,9 +14,11 @@ import {
 } from "react-icons/fa6";
 import RollingText from "@/components/RollingText";
 
+type NavKey = "ABOUT" | "EXPERIENCE" | "PROJECTS" | "GALLERY" | "CONTACT";
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
-  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+  const [hoveredNav, setHoveredNav] = useState<NavKey | null>(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -60,15 +62,15 @@ export default function Home() {
     },
   ];
 
-  const navLinks = [
+  const navLinks: { name: NavKey; href: string }[] = [
     "ABOUT",
     "EXPERIENCE",
     "PROJECTS",
     "GALLERY",
     "CONTACT",
-  ].map((name) => ({ name, href: `/${name.toLowerCase()}` }));
+  ].map((name) => ({ name: name as NavKey, href: `/${name.toLowerCase()}` }));
 
-  const hoverContent = {
+  const hoverContent: Record<NavKey, { text: string; image: string }> = {
     ABOUT: {
       text: `😎\u00A0\u00A0${calculateMyAge} years old!`,
       image: "/images/home/about.jpg",
@@ -91,7 +93,7 @@ export default function Home() {
     },
   };
 
-  const hoverPositions = {
+  const hoverPositions: Record<NavKey, string> = {
     ABOUT: "left-[-50px] top-[-30px]",
     EXPERIENCE: "left-[-170px] top-[-60px]",
     PROJECTS: "left-[-180px] top-[-10px]",
@@ -99,7 +101,7 @@ export default function Home() {
     CONTACT: "left-[-120px] top-[-30px]",
   };
 
-  const hoverImagePositions = {
+  const hoverImagePositions: Record<NavKey, string> = {
     ABOUT: "right-[-80px] top-[-20px]",
     EXPERIENCE: "right-[-100px] top-[-80px]",
     PROJECTS: "right-[-90px] top-[-60px]",
@@ -151,7 +153,7 @@ export default function Home() {
 
             <div className="flex items-start md:items-end justify-evenly flex-col md:flex-row">
               <motion.h1
-                className="text-4xl xs:text-6xl lg:text-8xl 2xl:text-[9rem] custom1xl:!text-[8rem] font-normal mt-4 2xl:mt-6 mb-2 font-manrope"
+                className="text-4xl xs:text-6xl lg:text-8xl 1xl:text-[6.5rem] 2xl:text-[9rem] custom1xl:!text-[8rem] font-normal mt-4 2xl:mt-6 mb-2 font-manrope"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
@@ -212,9 +214,9 @@ export default function Home() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.95 }}
                           transition={{ duration: 0.3 }}
-                          className={`absolute ${hoverContent[name as keyof typeof hoverContent]} transform translate-y-1/2 mt-3 text-xs md:text-sm bg-slate-800 text-white dark:bg-white dark:text-slate-800 py-2 px-4 rounded-xl shadow-md whitespace-nowrap z-10`}
+                          className={`absolute ${hoverPositions[name]} transform translate-y-1/2 mt-3 text-xs md:text-sm bg-slate-800 text-white dark:bg-white dark:text-slate-800 py-2 px-4 rounded-xl shadow-md whitespace-nowrap z-10`}
                         >
-                          <p>{hoverContent[name as keyof typeof hoverContent]?.text}</p>
+                          <p>{hoverContent[name].text}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -226,7 +228,7 @@ export default function Home() {
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.95 }}
                           transition={{ duration: 0.4 }}
-                          className={`absolute ${hoverImagePositions[name as keyof typeof hoverImagePositions]} transform translate-y-1/2 mt-3 z-[-10]`}
+                          className={`absolute ${hoverImagePositions[name]} transform translate-y-1/2 mt-3 z-[-10]`}
                         >
                           <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
@@ -243,7 +245,7 @@ export default function Home() {
                               }`}
                             >
                               <Image
-                                src={hoverContent[name as keyof typeof hoverContent].image}
+                                src={hoverContent[name].image}
                                 alt="hover image"
                                 fill
                                 className="object-cover rounded-lg shadow-xl"
