@@ -18,68 +18,55 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   const calculateMyAge = new Date().getFullYear() - 2002;
 
-  if (!mounted) {
-    return <div className="min-h-screen"></div>;
-  }
+  if (!mounted) return <div className="min-h-screen" />;
+
+  const iconClasses =
+    "w-5 h-5 xs:w-6 xs:h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8";
 
   const socialLinks = [
     {
-      icon: (
-        <FaLinkedinIn className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
-      ),
+      icon: <FaLinkedinIn className={iconClasses} />,
       href: "https://linkedin.com/in/rudhrabharathy",
       label: "LinkedIn",
     },
     {
-      icon: (
-        <FaInstagram className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
-      ),
+      icon: <FaInstagram className={iconClasses} />,
       href: "https://www.instagram.com/ig_rudhrabharathy",
       label: "Instagram",
     },
     {
-      icon: (
-        <FaGithub className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
-      ),
+      icon: <FaGithub className={iconClasses} />,
       href: "https://github.com/RudhraBharathy",
       label: "GitHub",
     },
     {
-      icon: (
-        <FaXTwitter className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
-      ),
+      icon: <FaXTwitter className={iconClasses} />,
       href: "https://x.com/RudhraBharathy",
       label: "Twitter",
     },
     {
-      icon: (
-        <FaFacebookF className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
-      ),
+      icon: <FaFacebookF className={iconClasses} />,
       href: "https://www.facebook.com/bharathyganeshan/",
       label: "Facebook",
     },
     {
-      icon: (
-        <FaEnvelope className="w-6 h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8 " />
-      ),
+      icon: <FaEnvelope className={iconClasses} />,
       href: "mailto:bharathyganeshan@gmail.com",
       label: "Email",
     },
   ];
 
   const navLinks = [
-    { name: "ABOUT", href: "/about" },
-    { name: "EXPERIENCE", href: "/experience" },
-    { name: "PROJECTS", href: "/projects" },
-    { name: "GALLERY", href: "/gallery" },
-    { name: "CONTACT", href: "/contact" },
-  ];
+    "ABOUT",
+    "EXPERIENCE",
+    "PROJECTS",
+    "GALLERY",
+    "CONTACT",
+  ].map((name) => ({ name, href: `/${name.toLowerCase()}` }));
 
   const hoverContent = {
     ABOUT: {
@@ -121,18 +108,18 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center flex-col">
-      <div className="flex items-center justify-between flex-col w-fit xl:gap-24 1xl:gap-4 2xl:gap-60 xl:flex-row">
+    <div className="flex items-center xl:items-start flex-col">
+      <div className="flex items-center justify-between flex-col w-fit xl:flex-row">
         <motion.div
-          className="mt-3  lg:mt-5 2xl:mt-10 custom1xl:!mt-10 md:sticky md:top-24"
+          className="mt-2 lg:mt-5 2xl:mt-10 custom1xl:!mt-10 md:sticky md:top-24"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex flex-col items-start">
-            <div className="w-full flex flex-row items-center justify-start gap-6 2xl:gap-9 custom1xl:!gap-9">
+          <div className="flex flex-col items-start custom1xl:!w-[42rem]">
+            <div className="w-full flex flex-row items-center justify-start gap-6 md:gap-8 2xl:gap-9 custom1xl:!gap-9">
               <div
-                className="relative w-52 h-52 md:w-80 md:h-80 2xl:w-[22rem] 2xl:h-[22rem] custom1xl:!w-[22rem] custom1xl:!h-[22rem] rounded-3xl overflow-hidden select-none"
+                className="relative w-44 h-44 xs:w-52 xs:h-52 md:w-80 md:h-80 2xl:w-[22rem] 2xl:h-[22rem] custom1xl:!w-[22rem] custom1xl:!h-[22rem] rounded-3xl overflow-hidden select-none"
                 style={{ boxShadow: "-7px 7px 14px 2px rgba(0,0,0,0.3)" }}
               >
                 <Image
@@ -143,20 +130,20 @@ export default function Home() {
                   priority
                 />
               </div>
-              <div className="grid grid-cols-2 gap-10 lg:flex lg:flex-col lg:gap-4">
-                {socialLinks.map((link, index) => (
+              <div className="grid grid-cols-2 gap-6 xs:gap-10 md:flex md:flex-col md:gap-6">
+                {socialLinks.map(({ icon, href, label }, i) => (
                   <motion.a
-                    key={index}
-                    href={link.href}
+                    key={i}
+                    href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={link.label}
+                    aria-label={label}
                     className="text-black dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-300"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * index, duration: 0.3 }}
+                    transition={{ delay: 0.1 * i, duration: 0.3 }}
                   >
-                    {link.icon}
+                    {icon}
                   </motion.a>
                 ))}
               </div>
@@ -164,7 +151,7 @@ export default function Home() {
 
             <div className="flex items-start md:items-end justify-evenly flex-col md:flex-row">
               <motion.h1
-                className="text-5xl xs:text-6xl 2xl:text-[9rem] custom1xl:!text-[8rem] font-normal mt-4 2xl:mt-6 mb-2 font-manrope"
+                className="text-4xl xs:text-6xl lg:text-8xl 2xl:text-[9rem] custom1xl:!text-[8rem] font-normal mt-4 2xl:mt-6 mb-2 font-manrope"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
@@ -176,7 +163,7 @@ export default function Home() {
                 Bhararthy
               </motion.h1>
               <motion.p
-                className="w-[14rem] xs:py-4 md:pb-4 md:pl-8 text-sm 2xl:text-lg custom1xl:!text-lg md:text-left text-slate-700 dark:text-slate-300"
+                className="w-[14rem] py-1 xs:py-4 md:pb-4 md:pl-8 text-sm 2xl:text-lg custom1xl:!text-lg md:text-left text-slate-700 dark:text-slate-300"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
@@ -193,20 +180,20 @@ export default function Home() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="m-auto z-30"
         >
-          <nav className="flex flex-col items-center mt-6 md:mb-10">
+          <nav className="flex flex-col items-center my-4 md:my-6 md:mt-14 1xl:mb-24 1xl:ml-12 custom1xl:!mb-40">
             <ul className="space-y-3 md:space-y-6 text-center font-space_grotesk tracking-tighter relative">
-              {navLinks.map((link, index) => (
+              {navLinks.map(({ name, href }, index) => (
                 <motion.li
-                  key={index}
+                  key={name}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + 0.1 * index, duration: 0.3 }}
                 >
                   <div className="relative group">
                     <Link
-                      href={link.href}
+                      href={href}
                       className="text-4xl xxs:text-5xl md:text-5xl lg:text-[5rem] 2xl:text-[7rem] custom1xl:!text-[6rem] !leading-[0.8] font-black !cursor-pointer"
-                      onMouseEnter={() => setHoveredNav(link.name)}
+                      onMouseEnter={() => setHoveredNav(name)}
                       onMouseLeave={() => setHoveredNav(null)}
                     >
                       <RollingText
@@ -214,46 +201,32 @@ export default function Home() {
                         normalColor="text-black dark:text-white"
                         hoverColor="text-emerald-600 dark:text-emerald-400"
                       >
-                        {link.name}
+                        {name}
                       </RollingText>
                     </Link>
                     <AnimatePresence>
-                      {hoveredNav === link.name && (
+                      {hoveredNav === name && (
                         <motion.div
-                          key={link.name}
+                          key={name}
                           initial={{ opacity: 0, y: 10, scale: 0.95 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.95 }}
                           transition={{ duration: 0.3 }}
-                          className={`absolute ${
-                            hoverPositions[
-                              link.name as keyof typeof hoverPositions
-                            ]
-                          } transform translate-y-1/2 mt-3 text-xs md:text-sm bg-slate-800 text-white dark:bg-white dark:text-slate-800 py-2 px-4 rounded-xl shadow-md whitespace-nowrap z-10`}
+                          className={`absolute ${hoverContent[name as keyof typeof hoverContent]} transform translate-y-1/2 mt-3 text-xs md:text-sm bg-slate-800 text-white dark:bg-white dark:text-slate-800 py-2 px-4 rounded-xl shadow-md whitespace-nowrap z-10`}
                         >
-                          <p>
-                            {
-                              hoverContent[
-                                link.name as keyof typeof hoverContent
-                              ].text
-                            }
-                          </p>
+                          <p>{hoverContent[name as keyof typeof hoverContent]?.text}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
                     <AnimatePresence>
-                      {hoveredNav === link.name && (
+                      {hoveredNav === name && (
                         <motion.div
-                          key={link.name + "-image"}
+                          key={`${name}-image`}
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.95 }}
                           transition={{ duration: 0.4 }}
-                          className={`absolute ${
-                            hoverImagePositions[
-                              link.name as keyof typeof hoverImagePositions
-                            ]
-                          } transform translate-y-1/2 mt-3 z-[-10]`}
+                          className={`absolute ${hoverImagePositions[name as keyof typeof hoverImagePositions]} transform translate-y-1/2 mt-3 z-[-10]`}
                         >
                           <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
@@ -264,17 +237,13 @@ export default function Home() {
                           >
                             <div
                               className={`relative ${
-                                link.name === "GALLERY"
+                                name === "GALLERY"
                                   ? "w-[150px] h-[220px]"
                                   : "w-[150px] h-[100px]"
                               }`}
                             >
                               <Image
-                                src={
-                                  hoverContent[
-                                    link.name as keyof typeof hoverContent
-                                  ].image
-                                }
+                                src={hoverContent[name as keyof typeof hoverContent].image}
                                 alt="hover image"
                                 fill
                                 className="object-cover rounded-lg shadow-xl"
@@ -293,7 +262,7 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <div className="mt-auto pt-4 md:pt-8 pb-4 text-center w-full md:absolute md:bottom-6 lg:right-16 md:text-right md:w-auto font-manrope font-bold">
+      <div className="mt-auto text-center w-full md:absolute md:bottom-6 xl:right-16 xl:text-right md:w-auto font-manrope font-bold">
         <p className="text-sm 2xl:text-lg custom1xl:!text-lg text-slate-600 dark:text-slate-400">
           Made with ❤️
         </p>
