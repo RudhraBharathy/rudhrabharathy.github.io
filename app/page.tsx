@@ -13,6 +13,7 @@ import {
   FaEnvelope,
 } from "react-icons/fa6";
 import RollingText from "@/components/RollingText";
+import LoadingScreen from "@/components/LoadingScreen";
 
 type NavKey = "ABOUT" | "EXPERIENCE" | "PROJECTS" | "GALLERY" | "CONTACT";
 
@@ -20,11 +21,11 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<NavKey | null>(null);
 
-  useEffect(() => setMounted(true), []);
+  if (!mounted) {
+    return <LoadingScreen onFinish={() => setMounted(true)} />;
+  }
 
   const calculateMyAge = new Date().getFullYear() - 2002;
-
-  if (!mounted) return <div className="min-h-screen" />;
 
   const iconClasses =
     "w-5 h-5 xs:w-6 xs:h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8";

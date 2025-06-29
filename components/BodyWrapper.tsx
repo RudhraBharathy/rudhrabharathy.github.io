@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useMobile } from "@/hooks/use-mobile";
 
 interface BodyWrapperProps {
   children: React.ReactNode;
@@ -11,12 +12,13 @@ interface BodyWrapperProps {
 export default function BodyWrapper({ children, className }: BodyWrapperProps) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isMobile = useMobile();
 
   return (
     <body
       className={cn(
         className,
-        isHomePage && "overflow-y-hidden"
+        isHomePage && !isMobile && "overflow-y-hidden"
       )}
     >
       {children}
