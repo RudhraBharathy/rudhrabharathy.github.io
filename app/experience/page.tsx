@@ -11,8 +11,11 @@ const ExperiencePage: React.FC = () => {
       company: "GetBeamer Pvt. Ltd. x Userflow",
       role: "Technical Solutions Engineer",
       duration: "August 2024 - Present",
-      description:
-        "Working with enterprise clients to implement and customize the GetBeamer notification system. Providing technical support and ensuring smooth integration with various platforms.",
+      description: [
+        "Investigate real-world issues in customer environments, including DOM conflicts, dynamic selectors, and flow behavior in SPAs.",
+        "Build and maintain core Userflow UI components and in-app experiences using modern JavaScript frameworks.",
+        "Collaborate across teams to translate customer feedback into feature improvements, custom solutions, and dev tools.",
+      ],
       techStack: [
         "HTML",
         "CSS",
@@ -29,8 +32,11 @@ const ExperiencePage: React.FC = () => {
       company: "Freelancing",
       role: "Frontend Web Development",
       duration: "August 2022 - July 2024",
-      description:
-        "Designing and developing responsive, user-friendly websites and web applications for various clients across different industries. Focus on performance optimization and accessibility.",
+      description: [
+        "Designed and developed responsive, user-friendly websites and static landing pages with a strong focus on performance optimization, accessibility, and best practices to enhance efficiency and load times.",
+        "Collaborated closely with clients to understand project goals and deliver customized front-end solutions tailored to their needs.",
+        "Consistently received positive feedback for high-quality development, timely delivery, and effective communication and collaboration.",
+      ],
       techStack: [
         "HTML",
         "CSS",
@@ -45,8 +51,11 @@ const ExperiencePage: React.FC = () => {
       company: "ToSpace Pvt. Ltd.",
       role: "Frontend Web Developer (Internship)",
       duration: "December 2021 - May 2022",
-      description:
-        "Contributed to the development of the company's main product, a space management platform for businesses and educational institutions.",
+      description: [
+        "Designed, developed, and maintained responsive, user-friendly websites and static landing pages, including successful deployment of official websites.",
+        "Focused on best practices, performance optimization (Lazy Load), and accessibility to improve load times and user experience.",
+        "Enhanced interactivity and visual appeal using libraries like Animate On Scroll, while ensuring smooth performance through techniques like Lazy Loading for media assets.",
+      ],
       techStack: ["HTML", "CSS", "JavaScript", "Git", "Github", "PHP"],
     },
   ];
@@ -106,9 +115,13 @@ const ExperiencePage: React.FC = () => {
           </div>
         </div>
 
-        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-          {exp.description}
-        </p>
+        <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+          <ul className="list-disc ml-5">
+            {exp.description.map((desp, i) => (
+              <li key={i}>{desp}</li>
+            ))}
+          </ul>
+        </div>
 
         <div className="pt-2">
           <div className="flex flex-wrap gap-2">
@@ -127,14 +140,14 @@ const ExperiencePage: React.FC = () => {
   }));
 
   return (
-    <div className="font-manrope px-4 sm:px-6 lg:px-12">
+    <div className="font-manrope sm:px-6 lg:px-12">
       <div className="mb-4 lg:pb-12 text-center">
         <h1 className="text-6xl 2xxs:text-8xl md:text-9xl lg:text-[10rem] xl:text-[14rem] 1xl:text-[15rem] font-light leading-none mb-8 1xl:mb-12 mt-4">
           Experience
         </h1>
       </div>
 
-      <div className="flex flex-col lg:flex-row items-start justify-center lg:gap-16 mb-12 1xl:mb-10 w-full max-w-screen-xl mx-auto">
+      <div className="flex flex-col lg:flex-row items-start justify-center lg:gap-16 mb-12 1xl:mb-10 w-full max-w-[100rem] mx-auto px-4">
         <div className="w-full lg:w-1/3 1xl:space-y-6">
           <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-black dark:text-white font-light tracking-tight leading-tight">
             Steps in <br />

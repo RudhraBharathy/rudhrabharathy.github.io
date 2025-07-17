@@ -25,6 +25,7 @@ const config: Config = {
         '2xs': '530px',
         '2xxs': '600px',
         '1xl': '1440px',
+        '2xl': '1535px'
       },
       colors: {
         border: "hsl(var(--border))",

@@ -7,13 +7,14 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <section className="max-w-[110rem] mx-auto px-4">
-      <div className="relative min-h-[680px] mb-32 xxs:mb-28 xs:mb-24 2xs:mb-8 sm:mb-28 md:mb-12 lg:mb-16 xl:mb-24">
+    <section className="max-w-[110rem] mx-auto 1xl:mx-16 px-4">
+      <div className="relative min-h-[680px] mb-32 xxs:mb-28 xs:mb-24 2xs:mb-8 sm:mb-28 md:mb-12 lg:mb-16 xl:mb-24 2xl:mb-32">
         <h1 className="text-[5rem] sm:text-[9rem] md:text-[12rem] lg:text-[16rem] xl:text-[20rem] font-manrope font-light leading-none text-center">
           About
         </h1>
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 sm:-translate-y-[15rem] md:-translate-y-[13rem] lg:-translate-y-[11rem] xl:-translate-y-36 z-[-1] bg-gray-200 dark:bg-gray-800 p-6 rounded-lg w-full max-w-7xl pt-20 md:pt-24 lg:pt-32 xl:pt-40">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 sm:-translate-y-[15rem] md:-translate-y-[13rem] lg:-translate-y-[11rem] xl:-translate-y-36 z-[-1] bg-gray-200 
+                      dark:bg-gray-800 p-6 rounded-lg w-full max-w-7xl pt-20 md:pt-24 lg:pt-32 xl:pt-40">
           <div className="2xl:mb-6 px-2 sm:px-0 font-manrope relative bottom-9">
             <div className="flex justify-around items-start sm:items-center gap-4">
               <div>
