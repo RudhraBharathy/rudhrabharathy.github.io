@@ -114,7 +114,7 @@ export default function Home() {
     <div className="flex items-center xl:items-stretch flex-col w-full">
       <div className="flex items-center justify-between flex-col xl:flex-row">
         <motion.div
-          className="mt-2 lg:mt-5 2xl:mt-10 custom1xl:!mt-10 md:sticky md:top-24"
+          className="mt-4 lg:mt-5 2xl:mt-10 custom1xl:!mt-10 md:sticky md:top-24"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -181,7 +181,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="m-auto z-30"
+          className="m-auto z-30 mt-4"
         >
           <nav className="flex flex-col items-center my-4 md:my-6 md:mt-14 xl:mb-32 xl:mr-32 custom1xl:!mb-40">
             <ul className="space-y-3 md:space-y-6 text-center font-space_grotesk tracking-tighter relative">

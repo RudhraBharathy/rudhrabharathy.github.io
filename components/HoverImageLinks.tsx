@@ -24,13 +24,11 @@ export const HoverImageLinks: React.FC<HoverImageLinksProps> = ({
   projects,
 }) => {
   return (
-    <section className="px-4 md:p-8">
-      <div className="mx-auto space-y-6">
-        {projects.map((project) => (
-          <ProjectItem key={project.id} project={project} />
-        ))}
-      </div>
-    </section>
+    <div className="mx-auto space-y-6">
+      {projects.map((project) => (
+        <ProjectItem key={project.id} project={project} />
+      ))}
+    </div>
   );
 };
 

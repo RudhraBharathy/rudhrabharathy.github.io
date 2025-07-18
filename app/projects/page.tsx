@@ -22,24 +22,6 @@ const projects = [
     externalLink: "https://atmcardvalidator.netlify.app/",
   },
   {
-    id: 3,
-    name: "ToDo",
-    year: "2024",
-    techStack: ["React", "JavaScript", "Node", "MongoDB", "CRUD"],
-    image: "/images/projects/ToDo.png",
-    githubLink: "https://github.com/RudhraBharathy/ToDo",
-    externalLink: "",
-  },
-  {
-    id: 4,
-    name: "Login & Register Form",
-    year: "2024",
-    techStack: ["React", "JavaScript", "Node", "MySQL"],
-    image: "/images/projects/login-register.png",
-    githubLink: "https://github.com/RudhraBharathy/Login-and-Register-Form",
-    externalLink: "",
-  },
-  {
     id: 5,
     name: "Collaborative Task Management",
     year: "2024",
@@ -54,34 +36,42 @@ const projects = [
 const ProjectsPage: React.FC = () => {
   return (
     <div className="font-manrope">
-      <div className="pb-12">
-        <h1 className="text-6xl md:text-8xl lg:text-[16rem] font-light leading-none text-center my-12">
-          Projects
-        </h1>
-      </div>
-      <div className="flex flex-col md:flex-row items-end justify-between w-full gap-16 mb-20">
-        <div className="flex items-start flex-col w-5/6">
-          <span className="text-lg md:text-7xl mb-6 text-black dark:text-white max-w-4xl font-light tracking-tight">
-            Things that
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-400 font-medium">
-              {" "}
-              I’ve Built
+      <h1 className="text-[5rem] sm:text-[9rem] md:text-[11rem] lg:text-[14rem] xl:text-[16rem] 1xl:text-[18rem] font-manrope font-light leading-none text-center my-4 xl:mb-12">
+        Projects
+      </h1>
+      <section className="px-4 md:p-8 my-4">
+        <div className="flex flex-col md:flex-row lg:items-end justify-between w-full gap-12 lg:gap-16 lg:mb-20">
+          <div className="flex items-center lg:items-start justify-center flex-col lg:w-5/6">
+            <span className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl mt-4 mb-6 text-black dark:text-white max-w-4xl font-light tracking-tight">
+              Things that
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-400 font-medium">
+                {" "}
+                I’ve Built
+              </span>
             </span>
-          </span>
-          <p className="text-black dark:text-white text-sm md:text-base max-w-lg leading-relaxed mt-10">
-            A collection of projects I’ve developed with love, logic, and a lot
-            of coffee. From tiny tools to complete apps — each build reflects a
-            story, a lesson, and a bit of obsession.
-          </p>
+            <p className="text-black dark:text-white text-sm md:text-base max-w-lg leading-relaxed md:mt-10">
+              A collection of projects I’ve developed with love, logic, and a
+              lot of coffee. From tiny tools to complete apps, each build
+              reflects a story, a lesson, and a bit of obsession.
+            </p>
+          </div>
         </div>
-        <Link
-          href="/experience"
-          className="flex items-center justify-end gap-1 underline-effect"
-        >
-          Experience +
-        </Link>
-      </div>
-      <HoverImageLinks projects={projects} />
+        <div className="flex justify-between mt-8">
+          <Link
+            href="/experience"
+            className="flex items-center justify-end gap-1 underline-effect"
+          >
+            Experience +
+          </Link>
+          <Link
+            href="/gallery"
+            className="flex items-center justify-end gap-1 underline-effect"
+          >
+            Gallery +
+          </Link>
+        </div>
+        <HoverImageLinks projects={projects} />
+      </section>
     </div>
   );
 };

@@ -70,13 +70,13 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="relative font-manrope">
+    <div className="relative font-manrope mx-2 2xl:mx-20">
       <div className="absolute inset-0 z-10 pointer-events-none">
         <ContactAnimation />
       </div>
 
       <div className="relative">
-        <h1 className="text-[8rem] md:text-[18rem] font-light leading-none text-center mb-4">
+        <h1 className="text-[5rem] sm:text-[9rem] md:text-[11rem] lg:text-[14rem] xl:text-[16rem] 1xl:text-[18rem] font-manrope font-light leading-none text-center my-4 xl:mb-12">
           Contact
         </h1>
 
@@ -89,7 +89,6 @@ export default function ContactPage() {
               onChange={(e) => setName(e.target.value)}
               name="name"
               id="nameInput"
-              className="text-4xl"
               required
             />
           </div>
@@ -102,12 +101,11 @@ export default function ContactPage() {
               onChange={(e) => setEmail(e.target.value)}
               name="email"
               id="emailInput"
-              className="text-4xl"
               required
             />
           </div>
 
-          <div className="mb-10">
+          <div className="mb-12">
             <Input
               type="text"
               placeholder="Enter your message"
@@ -115,7 +113,6 @@ export default function ContactPage() {
               onChange={(e) => setMessage(e.target.value)}
               name="message"
               id="messageInput"
-              className="text-4xl"
             />
           </div>
 
@@ -139,8 +136,8 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="pt-4 mb-8">
-          <h2 className="text-5xl font-medium pb-5 border-b border-gray-300 dark:border-gray-700">
+        <div className="xl:pt-4 mb-8">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium pb-5 border-b border-gray-300 dark:border-gray-700">
             Social Media
           </h2>
           <SocialLinks />
