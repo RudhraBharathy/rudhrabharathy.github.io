@@ -39,7 +39,7 @@ const ProjectsPage: React.FC = () => {
       <h1 className="text-[5rem] sm:text-[9rem] md:text-[11rem] lg:text-[14rem] xl:text-[16rem] 1xl:text-[18rem] font-manrope font-light leading-none text-center my-4 xl:mb-12">
         Projects
       </h1>
-      <section className="px-4 md:p-8 my-4">
+      <section className="px-4 1xl:px-20 md:p-8 my-4">
         <div className="flex flex-col md:flex-row lg:items-end justify-between w-full gap-12 lg:gap-16 lg:mb-20">
           <div className="flex items-center lg:items-start justify-center flex-col lg:w-5/6">
             <span className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl mt-4 mb-6 text-black dark:text-white max-w-4xl font-light tracking-tight">
@@ -56,7 +56,7 @@ const ProjectsPage: React.FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex justify-between mt-8">
+        <div className="flex justify-between my-8">
           <Link
             href="/experience"
             className="flex items-center justify-end gap-1 underline-effect"

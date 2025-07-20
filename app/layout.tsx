@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BodyWrapper from "@/components/BodyWrapper";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
@@ -67,6 +68,16 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Toaster
+            position="top-center"
+            expand={false}
+            closeButton
+            duration={3000}
+            toastOptions={{
+              className:
+                "!bg-black !text-white dark:!bg-white dark:!text-black",
+            }}
+          />
         </ThemeProvider>
       </BodyWrapper>
     </html>

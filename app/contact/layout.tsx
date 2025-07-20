@@ -1,6 +1,5 @@
 import React from "react";
 import type { Metadata } from "next";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Contact | Portfolio",
@@ -15,14 +14,6 @@ export default function ContactLayout({
   return (
     <React.Fragment>
       {children}
-      <Toaster
-        position="top-center"
-        expand={false}
-        closeButton
-        toastOptions={{
-          className: "!bg-black !text-white dark:!bg-white dark:!text-black",
-        }}
-      />
     </React.Fragment>
   );
 }

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   FaLinkedinIn,
   FaInstagram,
@@ -14,18 +14,16 @@ import {
 } from "react-icons/fa6";
 import RollingText from "@/components/RollingText";
 import LoadingScreen from "@/components/LoadingScreen";
+import { toast } from "sonner";
 
 type NavKey = "ABOUT" | "EXPERIENCE" | "PROJECTS" | "GALLERY" | "CONTACT";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
-  const [hoveredNav, setHoveredNav] = useState<NavKey | null>(null);
 
   // if (!mounted) {
   //   return <LoadingScreen onFinish={() => setMounted(true)} />;
   // }
-
-  const calculateMyAge = new Date().getFullYear() - 2002;
 
   const iconClasses =
     "w-5 h-5 xs:w-6 xs:h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8";
@@ -58,7 +56,7 @@ export default function Home() {
     },
     {
       icon: <FaEnvelope className={iconClasses} />,
-      href: "mailto:bharathyganeshan@gmail.com",
+      href: "bharathyganeshan@gmail.com",
       label: "Email",
     },
   ];
@@ -71,43 +69,14 @@ export default function Home() {
     "CONTACT",
   ].map((name) => ({ name: name as NavKey, href: `/${name.toLowerCase()}` }));
 
-  const hoverContent: Record<NavKey, { text: string; image: string }> = {
-    ABOUT: {
-      text: `😎\u00A0\u00A0${calculateMyAge} years old!`,
-      image: "/images/home/about.jpg",
-    },
-    EXPERIENCE: {
-      text: "💼\u00A0\u00A0Working @ Beamer x Userflow",
-      image: "/images/home/experience.jpg",
-    },
-    PROJECTS: {
-      text: "🛠️\u00A0\u00A0Crafting ideas into reality",
-      image: "/images/home/projects.jpg",
-    },
-    GALLERY: {
-      text: "📸\u00A0\u00A0Capturing moments",
-      image: "/images/home/gallery.jpg",
-    },
-    CONTACT: {
-      text: "✉️\u00A0\u00A0Reach me anytime",
-      image: "/images/home/contact.jpg",
-    },
-  };
-
-  const hoverPositions: Record<NavKey, string> = {
-    ABOUT: "left-[-50px] top-[-30px]",
-    EXPERIENCE: "left-[-170px] top-[-60px]",
-    PROJECTS: "left-[-180px] top-[-10px]",
-    GALLERY: "left-[-140px] top-[-20px]",
-    CONTACT: "left-[-120px] top-[-30px]",
-  };
-
-  const hoverImagePositions: Record<NavKey, string> = {
-    ABOUT: "right-[-80px] top-[-20px]",
-    EXPERIENCE: "right-[-100px] top-[-80px]",
-    PROJECTS: "right-[-90px] top-[-60px]",
-    GALLERY: "right-[-110px] top-[-90px]",
-    CONTACT: "right-[-110px] top-[-30px]",
+  const navigationLinks = (href: string) => {
+    if (href && !href.includes("@gmail.com")) {
+      window.open(href, "_blank");
+    } else {
+      navigator.clipboard.writeText(href).then(() => {
+        toast.message("Email copied! 🤍 Feel free to reach out!");
+      });
+    }
   };
 
   return (
@@ -133,11 +102,11 @@ export default function Home() {
                   priority
                 />
               </div>
-              <div className="grid grid-cols-2 gap-6 xs:gap-10 md:flex md:flex-col md:gap-6">
+              <div className="grid grid-cols-2 gap-6 xs:gap-10 md:flex md:flex-col md:gap-6 cursor-pointer">
                 {socialLinks.map(({ icon, href, label }, i) => (
                   <motion.a
                     key={i}
-                    href={href}
+                    onClick={() => navigationLinks(href)}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
@@ -196,8 +165,6 @@ export default function Home() {
                     <Link
                       href={href}
                       className="text-4xl xxs:text-5xl md:text-5xl lg:text-[5rem] 2xl:text-[7rem] custom1xl:!text-[6rem] !leading-[0.8] font-black !cursor-pointer"
-                      onMouseEnter={() => setHoveredNav(name)}
-                      onMouseLeave={() => setHoveredNav(null)}
                     >
                       <RollingText
                         staggerDelay={0.02}
@@ -207,56 +174,6 @@ export default function Home() {
                         {name}
                       </RollingText>
                     </Link>
-                    <AnimatePresence>
-                      {hoveredNav === name && (
-                        <motion.div
-                          key={name}
-                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                          transition={{ duration: 0.3 }}
-                          className={`absolute ${hoverPositions[name]} transform translate-y-1/2 mt-3 text-xs md:text-sm bg-slate-800 text-white dark:bg-white dark:text-slate-800 py-2 px-4 rounded-xl shadow-md whitespace-nowrap z-10`}
-                        >
-                          <p>{hoverContent[name].text}</p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                    <AnimatePresence>
-                      {hoveredNav === name && (
-                        <motion.div
-                          key={`${name}-image`}
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          transition={{ duration: 0.4 }}
-                          className={`absolute ${hoverImagePositions[name]} transform translate-y-1/2 mt-3 z-[-10]`}
-                        >
-                          <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            transition={{ duration: 0.4 }}
-                            className="relative"
-                          >
-                            <div
-                              className={`relative ${
-                                name === "GALLERY"
-                                  ? "w-[150px] h-[220px]"
-                                  : "w-[150px] h-[100px]"
-                              }`}
-                            >
-                              <Image
-                                src={hoverContent[name].image}
-                                alt="hover image"
-                                fill
-                                className="object-cover rounded-lg shadow-xl"
-                                loading="eager"
-                              />
-                            </div>
-                          </motion.div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </div>
                 </motion.li>
               ))}

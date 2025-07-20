@@ -13,8 +13,10 @@ export default function AboutPage() {
           About
         </h1>
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 sm:-translate-y-[15rem] md:-translate-y-[13rem] lg:-translate-y-[11rem] xl:-translate-y-36 z-[-1] bg-gray-200 
-                      dark:bg-gray-800 p-6 rounded-lg w-full max-w-7xl pt-20 md:pt-24 lg:pt-32 xl:pt-40">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 sm:-translate-y-[15rem] md:-translate-y-[13rem] lg:-translate-y-[11rem] xl:-translate-y-36 z-[-1] bg-gray-200 
+                      dark:bg-gray-800 p-6 rounded-lg w-full max-w-7xl pt-20 md:pt-24 lg:pt-32 xl:pt-40"
+        >
           <div className="2xl:mb-6 px-2 sm:px-0 font-manrope relative bottom-9">
             <div className="flex justify-around items-start sm:items-center gap-4">
               <div>
@@ -27,7 +29,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 xl:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 xl:gap-10 1xl:px-8">
             <div className="flex items-center justify-center">
               <div>
                 <h2 className="text-6xl md:text-8xl font-light mb-6 font-space_grotesk text-center md:text-left">
@@ -58,7 +60,7 @@ export default function AboutPage() {
             <div className="flex justify-center items-end">
               <div className="relative w-40 h-56 sm:w-48 sm:h-64 md:w-64 md:h-80">
                 <Image
-                  src="/placeholder.svg?height=320&width=256"
+                  src="/images/home/profile.png"
                   alt="Profile silhouette"
                   fill
                   className="object-contain"
@@ -71,8 +73,11 @@ export default function AboutPage() {
       </div>
 
       <div className="flex justify-between items-center mb-12 gap-4 sm:gap-0">
-        <Link href="/" className="flex items-center gap-2 underline-effect">
-          Home +
+        <Link
+          href="/experience"
+          className="flex items-center gap-2 underline-effect"
+        >
+          Experience +
         </Link>
         <Link
           href="/contact"

@@ -2,7 +2,6 @@
 
 import { useMotionValue, motion, useSpring, useTransform } from "framer-motion";
 import React, { useRef } from "react";
-import Image from "next/image";
 import { FaGithub } from "react-icons/fa6";
 import { GoLinkExternal } from "react-icons/go";
 
@@ -67,7 +66,7 @@ const ProjectItem: React.FC<{ project: Project }> = ({ project }) => {
       onMouseMove={handleMouseMove}
       initial="initial"
       whileHover="whileHover"
-      className="relative flex items-center justify-between border-b-2 border-neutral-300 dark:border-neutral-700 py-6 transition-colors duration-500 hover:border-black dark:hover:border-neutral-50"
+      className="relative flex items-center justify-between border-b-2 border-neutral-300 dark:border-neutral-700 py-6 transition-colors duration-500 hover:border-black dark:hover:border-neutral-50 cursor-pointer"
     >
       <div>
         <motion.h2
@@ -146,10 +145,9 @@ const ProjectItem: React.FC<{ project: Project }> = ({ project }) => {
         transition={{ type: "spring", mass: 0.5 }}
         className="absolute z-0 h-24 w-32 rounded-lg object-cover md:h-64 md:w-96 pointer-events-none shadow-lg"
       >
-        <Image
+        <img
           src={project.image}
           alt={`Image representing a link for ${project.name}`}
-          fill
           className="rounded-lg object-cover"
           sizes="(min-width: 768px) 16rem, 8rem"
         />
