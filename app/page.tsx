@@ -15,6 +15,7 @@ import {
 import RollingText from "@/components/RollingText";
 import LoadingScreen from "@/components/LoadingScreen";
 import { toast } from "sonner";
+import { writeText } from "@/utils/clipboard-helper";
 
 type NavKey = "ABOUT" | "EXPERIENCE" | "PROJECTS" | "GALLERY" | "CONTACT";
 
@@ -70,12 +71,27 @@ export default function Home() {
   ].map((name) => ({ name: name as NavKey, href: `/${name.toLowerCase()}` }));
 
   const navigationLinks = (href: string) => {
-    if (href && !href.includes("@gmail.com")) {
+    if (!href) return;
+
+    if (!href.includes("@gmail.com")) {
       window.open(href, "_blank");
     } else {
-      navigator.clipboard.writeText(href).then(() => {
-        toast.message("Email copied! 🤍 Feel free to reach out!");
-      });
+      const copyText = async () => {
+        try {
+          if (navigator?.clipboard?.writeText) {
+            await navigator.clipboard.writeText(href);
+          } else {
+            await writeText(href);
+          }
+
+          toast.message("Email copied! 🤍 Feel free to reach out!");
+        } catch (err) {
+          console.error("Clipboard copy failed:", err);
+          toast.error("Could not copy email. Please copy it in the Footer.");
+        }
+      };
+
+      copyText();
     }
   };
 

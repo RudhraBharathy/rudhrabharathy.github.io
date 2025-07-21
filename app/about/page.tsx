@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function AboutPage() {
   return (
     <section className="max-w-[110rem] mx-auto 1xl:mx-16 px-4">
-      <div className="relative min-h-[680px] mb-32 xxs:mb-28 xs:mb-24 2xs:mb-8 sm:mb-28 md:mb-12 lg:mb-16 xl:mb-24 2xl:mb-32">
+      <div className="relative min-h-[680px] mb-36 xxs:mb-28 xs:mb-24 2xs:mb-8 sm:mb-28 md:mb-12 lg:mb-16 xl:mb-24 2xl:mb-32">
         <h1 className="text-[5rem] sm:text-[9rem] md:text-[12rem] lg:text-[16rem] xl:text-[20rem] font-manrope font-light leading-none text-center">
           About
         </h1>
