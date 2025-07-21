@@ -4,20 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  FaLinkedinIn,
-  FaInstagram,
-  FaGithub,
-  FaXTwitter,
-  FaFacebookF,
-  FaEnvelope,
-} from "react-icons/fa6";
 import RollingText from "@/components/RollingText";
 import LoadingScreen from "@/components/LoadingScreen";
 import { toast } from "sonner";
 import { writeText } from "@/utils/clipboard-helper";
-
-type NavKey = "ABOUT" | "EXPERIENCE" | "PROJECTS" | "GALLERY" | "CONTACT";
+import { socialLinks, navLinks } from "@/data/home";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -25,50 +16,6 @@ export default function Home() {
   // if (!mounted) {
   //   return <LoadingScreen onFinish={() => setMounted(true)} />;
   // }
-
-  const iconClasses =
-    "w-5 h-5 xs:w-6 xs:h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8";
-
-  const socialLinks = [
-    {
-      icon: <FaLinkedinIn className={iconClasses} />,
-      href: "https://linkedin.com/in/rudhrabharathy",
-      label: "LinkedIn",
-    },
-    {
-      icon: <FaInstagram className={iconClasses} />,
-      href: "https://www.instagram.com/ig_rudhrabharathy",
-      label: "Instagram",
-    },
-    {
-      icon: <FaGithub className={iconClasses} />,
-      href: "https://github.com/RudhraBharathy",
-      label: "GitHub",
-    },
-    {
-      icon: <FaXTwitter className={iconClasses} />,
-      href: "https://x.com/RudhraBharathy",
-      label: "Twitter",
-    },
-    {
-      icon: <FaFacebookF className={iconClasses} />,
-      href: "https://www.facebook.com/bharathyganeshan/",
-      label: "Facebook",
-    },
-    {
-      icon: <FaEnvelope className={iconClasses} />,
-      href: "bharathyganeshan@gmail.com",
-      label: "Email",
-    },
-  ];
-
-  const navLinks: { name: NavKey; href: string }[] = [
-    "ABOUT",
-    "EXPERIENCE",
-    "PROJECTS",
-    "GALLERY",
-    "CONTACT",
-  ].map((name) => ({ name: name as NavKey, href: `/${name.toLowerCase()}` }));
 
   const navigationLinks = (href: string) => {
     if (!href) return;
@@ -198,7 +145,7 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <div className="mt-auto text-center w-full md:absolute md:bottom-6 xl:right-16 xl:text-right md:w-auto font-manrope font-bold">
+      <div className="mt-auto text-center w-full md:absolute md:bottom-8 xl:right-16 xl:text-right md:w-auto font-manrope font-bold">
         <p className="text-sm 2xl:text-lg custom1xl:!text-lg text-slate-600 dark:text-slate-400">
           Made with ❤️
         </p>

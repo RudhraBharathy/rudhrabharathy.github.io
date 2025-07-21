@@ -2,37 +2,46 @@
 
 import Link from "next/link";
 import SocialLinks from "@/components/social-links";
-import { useState } from "react";
 import Input from "@/components/ui/input";
 import AnimatedButton from "@/components/AnimatedButton";
 import ContactAnimation from "@/components/ContactAnimation";
 import { toast } from "sonner";
 import axios from "axios";
+import { useState, useMemo } from "react";
 
 export default function ContactPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
   const [formState, setFormState] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
 
   const webhookUrl = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL;
 
+  const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async () => {
+    const { name, email, message } = formData;
+
     if (!name.trim() && !email.trim()) {
       setFormState("error");
       toast.error("Please enter either your name or email!");
       return;
     }
 
-    if (email.trim()) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        setFormState("error");
-        toast.error("Please enter a valid email address!");
-        return;
-      }
+    if (email.trim() && !emailRegex.test(email)) {
+      setFormState("error");
+      toast.error("Please enter a valid email address!");
+      return;
     }
 
     if (!message.trim()) {
@@ -43,22 +52,16 @@ export default function ContactPage() {
 
     setFormState("submitting");
 
-    const submittedAt = new Date().toISOString();
-
     const submitPromise = axios.post(webhookUrl!, {
-      name,
-      email,
-      message,
-      submittedAt,
+      ...formData,
+      submittedAt: new Date().toISOString(),
     });
 
     toast.promise(submitPromise, {
       loading: "Sending your message...",
       success: () => {
         setFormState("success");
-        setName("");
-        setEmail("");
-        setMessage("");
+        setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setFormState("idle"), 3000);
         return "Your message has been sent successfully!";
       },
@@ -76,47 +79,49 @@ export default function ContactPage() {
       </div>
 
       <div className="relative">
-        <h1 className="text-[5rem] sm:text-[9rem] md:text-[11rem] lg:text-[14rem] xl:text-[16rem] 1xl:text-[18rem] font-manrope font-light leading-none text-center my-4 xl:mb-12">
+        <h1 className="text-[5rem] sm:text-[9rem] md:text-[11rem] lg:text-[14rem] xl:text-[16rem] 1xl:text-[18rem] font-light leading-none text-center my-4 xl:mb-12">
           Contact
         </h1>
 
-        <div>
-          <div className="mb-12">
-            <Input
-              type="text"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              name="name"
-              id="nameInput"
-              required
-            />
-          </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+          className="space-y-12"
+        >
+          <Input
+            type="text"
+            placeholder="Enter your name"
+            value={formData.name}
+            onChange={handleChange}
+            name="name"
+            id="nameInput"
+            required
+          />
 
-          <div className="mb-16">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              name="email"
-              id="emailInput"
-              required
-            />
-          </div>
+          <Input
+            type="email"
+            placeholder="Enter your email"
+            value={formData.email}
+            onChange={handleChange}
+            name="email"
+            id="emailInput"
+            required
+          />
 
-          <div className="mb-12">
-            <Input
-              type="text"
-              placeholder="Enter your message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              name="message"
-              id="messageInput"
-            />
-          </div>
+          <Input
+            type="text"
+            placeholder="Enter your message"
+            value={formData.message}
+            onChange={handleChange}
+            name="message"
+            id="messageInput"
+            required
+            className="!mt-12 lg:!mt-20"
+          />
 
-          <div className="flex justify-between items-center mb-12">
+          <div className="flex justify-between items-center !my-12">
             <AnimatedButton
               onClick={handleSubmit}
               className="flex items-center gap-2 border border-black dark:border-white rounded-full px-6 py-2"
@@ -134,7 +139,7 @@ export default function ContactPage() {
               Home +
             </Link>
           </div>
-        </div>
+        </form>
 
         <div className="xl:pt-4 mb-8">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium pb-5 border-b border-gray-300 dark:border-gray-700">

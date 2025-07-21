@@ -15,7 +15,7 @@ export default function AboutPage() {
 
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 sm:-translate-y-[15rem] md:-translate-y-[13rem] lg:-translate-y-[11rem] xl:-translate-y-36 z-[-1] bg-gray-200 
-                      dark:bg-gray-800 p-6 rounded-lg w-full max-w-7xl pt-20 md:pt-24 lg:pt-32 xl:pt-40"
+        dark:bg-gray-800 p-6 rounded-lg w-full max-w-7xl pt-20 md:pt-24 lg:pt-32 xl:pt-40"
         >
           <div className="2xl:mb-6 px-2 sm:px-0 font-manrope relative bottom-9">
             <div className="flex justify-around items-start sm:items-center gap-4">

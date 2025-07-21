@@ -1,12 +1,8 @@
 "use client";
 
 import InstagramPortfolio from "@/components/InstagramPortfolio";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { FaInstagram } from "react-icons/fa6";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const GalleryPage: React.FC = () => {
   return (
@@ -26,7 +22,7 @@ const GalleryPage: React.FC = () => {
             <FaInstagram className="text-xl sm:text-2xl my-6" />
             <span>_fhoto.holic_</span>
           </Link>
-          <p className="max-w-md">Light, shadow, silence — captured forever!</p>
+          <p className="max-w-md">Light, shadow, silence captured forever!</p>
         </div>
       </div>
 
