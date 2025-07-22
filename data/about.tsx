@@ -22,131 +22,123 @@ interface TechItem {
   category: "Frontend" | "Backend" | "DevTools";
 }
 
+const iconClass = "w-8 h-8";
+const imgClass = "w-8 h-8 object-contain";
+
+const createTechItem = (
+  icon: React.ReactNode,
+  name: string,
+  category: TechItem["category"]
+): TechItem => ({
+  icon,
+  name,
+  category,
+});
+
 export const technologies: TechItem[] = [
-  {
-    icon: <SiHtml5 className="w-8 h-8 text-[#e34c26]" />,
-    name: "HTML 5",
-    category: "Frontend",
-  },
-  {
-    icon: <SiCss3 className="w-8 h-8 text-[#264de4]" />,
-    name: "CSS 3",
-    category: "Frontend",
-  },
-  {
-    icon: <SiJavascript className="w-8 h-8 text-[#f0db4f]" />,
-    name: "JavaScript",
-    category: "Frontend",
-  },
-  {
-    icon: <SiTypescript className="w-8 h-8 text-[#3178c6]" />,
-    name: "TypeScript",
-    category: "Frontend",
-  },
-  {
-    icon: <SiReact className="w-8 h-8 text-[#61dafb]" />,
-    name: "React",
-    category: "Frontend",
-  },
-  {
-    icon: <SiNextdotjs className="w-8 h-8 text-black dark:text-white" />,
-    name: "Next.js",
-    category: "Frontend",
-  },
-  {
-    icon: <SiTailwindcss className="w-8 h-8 text-[#06b6d4]" />,
-    name: "Tailwind CSS",
-    category: "Frontend",
-  },
-  {
-    icon: <SiMui className="w-8 h-8 text-[#007fff]" />,
-    name: "MUI",
-    category: "Frontend",
-  },
-  {
-    icon: <SiShadcnui className="w-8 h-8 text-black dark:text-white" />,
-    name: "Shadcn/ui",
-    category: "Frontend",
-  },
-  {
-    icon: (
-      <img
-        src="/svg/zustand.svg"
-        alt="Zustand"
-        className="w-8 h-8 object-contain"
-      />
-    ),
-    name: "Zustand",
-    category: "Frontend",
-  },
-  {
-    icon: (
-      <img src="/svg/java.svg" alt="Java" className="w-8 h-8 object-contain" />
-    ),
-    name: "Java",
-    category: "Backend",
-  },
-  {
-    icon: (
-      <img
-        src="/svg/mysql.svg"
-        alt="MySQL"
-        className="w-8 h-8 object-contain"
-      />
-    ),
-    name: "MySQL",
-    category: "Backend",
-  },
-  {
-    icon: <SiNodedotjs className="w-8 h-8 text-[#3c873a]" />,
-    name: "Node.js",
-    category: "Backend",
-  },
-  {
-    icon: <SiMongodb className="w-8 h-8 text-[#47a248]" />,
-    name: "Mongo DB",
-    category: "Backend",
-  },
-  {
-    icon: <SiSupabase className="w-8 h-8 text-[#3ecf8e]" />,
-    name: "Supabase",
-    category: "Backend",
-  },
-  {
-    icon: <SiGit className="w-8 h-8 text-[#f1502f]" />,
-    name: "Git",
-    category: "DevTools",
-  },
-  {
-    icon: <SiGithub className="w-8 h-8 text-black dark:text-white" />,
-    name: "GitHub",
-    category: "DevTools",
-  },
-  {
-    icon: <SiDocker className="w-8 h-8 text-[#2496ed]" />,
-    name: "Docker",
-    category: "DevTools",
-  },
-  {
-    icon: (
-      <img
-        src="/svg/figma.svg"
-        alt="Figma"
-        className="w-8 h-8 object-contain"
-      />
-    ),
-    name: "Figma",
-    category: "DevTools",
-  },
-  {
-    icon: (
-      <img
-        src="/svg/linux.svg"
-        alt="Linux"
-        className="w-8 h-8 object-contain"
-      />
-    ),
-    name: "Linux",
-    category: "DevTools",
-  },
+  // Frontend
+  createTechItem(
+    <SiHtml5 className={iconClass} style={{ color: "#e34c26" }} />,
+    "HTML 5",
+    "Frontend"
+  ),
+  createTechItem(
+    <SiCss3 className={iconClass} style={{ color: "#264de4" }} />,
+    "CSS 3",
+    "Frontend"
+  ),
+  createTechItem(
+    <SiJavascript className={iconClass} style={{ color: "#f0db4f" }} />,
+    "JavaScript",
+    "Frontend"
+  ),
+  createTechItem(
+    <SiTypescript className={iconClass} style={{ color: "#3178c6" }} />,
+    "TypeScript",
+    "Frontend"
+  ),
+  createTechItem(
+    <SiReact className={iconClass} style={{ color: "#61dafb" }} />,
+    "React",
+    "Frontend"
+  ),
+  createTechItem(
+    <SiNextdotjs className={iconClass} style={{ color: "#000000" }} />,
+    "Next.js",
+    "Frontend"
+  ),
+  createTechItem(
+    <SiTailwindcss className={iconClass} style={{ color: "#06b6d4" }} />,
+    "Tailwind CSS",
+    "Frontend"
+  ),
+  createTechItem(
+    <SiMui className={iconClass} style={{ color: "#007fff" }} />,
+    "MUI",
+    "Frontend"
+  ),
+  createTechItem(
+    <SiShadcnui className={iconClass} style={{ color: "#000000" }} />,
+    "Shadcn/ui",
+    "Frontend"
+  ),
+  createTechItem(
+    <img src="/svg/zustand.svg" alt="Zustand" className={imgClass} />,
+    "Zustand",
+    "Frontend"
+  ),
+
+  // Backend
+  createTechItem(
+    <img src="/svg/java.svg" alt="Java" className={imgClass} />,
+    "Java",
+    "Backend"
+  ),
+  createTechItem(
+    <img src="/svg/mysql.svg" alt="MySQL" className={imgClass} />,
+    "MySQL",
+    "Backend"
+  ),
+  createTechItem(
+    <SiNodedotjs className={iconClass} style={{ color: "#3c873a" }} />,
+    "Node.js",
+    "Backend"
+  ),
+  createTechItem(
+    <SiMongodb className={iconClass} style={{ color: "#47a248" }} />,
+    "Mongo DB",
+    "Backend"
+  ),
+  createTechItem(
+    <SiSupabase className={iconClass} style={{ color: "#3ecf8e" }} />,
+    "Supabase",
+    "Backend"
+  ),
+
+  // DevTools
+  createTechItem(
+    <SiGit className={iconClass} style={{ color: "#f1502f" }} />,
+    "Git",
+    "DevTools"
+  ),
+  createTechItem(
+    <SiGithub className={iconClass} style={{ color: "#000000" }} />,
+    "GitHub",
+    "DevTools"
+  ),
+  createTechItem(
+    <SiDocker className={iconClass} style={{ color: "#2496ed" }} />,
+    "Docker",
+    "DevTools"
+  ),
+  createTechItem(
+    <img src="/svg/figma.svg" alt="Figma" className={imgClass} />,
+    "Figma",
+    "DevTools"
+  ),
+  createTechItem(
+    <img src="/svg/linux.svg" alt="Linux" className={imgClass} />,
+    "Linux",
+    "DevTools"
+  ),
 ];

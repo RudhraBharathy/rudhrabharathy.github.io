@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <section className="max-w-[110rem] mx-auto 1xl:mx-16 px-4">
+    <section className="mx-auto 1xl:mx-16 px-4">
       <div className="relative min-h-[680px] mb-36 xxs:mb-28 xs:mb-24 2xs:mb-8 sm:mb-28 md:mb-12 lg:mb-16 xl:mb-24 2xl:mb-32">
         <h1 className="text-[5rem] sm:text-[9rem] md:text-[12rem] lg:text-[16rem] xl:text-[20rem] font-manrope font-light leading-none text-center">
           About
@@ -29,7 +29,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 xl:gap-10 1xl:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center md:justify-items-end 1xl:px-16">
             <div className="flex items-center justify-center">
               <div>
                 <h2 className="text-6xl md:text-8xl font-light mb-6 font-space_grotesk text-center md:text-left">
@@ -57,16 +57,14 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="flex justify-center items-end">
-              <div className="relative w-40 h-56 sm:w-48 sm:h-64 md:w-64 md:h-80">
-                <Image
-                  src="/images/home/profile.png"
-                  alt="Profile silhouette"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
+            <div className="relative w-40 h-56 sm:w-48 sm:h-64 md:w-64 md:h-80">
+              <Image
+                src="/images/home/profile.png"
+                alt="Profile silhouette"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
           </div>
         </div>

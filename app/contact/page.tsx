@@ -98,6 +98,7 @@ export default function ContactPage() {
             name="name"
             id="nameInput"
             required
+            className="!mt-6"
           />
 
           <Input

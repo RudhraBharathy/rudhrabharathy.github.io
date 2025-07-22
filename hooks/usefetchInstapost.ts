@@ -1,5 +1,5 @@
-import { fetchInstagramPosts } from "@/lib/instagram";
 import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 
 interface InstagramPost {
   id: string;
@@ -10,6 +10,7 @@ interface InstagramPost {
   media_type: string;
   like_count?: number;
 }
+
 const getSamplePosts = (): InstagramPost[] => {
   return Array(9)
     .fill(null)
@@ -23,10 +24,11 @@ const getSamplePosts = (): InstagramPost[] => {
     }));
 };
 
-const config = {
-  username: process.env.INSTAGRAM_USERNAME,
-  accessToken: process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN,
-};
+// Use public env vars set in your .env.local or Vercel
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export default function useFetchInstapost() {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
@@ -34,27 +36,46 @@ export default function useFetchInstapost() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchInstagramPostsdata = async () => {
+    const fetchInstagramPostsData = async () => {
       try {
         setLoading(true);
-  
+
         const cached = sessionStorage.getItem("instagram_posts");
         if (cached) {
           const parsed = JSON.parse(cached);
           setPosts(parsed);
           return;
         }
-  
-        if (!config.accessToken) {
-          throw new Error("AccessToken is undefined");
+
+        // Step 1: Fetch latest token from Supabase
+        const { data, error: tokenError } = await supabase
+          .from("instagram_token")
+          .select("access_token")
+          .order("updated_at", { ascending: false })
+          .limit(1)
+          .single();
+
+        if (tokenError || !data)
+          throw new Error("Failed to get token from Supabase");
+
+        const accessToken = data.access_token;
+
+        // Step 2: Call Instagram API using the token
+        const response = await fetch(
+          `https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink,media_type,timestamp&access_token=${accessToken}`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch Instagram media");
         }
-  
-        const data = await fetchInstagramPosts(config.accessToken);
-        const imageOnly = data.data.filter(
-          (post: { media_type: string }) =>
+
+        const result = await response.json();
+
+        const imageOnly = result.data.filter(
+          (post: InstagramPost) =>
             post.media_type === "IMAGE" || post.media_type === "CAROUSEL_ALBUM"
         );
-  
+
         setPosts(imageOnly);
         sessionStorage.setItem("instagram_posts", JSON.stringify(imageOnly));
       } catch (err: any) {
@@ -67,10 +88,9 @@ export default function useFetchInstapost() {
         setLoading(false);
       }
     };
-  
-    fetchInstagramPostsdata();
+
+    fetchInstagramPostsData();
   }, []);
-  
 
   return { posts, loading, error };
 }

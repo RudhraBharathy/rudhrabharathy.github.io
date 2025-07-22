@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BodyWrapper from "@/components/BodyWrapper";
+import ScrollToTop from "@/components/ScrollToTop";
 import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -51,6 +52,7 @@ export default function RootLayout({
       <BodyWrapper
         className={`${inter.variable} ${manrope.variable} ${space_grotesk.variable} flex flex-col min-h-screen bg-gradient-to-br from-white via-gray-100 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950`}
       >
+        <ScrollToTop />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
