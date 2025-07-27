@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { z } from "zod";
 
 interface InstagramPost {
   id: string;
@@ -24,11 +25,24 @@ const getSamplePosts = (): InstagramPost[] => {
     }));
 };
 
-// Use public env vars set in your .env.local or Vercel
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const InstagramPostSchema = z.object({
+  id: z.string(),
+  media_url: z.string().url(),
+  permalink: z.string().url(),
+  caption: z.string().optional(),
+  timestamp: z.string(),
+  media_type: z.enum(["IMAGE", "VIDEO", "CAROUSEL_ALBUM"]),
+  like_count: z.number().optional(),
+});
+
+const InstagramResponseSchema = z.object({
+  data: z.array(InstagramPostSchema),
+});
 
 export default function useFetchInstapost() {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
@@ -70,8 +84,9 @@ export default function useFetchInstapost() {
         }
 
         const result = await response.json();
+        const validatedResult = InstagramResponseSchema.parse(result);
 
-        const imageOnly = result.data.filter(
+        const imageOnly = validatedResult.data.filter(
           (post: InstagramPost) =>
             post.media_type === "IMAGE" || post.media_type === "CAROUSEL_ALBUM"
         );

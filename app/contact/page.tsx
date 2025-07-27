@@ -8,6 +8,19 @@ import ContactAnimation from "@/components/ContactAnimation";
 import { toast } from "sonner";
 import axios from "axios";
 import { useState, useMemo } from "react";
+import { z } from "zod";
+
+const ContactFormSchema = z.object({
+  name: z.string().min(1, "Oops! Forgot to tell me your name? 😅"),
+  email: z
+    .string()
+    .optional()
+    .refine((val) => !val || val.length > 0, { message: "Enter your email" })
+    .refine((val) => !val || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
+      message: "Hmm... that doesn’t look like a real email 🧐",
+    }),
+  message: z.string().min(1, "Tell me something cool! I'm all ears 🎧"),
+});
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -30,23 +43,10 @@ export default function ContactPage() {
   };
 
   const handleSubmit = async () => {
-    const { name, email, message } = formData;
-
-    if (!name.trim() && !email.trim()) {
-      setFormState("error");
-      toast.error("Please enter either your name or email!");
-      return;
-    }
-
-    if (email.trim() && !emailRegex.test(email)) {
-      setFormState("error");
-      toast.error("Please enter a valid email address!");
-      return;
-    }
-
-    if (!message.trim()) {
-      setFormState("error");
-      toast.error("Please enter your message!");
+    const validationResult = ContactFormSchema.safeParse(formData);
+    if (!validationResult.success) {
+      const errors = validationResult.error.errors;
+      toast.error(errors[0].message);
       return;
     }
 
