@@ -9,6 +9,9 @@ const nextConfig = {
   ...(process.env.NODE_DEPLOY_ENV === "prod" && {
     output: "export",
     distDir: "dist",
+    images: {
+      unoptimized: true,
+    },
   }),
   images: {
     remotePatterns: [

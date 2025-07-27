@@ -24,7 +24,7 @@ jobs:
       NODE_DEPLOY_ENV: ${{ vars.NODE_DEPLOY_ENV }}
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Detect package manager
@@ -47,22 +47,24 @@ jobs:
             exit 1
           fi
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
 
-      - name: Install pnpm (if needed)
+      - name: Setup pnpm
         if: steps.detect-package-manager.outputs.manager == 'pnpm'
-        run: npm install -g pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
           static_site_generator: next
 
-      - name: Restore cache
+      - name: Restore Next.js cache
         uses: actions/cache@v4
         with:
           path: .next/cache
@@ -76,10 +78,10 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
 
-      - name: Export static site
-        run: ${{ steps.detect-package-manager.outputs.runner }} next export
+      - name: Export static site to ./dist
+        run: ${{ steps.detect-package-manager.outputs.runner }} next export -o ./dist
 
-      - name: Upload artifact
+      - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
