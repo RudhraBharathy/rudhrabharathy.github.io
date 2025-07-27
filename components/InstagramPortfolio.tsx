@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import useFetchInstapost from "@/hooks/usefetchInstapost";
 
 export default function InstagramPortfolio() {
@@ -35,12 +35,7 @@ export default function InstagramPortfolio() {
   }, [isModalOpen, currentImageIndex]);
 
   useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-
+    document.body.style.overflow = isModalOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -51,31 +46,25 @@ export default function InstagramPortfolio() {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const closeModal = () => setIsModalOpen(false);
 
   const goToNext = () => {
     setDirection(1);
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === posts.length - 1 ? 0 : prevIndex + 1
-    );
+    setCurrentImageIndex((prev) => (prev === posts.length - 1 ? 0 : prev + 1));
   };
 
   const goToPrevious = () => {
     setDirection(-1);
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? posts.length - 1 : prevIndex - 1
-    );
+    setCurrentImageIndex((prev) => (prev === 0 ? posts.length - 1 : prev - 1));
   };
 
-  const backdropVariants = {
+  const backdropVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
     exit: { opacity: 0 },
   };
 
-  const modalVariants = {
+  const modalVariants: Variants = {
     hidden: {
       opacity: 0,
       scale: 0.8,
@@ -86,7 +75,7 @@ export default function InstagramPortfolio() {
       scale: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 25,
         stiffness: 300,
       },
@@ -112,7 +101,7 @@ export default function InstagramPortfolio() {
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 25,
         stiffness: 300,
       },
