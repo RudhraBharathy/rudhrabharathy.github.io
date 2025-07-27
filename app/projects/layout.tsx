@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Projects | Portfolio",
-  description: "My Projects!!",
+  description: "My Projects",
 };
 
 export default function ProjectsLayout({

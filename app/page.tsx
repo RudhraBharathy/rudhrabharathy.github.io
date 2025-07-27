@@ -8,7 +8,51 @@ import RollingText from "@/components/RollingText";
 import LoadingScreen from "@/components/LoadingScreen";
 import { toast } from "sonner";
 import { writeText } from "@/utils/clipboard-helper";
-import { socialLinks, navLinks } from "@/data/home";
+import { navLinks } from "@/data/home";
+import {
+  FaLinkedinIn,
+  FaInstagram,
+  FaGithub,
+  FaXTwitter,
+  FaFacebookF,
+  FaEnvelope,
+} from "react-icons/fa6";
+
+const iconClass =
+  "w-5 h-5 xs:w-6 xs:h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8";
+
+const socialLinks = [
+  {
+    icon: <FaLinkedinIn className={iconClass} />,
+    href: "https://linkedin.com/in/rudhrabharathy",
+    label: "LinkedIn",
+  },
+  {
+    icon: <FaInstagram className={iconClass} />,
+    href: "https://www.instagram.com/ig_rudhrabharathy",
+    label: "Instagram",
+  },
+  {
+    icon: <FaGithub className={iconClass} />,
+    href: "https://github.com/RudhraBharathy",
+    label: "GitHub",
+  },
+  {
+    icon: <FaXTwitter className={iconClass} />,
+    href: "https://x.com/RudhraBharathy",
+    label: "Twitter",
+  },
+  {
+    icon: <FaFacebookF className={iconClass} />,
+    href: "https://www.facebook.com/bharathyganeshan/",
+    label: "Facebook",
+  },
+  {
+    icon: <FaEnvelope className={iconClass} />,
+    href: "bharathyganeshan@gmail.com",
+    label: "Email",
+  },
+];
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -58,7 +102,7 @@ export default function Home() {
                 style={{ boxShadow: "-7px 7px 14px 2px rgba(0,0,0,0.3)" }}
               >
                 <Image
-                  src="/images/home/profile.png"
+                  src="/images/home/profile.jpg"
                   alt="Profile"
                   fill
                   className="object-cover"

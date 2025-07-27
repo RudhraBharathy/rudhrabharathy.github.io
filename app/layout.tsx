@@ -1,6 +1,5 @@
 import type React from "react";
 import "./styles/globals.css";
-import type { Metadata } from "next";
 import { Inter, Manrope, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
@@ -9,6 +8,9 @@ import Footer from "@/components/Footer";
 import BodyWrapper from "@/components/BodyWrapper";
 import ScrollToTop from "@/components/ScrollToTop";
 import { Toaster } from "sonner";
+import { metadata as siteMetadata } from "@/lib/metadata";
+
+export const metadata = siteMetadata;
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
@@ -16,11 +18,6 @@ const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space_grotesk",
 });
-
-export const metadata: Metadata = {
-  title: "Rudhra Bhararthy - Portfolio",
-  description: "Web Design, UX/UI, Webflow, and Front End Development",
-};
 
 export default function RootLayout({
   children,

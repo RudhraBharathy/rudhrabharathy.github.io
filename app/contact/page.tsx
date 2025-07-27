@@ -1,14 +1,15 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import Link from "next/link";
+import axios from "axios";
+import { z } from "zod";
+import { toast } from "sonner";
+
 import SocialLinks from "@/components/social-links";
 import Input from "@/components/ui/input";
 import AnimatedButton from "@/components/AnimatedButton";
 import ContactAnimation from "@/components/ContactAnimation";
-import { toast } from "sonner";
-import axios from "axios";
-import { useState, useMemo } from "react";
-import { z } from "zod";
 
 const ContactFormSchema = z.object({
   name: z.string().min(1, "Oops! Forgot to tell me your name? 😅"),
@@ -22,6 +23,8 @@ const ContactFormSchema = z.object({
   message: z.string().min(1, "Tell me something cool! I'm all ears 🎧"),
 });
 
+type FormState = "idle" | "submitting" | "success" | "error";
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -29,47 +32,42 @@ export default function ContactPage() {
     message: "",
   });
 
-  const [formState, setFormState] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
+  const [formState, setFormState] = useState<FormState>("idle");
 
-  const webhookUrl = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL;
-
-  const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  }, []);
 
   const handleSubmit = async () => {
-    const validationResult = ContactFormSchema.safeParse(formData);
-    if (!validationResult.success) {
-      const errors = validationResult.error.errors;
-      toast.error(errors[0].message);
+    const validation = ContactFormSchema.safeParse(formData);
+    if (!validation.success) {
+      toast.error(validation.error.errors[0].message);
       return;
     }
 
     setFormState("submitting");
 
-    const submitPromise = axios.post(webhookUrl!, {
-      ...formData,
-      submittedAt: new Date().toISOString(),
-    });
+    try {
+      await toast.promise(
+        axios.post(process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL || "", {
+          ...formData,
+          submittedAt: new Date().toISOString(),
+        }),
+        {
+          loading: "Sending your message...",
+          success: "Your message has been sent successfully!",
+          error: "Something went wrong. Please try again.",
+        }
+      );
 
-    toast.promise(submitPromise, {
-      loading: "Sending your message...",
-      success: () => {
-        setFormState("success");
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setFormState("idle"), 3000);
-        return "Your message has been sent successfully!";
-      },
-      error: () => {
-        setFormState("error");
-        return "Something went wrong. Please try again.";
-      },
-    });
+      setFormState("success");
+      setFormData({ name: "", email: "", message: "" });
+    } catch {
+      setFormState("error");
+    } finally {
+      setTimeout(() => setFormState("idle"), 3000);
+    }
   };
 
   return (
@@ -125,7 +123,7 @@ export default function ContactPage() {
           <div className="flex justify-between items-center !my-12">
             <AnimatedButton
               onClick={handleSubmit}
-              className="flex items-center gap-2 border border-black dark:border-white rounded-full px-6 py-2"
+              className="flex items-center gap-2 border border-black dark:border-white rounded-full px-6 py-2 cursor-pointer"
               value={
                 formState === "submitting"
                   ? "Sending..."

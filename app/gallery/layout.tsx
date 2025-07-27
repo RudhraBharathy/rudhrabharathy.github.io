@@ -2,8 +2,8 @@ import type React from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Gallery | Portfolio",
-  description: "My Gallery!!",
+  title: "Gallery | Rudhra Bharathy",
+  description: "My Gallery",
 };
 
 export default function GalleryLayout({

@@ -6,10 +6,13 @@ import { useGSAP } from "@gsap/react";
 
 export default function ContactAnimation() {
   const svgRef = useRef<SVGSVGElement>(null);
+  const animationInitialized = useRef(false);
 
   useGSAP(
     () => {
-      if (!svgRef.current) return;
+      if (!svgRef.current || animationInitialized.current) return;
+
+      animationInitialized.current = true;
 
       const tl = gsap.timeline({
         repeat: 0,

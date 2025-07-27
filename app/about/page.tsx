@@ -1,45 +1,52 @@
 "use client";
 
-import Image from "next/image";
 import TechStack from "@/components/tech-stack";
 import { DotPattern } from "@/components/ui/DotPattern";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <section className="mx-auto 1xl:mx-16 px-4">
-      <div className="relative min-h-[680px] mb-36 xxs:mb-28 xs:mb-24 2xs:mb-8 sm:mb-28 md:mb-12 lg:mb-16 xl:mb-24 2xl:mb-32">
-        <h1 className="text-[5rem] sm:text-[9rem] md:text-[12rem] lg:text-[16rem] xl:text-[20rem] font-manrope font-light leading-none text-center">
-          About
-        </h1>
+    <section className="mx-auto 1xl:mx-16 px-2 font-manrope">
+      <div className="relative">
+        <div className="relative flex items-center justify-center">
+          <h1 className="text-[5rem] sm:text-[9rem] md:text-[12rem] lg:text-[16rem] xl:text-[20rem] font-light leading-none text-center my-2 1xl:my-4 xl:mb-12">
+            About
+          </h1>
+        </div>
 
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 sm:-translate-y-[15rem] md:-translate-y-[13rem] lg:-translate-y-[11rem] xl:-translate-y-36 z-[-1] bg-gray-200 
-        dark:bg-gray-800 p-6 rounded-lg w-full max-w-7xl pt-20 md:pt-24 lg:pt-32 xl:pt-40"
-        >
-          <div className="2xl:mb-6 px-2 sm:px-0 font-manrope relative bottom-9">
-            <div className="flex justify-around items-start sm:items-center gap-4">
+        <div className="flex items-center justify-center">
+          <div className="relative flex items-center justify-center flex-col bg-gray-200 dark:bg-gray-800 px-4 md:px-10 pt-6 md:pt-10 md:pb-10 rounded-lg max-w-7xl w-full overflow-hidden">
+            <DotPattern
+              width={20}
+              height={20}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 [mask-image:radial-gradient(300px_circle_at_center,white,transparent)] pointer-events-none z-[1]"
+            />
+
+            <div className="flex justify-around gap-4 2xl:mb-6 w-full">
               <div>
                 <p className="uppercase text-xs sm:text-sm font-medium mb-1">
                   CURRENTLY SOLVING PROBLEMS
                 </p>
-                <p className="text-xs sm:text-sm">@ Beamer x Userflow</p>
+                <p className="text-xs sm:text-sm 2xl:text-base">
+                  @ Beamer x Userflow
+                </p>
               </div>
-              <p className="text-xs sm:text-sm">(2024 – Present)</p>
+              <p className="text-xs sm:text-sm 2xl:text-base">
+                (2024 – Present)
+              </p>
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center md:justify-items-end 1xl:px-16">
-            <div className="flex items-center justify-center">
-              <div>
-                <h2 className="text-6xl md:text-8xl font-light mb-6 font-space_grotesk text-center md:text-left">
+            <div className="grid grid-cols-1 md:grid-cols-2 w-full 1xl:px-12">
+              <div className="flex flex-col justify-center text-center md:text-left">
+                <h2 className="text-7xl md:text-8xl font-light my-6 font-space_grotesk">
                   Hey!
                 </h2>
-                <div className="space-y-4 text-sm sm:text-base leading-relaxed font-manrope text-center md:text-left">
+                <div className="space-y-4 text-sm sm:text-base 2xl:text-lg leading-relaxed">
                   <p>
                     I'm passionate about creating things that are useful,
                     beautiful, and make a difference. I enjoy working on
-                    projects that challenge me to learn and grow, whether it's
+                    projects that challenge me to learn and grow whether it’s
                     designing, building, or problem-solving.
                   </p>
                   <p>
@@ -49,28 +56,23 @@ export default function AboutPage() {
                     what they do.
                   </p>
                 </div>
-                <DotPattern
-                  width={20}
-                  height={20}
-                  className="[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
+              </div>
+
+              <div className="relative bottom-[-1rem] md:bottom-[-4rem] lg:left-16 w-72 h-72 sm:w-96 sm:h-96 2xl:w-[30rem] 2xl:h-[30rem] rounded-3xl overflow-hidden select-none mx-auto z-10">
+                <Image
+                  src="/images/home/picofme.png"
+                  alt="Profile silhouette"
+                  fill
+                  className="object-contain"
+                  priority
                 />
               </div>
-            </div>
-
-            <div className="relative w-40 h-56 sm:w-48 sm:h-64 md:w-64 md:h-80">
-              <Image
-                src="/images/home/profile.png"
-                alt="Profile silhouette"
-                fill
-                className="object-contain"
-                priority
-              />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-between items-center mb-12 gap-4 sm:gap-0">
+      <div className="flex justify-between items-center my-8 md:my-12 gap-4 sm:gap-0">
         <Link
           href="/experience"
           className="flex items-center gap-2 underline-effect"
@@ -86,7 +88,7 @@ export default function AboutPage() {
       </div>
 
       <section>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-10">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold my-10">
           Tech Stack
         </h2>
         <TechStack />

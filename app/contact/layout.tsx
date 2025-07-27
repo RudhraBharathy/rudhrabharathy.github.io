@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact | Portfolio",
+  title: "Contact | Rudhra Bharathy",
   description: "Get in touch with me",
 };
 
