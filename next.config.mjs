@@ -6,7 +6,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  ...(process.env.NODE_ENV === "production" && {
+  ...(process.env.NODE_DEPLOY_ENV === "prod" && {
     output: "export",
     distDir: "dist",
   }),
