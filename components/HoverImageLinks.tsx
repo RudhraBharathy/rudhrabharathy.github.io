@@ -1,6 +1,7 @@
 "use client";
 
 import { useMotionValue, motion, useSpring, useTransform } from "framer-motion";
+import Image from "next/image";
 import React, { useRef } from "react";
 import { FaGithub } from "react-icons/fa6";
 import { GoLinkExternal } from "react-icons/go";
@@ -145,11 +146,14 @@ const ProjectItem: React.FC<{ project: Project }> = ({ project }) => {
         transition={{ type: "spring", mass: 0.5 }}
         className="absolute z-0 h-24 w-32 rounded-lg object-cover md:h-64 md:w-96 pointer-events-none shadow-lg"
       >
-        <img
+        <Image
           src={project.image}
           alt={`Image representing a link for ${project.name}`}
           className="rounded-lg object-cover"
           sizes="(min-width: 768px) 16rem, 8rem"
+          width={300}
+          height={100}
+          unoptimized
         />
       </motion.div>
     </motion.div>

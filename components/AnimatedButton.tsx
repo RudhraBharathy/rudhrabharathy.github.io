@@ -19,8 +19,6 @@ interface AnimatedButtonProps extends HTMLAttributes<HTMLDivElement> {
   magnetStrength?: number;
   activeTransition?: string;
   inactiveTransition?: string;
-  wrapperClassName?: string;
-  innerClassName?: string;
 }
 
 const AnimatedButton: React.FC<AnimatedButtonProps> = ({
@@ -32,9 +30,6 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   magnetStrength = 13,
   activeTransition = "transform 0.3s ease-out",
   inactiveTransition = "transform 0.5s ease-in-out",
-  wrapperClassName = "",
-  innerClassName = "",
-  ...props
 }) => {
   const buttonRef = useRef<HTMLDivElement>(null);
   const flairRef = useRef<HTMLSpanElement>(null);

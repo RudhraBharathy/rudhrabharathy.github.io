@@ -17,7 +17,7 @@ const ExperiencePage: React.FC = () => {
     const start = parseDate(startStr);
     const end = parseDate(endStr);
 
-    let months =
+    const months =
       (end.getFullYear() - start.getFullYear()) * 12 +
       (end.getMonth() - start.getMonth()) +
       1;

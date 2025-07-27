@@ -44,16 +44,16 @@ export default function AboutPage() {
                 </h2>
                 <div className="space-y-4 text-sm sm:text-base 2xl:text-lg leading-relaxed">
                   <p>
-                    I'm passionate about creating things that are useful,
+                    I&apos;m passionate about creating things that are useful,
                     beautiful, and make a difference. I enjoy working on
                     projects that challenge me to learn and grow whether it’s
                     designing, building, or problem-solving.
                   </p>
                   <p>
                     I focus on delivering quality work, paying attention to
-                    detail, and always looking for better ways to do things. I'm
-                    a quick learner, a good team player, and someone who loves
-                    what they do.
+                    detail, and always looking for better ways to do things.
+                    I&apos;m a quick learner, a good team player, and someone
+                    who loves what they do.
                   </p>
                 </div>
               </div>

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import RollingText from "@/components/RollingText";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -57,9 +57,20 @@ const socialLinks = [
 export default function Home() {
   const [mounted, setMounted] = useState(false);
 
-  // if (!mounted) {
-  //   return <LoadingScreen onFinish={() => setMounted(true)} />;
-  // }
+  useEffect(() => {
+    const alreadyLoaded = sessionStorage.getItem("hasLoaded");
+
+    if (alreadyLoaded) {
+      setMounted(true);
+    } else {
+      sessionStorage.setItem("hasLoaded", "true");
+      setMounted(false);
+    }
+  }, []);
+
+  if (!mounted) {
+    return <LoadingScreen onFinish={() => setMounted(true)} />;
+  }
 
   const navigationLinks = (href: string) => {
     if (!href) return;

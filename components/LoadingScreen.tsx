@@ -21,7 +21,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       ease: "easeInOut",
     });
     return () => controls.stop();
-  }, []);
+  });
 
   useMotionValueEvent(rounded, "change", (v) => {
     setDisplayValue(v);
