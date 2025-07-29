@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_DEPLOY_ENV === "prod";
+
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
@@ -6,14 +8,12 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  ...(process.env.NODE_DEPLOY_ENV === "prod" && {
+  ...(isProd && {
     output: "export",
     distDir: "dist",
-    images: {
-      unoptimized: true,
-    },
   }),
   images: {
+    ...(isProd && { unoptimized: true }),
     remotePatterns: [
       {
         protocol: "https",
