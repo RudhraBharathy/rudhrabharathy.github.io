@@ -21,7 +21,7 @@ const barVariants: Variants = {
 
 export default function EachPageLoader() {
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-transparent text-white">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-transparent text-black dark:text-white">
       <span
         className="font-black text-center pointer-events-none"
         style={{
@@ -41,7 +41,7 @@ export default function EachPageLoader() {
           <motion.div
             key={i}
             variants={barVariants}
-            className="h-12 w-2 bg-white"
+            className="h-12 w-2 bg-black dark:bg-white"
           />
         ))}
       </motion.div>

@@ -142,7 +142,7 @@ const ProjectItem: React.FC<{ project: Project }> = ({ project }) => {
           whileHover: { scale: 1, rotate: "0deg" },
         }}
         transition={{ type: "spring", mass: 0.5 }}
-        className="absolute z-0 h-24 w-32 rounded-lg object-cover md:h-64 md:w-96 pointer-events-none shadow-lg"
+        className="absolute z-0 rounded-lg object-cover md:h-64 md:w-96 pointer-events-none"
       >
         <Image
           src={project.image}
