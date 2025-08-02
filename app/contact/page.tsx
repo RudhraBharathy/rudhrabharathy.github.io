@@ -63,6 +63,7 @@ export default function ContactPage() {
       );
 
       setFormState("success");
+      window.umami?.track("contact-form-submitted");
       setFormData({ name: "", email: "", message: "" });
     } catch {
       setFormState("error");

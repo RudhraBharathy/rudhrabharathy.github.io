@@ -9,6 +9,8 @@ import BodyWrapper from "@/components/BodyWrapper";
 import ScrollToTop from "@/components/ScrollToTop";
 import { Toaster } from "sonner";
 import { metadata as siteMetadata } from "@/lib/metadata";
+import Script from "next/script";
+import UmamiTracker from "@/components/UmamiTracker";
 
 export const metadata = siteMetadata;
 
@@ -18,6 +20,7 @@ const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space_grotesk",
 });
+const UMAMI_ANALYICS_KEY = process.env.NEXT_PUBLIC_UMAMI_ANALYTICS_KEY;
 
 export default function RootLayout({
   children,
@@ -76,6 +79,13 @@ export default function RootLayout({
               className:
                 "!bg-black !text-white dark:!bg-white dark:!text-black",
             }}
+          />
+          <UmamiTracker />
+          <Script
+            async
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id={UMAMI_ANALYICS_KEY}
           />
         </ThemeProvider>
       </BodyWrapper>
