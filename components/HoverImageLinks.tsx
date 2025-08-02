@@ -9,7 +9,6 @@ import { GoLinkExternal } from "react-icons/go";
 interface Project {
   id: number;
   name: string;
-  year: string;
   techStack: string[];
   image: string;
   githubLink: string;
@@ -87,7 +86,6 @@ const ProjectItem: React.FC<{ project: Project }> = ({ project }) => {
 
         <div className="mt-4 flex flex-col gap-2 text-sm text-neutral-600 dark:text-neutral-400">
           <div className="flex items-center gap-4">
-            <span className="text-lg">{project.year}</span>
             <a
               href={project.githubLink}
               target="_blank"

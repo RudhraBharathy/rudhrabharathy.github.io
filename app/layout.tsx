@@ -60,7 +60,7 @@ export default function RootLayout({
           <main
             className={cn(
               "min-h-screen w-full transition-colors duration-300",
-              "px-4 md:px-12 lg:px-16 py-2 lg:py-5"
+              "px-4 md:px-12 lg:px-16 py-2 2xl:py-5"
             )}
           >
             <Navbar />

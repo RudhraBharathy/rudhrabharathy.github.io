@@ -131,7 +131,7 @@ export default function Home() {
                     className="text-black dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-300"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * i, duration: 0.3 }}
+                    transition={{ delay: 0.3, duration: 0.4 }}
                   >
                     {icon}
                   </motion.a>
@@ -140,23 +140,40 @@ export default function Home() {
             </div>
 
             <div className="flex items-start md:items-end justify-evenly flex-col md:flex-row">
-              <motion.h1
-                className="text-4xl xs:text-6xl lg:text-8xl 1xl:text-[6.5rem] 2xl:text-[9rem] custom1xl:!text-[8rem] font-normal mt-4 2xl:mt-6 mb-2 font-manrope"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-              >
-                Hi, I&apos;m
-                <br />
-                Rudhra
-                <br />
-                Bhararthy
-              </motion.h1>
+              <div className="text-4xl xs:text-6xl lg:text-8xl 1xl:text-[6.5rem] 2xl:text-[9rem] custom1xl:!text-[8rem] font-normal mt-4 2xl:mt-6 mb-2 font-manrope">
+                {["Hi, I'm", "Rudhra", "Bharathy"].map((text, index) => (
+                  <div
+                    key={index}
+                    className={`overflow-hidden ${
+                      index === 2 ? "leading-[1.2] min-h-[1em]" : ""
+                    }`}
+                  >
+                    <div className="relative inline-block">
+                      <motion.div
+                        initial={{ y: "100%" }}
+                        animate={{ y: "0%" }}
+                        transition={{
+                          delay: 0.3 + index * 0,
+                          duration: 1.2,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                      >
+                        <p className="block">{text}</p>
+                      </motion.div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
               <motion.p
                 className="w-[14rem] py-1 xs:py-4 md:pb-4 md:pl-8 text-sm 2xl:text-lg custom1xl:!text-lg md:text-left text-slate-700 dark:text-slate-300"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
+                initial={{ y: "100%" }}
+                animate={{ y: "0%" }}
+                transition={{
+                  delay: 0.3,
+                  duration: 1.2,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               >
                 Specialized in Front End Development, Web Design, UX / UI.
               </motion.p>
@@ -164,36 +181,36 @@ export default function Home() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="m-auto z-30 mt-4"
-        >
+        <motion.div className="m-auto z-30 mt-4 xl:mt-8">
           <nav className="flex flex-col items-center my-4 md:my-6 md:mt-14 xl:mb-32 xl:mr-32 custom1xl:!mb-40">
             <ul className="space-y-3 md:space-y-6 text-center font-space_grotesk tracking-tighter relative">
               {navLinks.map(({ name, href }, index) => (
-                <motion.li
-                  key={name}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + 0.1 * index, duration: 0.3 }}
-                >
-                  <div className="relative group">
-                    <Link
-                      href={href}
-                      className="text-4xl xxs:text-5xl md:text-5xl lg:text-[5rem] 2xl:text-[7rem] custom1xl:!text-[6rem] !leading-[0.8] font-black !cursor-pointer"
+                <li key={name}>
+                  <div className="overflow-hidden relative inline-block">
+                    <motion.div
+                      initial={{ y: "100%" }}
+                      animate={{ y: "0%" }}
+                      transition={{
+                        delay: 0.3 + index * 0,
+                        duration: 1.2,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
                     >
-                      <RollingText
-                        staggerDelay={0.02}
-                        normalColor="text-black dark:text-white"
-                        hoverColor="text-emerald-600 dark:text-emerald-400"
+                      <Link
+                        href={href}
+                        className="text-4xl xxs:text-5xl md:text-5xl lg:text-[5rem] 2xl:text-[7rem] custom1xl:!text-[6rem] !leading-[0.8] font-black !cursor-pointer inline-block"
                       >
-                        {name}
-                      </RollingText>
-                    </Link>
+                        <RollingText
+                          staggerDelay={0.02}
+                          normalColor="text-black dark:text-white"
+                          hoverColor="text-emerald-600 dark:text-emerald-400"
+                        >
+                          {name}
+                        </RollingText>
+                      </Link>
+                    </motion.div>
                   </div>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </nav>
@@ -201,9 +218,18 @@ export default function Home() {
       </div>
 
       <div className="mt-auto text-center w-full md:absolute md:bottom-8 xl:right-16 xl:text-right md:w-auto font-manrope font-bold">
-        <p className="text-sm 2xl:text-lg custom1xl:!text-lg text-slate-600 dark:text-slate-400">
+        <motion.p
+          className="text-sm 2xl:text-lg custom1xl:!text-lg text-slate-600 dark:text-slate-400"
+          initial={{ y: "100%" }}
+          animate={{ y: "0%" }}
+          transition={{
+            delay: 0.3,
+            duration: 1.2,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
           Made with ❤️
-        </p>
+        </motion.p>
       </div>
     </div>
   );

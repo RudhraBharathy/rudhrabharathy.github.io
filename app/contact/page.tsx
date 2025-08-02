@@ -10,6 +10,7 @@ import SocialLinks from "@/components/social-links";
 import Input from "@/components/ui/input";
 import AnimatedButton from "@/components/AnimatedButton";
 import ContactAnimation from "@/components/ContactAnimation";
+import { motion } from "framer-motion";
 
 const ContactFormSchema = z.object({
   name: z.string().min(1, "Oops! Forgot to tell me your name? 😅"),
@@ -77,75 +78,98 @@ export default function ContactPage() {
       </div>
 
       <div className="relative">
-        <h1 className="text-[5rem] sm:text-[9rem] md:text-[11rem] lg:text-[14rem] xl:text-[16rem] 1xl:text-[18rem] font-light leading-none text-center my-4 xl:mb-12">
-          Contact
-        </h1>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.3,
+            duration: 1.2,
+            ease: [0.22, 1, 0.36, 1],
           }}
-          className="space-y-12"
         >
-          <Input
-            type="text"
-            placeholder="Enter your name"
-            value={formData.name}
-            onChange={handleChange}
-            name="name"
-            id="nameInput"
-            required
-            className="!mt-6"
-          />
+          <h1 className="text-[5rem] sm:text-[9rem] md:text-[11rem] lg:text-[14rem] xl:text-[16rem] 1xl:text-[18rem] font-light leading-none text-center my-4 xl:mb-12">
+            Contact
+          </h1>
+        </motion.div>
 
-          <Input
-            type="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            name="email"
-            id="emailInput"
-            required
-          />
-
-          <Input
-            type="text"
-            placeholder="Enter your message"
-            value={formData.message}
-            onChange={handleChange}
-            name="message"
-            id="messageInput"
-            required
-            className="!mt-12 lg:!mt-20"
-          />
-
-          <div className="flex justify-between items-center !my-12">
-            <AnimatedButton
-              onClick={handleSubmit}
-              className="flex items-center gap-2 border border-black dark:border-white rounded-full px-6 py-2 cursor-pointer"
-              value={
-                formState === "submitting"
-                  ? "Sending..."
-                  : formState === "success"
-                  ? "Sent!"
-                  : "Submit"
-              }
-              disabled={formState === "submitting"}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.3,
+            duration: 1.2,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+            className="space-y-12"
+          >
+            <Input
+              type="text"
+              placeholder="Enter your name"
+              value={formData.name}
+              onChange={handleChange}
+              name="name"
+              id="nameInput"
+              required
+              className="!mt-6"
             />
 
-            <Link href="/" className="flex items-center gap-1 underline-effect">
-              Home +
-            </Link>
-          </div>
-        </form>
+            <Input
+              type="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              name="email"
+              id="emailInput"
+              required
+            />
 
-        <div className="xl:pt-4 mb-8">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium pb-5 border-b border-gray-300 dark:border-gray-700">
-            Social Media
-          </h2>
-          <SocialLinks />
-        </div>
+            <Input
+              type="text"
+              placeholder="Enter your message"
+              value={formData.message}
+              onChange={handleChange}
+              name="message"
+              id="messageInput"
+              required
+              className="!mt-12 lg:!mt-20"
+            />
+
+            <div className="flex justify-between items-center !my-12">
+              <AnimatedButton
+                onClick={handleSubmit}
+                className="flex items-center gap-2 border border-black dark:border-white rounded-full px-6 py-2 cursor-pointer"
+                value={
+                  formState === "submitting"
+                    ? "Sending..."
+                    : formState === "success"
+                    ? "Sent!"
+                    : "Submit"
+                }
+                disabled={formState === "submitting"}
+              />
+
+              <Link
+                href="/"
+                className="flex items-center gap-1 underline-effect"
+              >
+                Home +
+              </Link>
+            </div>
+          </form>
+
+          <div className="xl:pt-4 mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium pb-5 border-b border-gray-300 dark:border-gray-700">
+              Social Media
+            </h2>
+            <SocialLinks />
+          </div>
+        </motion.div>
       </div>
     </div>
   );

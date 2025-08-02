@@ -58,7 +58,7 @@ const socialLinks: SocialLink[] = [
 
 export default function SocialLinks() {
   return (
-    <div className="">
+    <>
       {socialLinks.map(({ url, icon, labelParts }, idx) => (
         <Link
           href={url}
@@ -79,6 +79,6 @@ export default function SocialLinks() {
           </div>
         </Link>
       ))}
-    </div>
+    </>
   );
 }
