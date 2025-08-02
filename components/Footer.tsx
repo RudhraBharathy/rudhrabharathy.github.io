@@ -35,12 +35,10 @@ export default function Footer() {
 
   if (isHomePage) return null;
 
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="relative w-full pb-6 pt-12 text-center bg-transparent font-manrope border-t-2 border-gray-200 dark:border-gray-700">
       <div className="z-10 relative">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10 px-6 md:px-20">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-10 px-6 md:px-20">
           <div className="flex flex-col items-start text-left">
             <Link
               href="/"
@@ -48,11 +46,16 @@ export default function Footer() {
             >
               -RB-
             </Link>
-            <p className="text-xl md:text-2xl pb-4 pt-10 text-slate-800 dark:text-slate-300">
+            <p className="text-xl md:text-2xl pb-4 pt-5 md:pt-10 text-slate-800 dark:text-slate-300">
               bharathyganeshan@gmail.com
             </p>
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              Coimbatore, Tamil Nadu, India
+              <Link
+                target="_blank"
+                href={"https://maps.app.goo.gl/eKgY4A5dxVDRKj9U9"}
+              >
+                📍 Coimbatore, Tamil Nadu, India
+              </Link>
             </p>
           </div>
 
@@ -70,15 +73,14 @@ export default function Footer() {
                 </div>
               ))}
             </div>
-            <p className="text-sm text-slate-600 dark:text-slate-400 pt-4">
-              © {currentYear} Rudhra Bharathy. All rights reserved.
-            </p>
           </div>
         </div>
 
-        <div className="flex items-center justify-center pt-6">
-          <TextHoverEffect text="Let us connect!" />
-        </div>
+        <Link href={"/contact"}>
+          <div className="flex items-center justify-center pt-6">
+            <TextHoverEffect text="Let us connect!" />
+          </div>
+        </Link>
 
         <div className="flex flex-wrap items-center justify-center gap-4 pt-2 pb-6">
           {socialLinks.map(({ name, url }) => (
@@ -102,7 +104,7 @@ export default function Footer() {
 
         <div className="text-center font-manrope font-bold py-2">
           <p className="text-sm text-slate-600 dark:text-slate-400">
-            Made with ❤️ Rudhra Bharathy
+            Made with ❤️ by <Link href="/">Rudhra Bharathy</Link>
           </p>
         </div>
       </div>

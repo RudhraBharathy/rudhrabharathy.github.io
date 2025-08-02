@@ -8,7 +8,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const duration = 1500; // total duration in ms
+    const duration = 1500;
     const steps = 100;
     const intervalTime = duration / steps;
 
@@ -37,14 +37,14 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-50 w-full h-screen bg-black flex flex-col items-center justify-center gap-8"
+          className="fixed inset-0 z-50 w-full h-screen bg-white dark:bg-black flex flex-col items-center justify-center gap-8"
         >
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             style={{ ...exampleStyle, fontSize: "8rem" }}
-            className="text-white font-bold tabular-nums 2xl:text-[10rem]"
+            className="text-black dark:text-white font-bold tabular-nums 2xl:text-[10rem]"
           >
             {displayValue}%
           </motion.p>

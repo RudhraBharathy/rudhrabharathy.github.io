@@ -166,7 +166,7 @@ export default function Home() {
               </div>
 
               <motion.p
-                className="w-[14rem] py-1 xs:py-4 md:pb-4 md:pl-8 text-sm 2xl:text-lg custom1xl:!text-lg md:text-left text-slate-700 dark:text-slate-300"
+                className="w-[20rem] py-1 xs:py-4 md:pb-4 md:pl-8 text-sm 2xl:text-lg custom1xl:!text-lg md:text-left text-slate-700 dark:text-slate-300"
                 initial={{ y: "100%" }}
                 animate={{ y: "0%" }}
                 transition={{
@@ -175,7 +175,7 @@ export default function Home() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                Specialized in Front End Development, Web Design, UX / UI.
+                Specialized in Web Development - building beautiful, and thoughtful interfaces!
               </motion.p>
             </div>
           </div>
@@ -218,8 +218,7 @@ export default function Home() {
       </div>
 
       <div className="mt-auto text-center w-full md:absolute md:bottom-8 xl:right-16 xl:text-right md:w-auto font-manrope font-bold">
-        <motion.p
-          className="text-sm 2xl:text-lg custom1xl:!text-lg text-slate-600 dark:text-slate-400"
+        <motion.div
           initial={{ y: "100%" }}
           animate={{ y: "0%" }}
           transition={{
@@ -227,9 +226,12 @@ export default function Home() {
             duration: 1.2,
             ease: [0.22, 1, 0.36, 1],
           }}
+          className="flex flex-row gap-3 items-center justify-center  text-sm 2xl:text-lg custom1xl:!text-lg text-slate-600 dark:text-slate-400"
         >
-          Made with ❤️
-        </motion.p>
+          <p>📍 Coimbatore, India</p>
+          <p>{"•"}</p>
+          <p>Made with ❤️</p>
+        </motion.div>
       </div>
     </div>
   );
