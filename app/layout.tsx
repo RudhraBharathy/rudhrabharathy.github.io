@@ -80,13 +80,17 @@ export default function RootLayout({
                 "!bg-black !text-white dark:!bg-white dark:!text-black",
             }}
           />
-          <UmamiTracker />
-          <Script
-            async
-            defer
-            src="https://cloud.umami.is/script.js"
-            data-website-id={UMAMI_ANALYICS_KEY}
-          />
+          {process.env.NODE_DEPLOY_ENV === "prod" && (
+            <>
+              <UmamiTracker />
+              <Script
+                async
+                defer
+                src="https://cloud.umami.is/script.js"
+                data-website-id={UMAMI_ANALYICS_KEY}
+              />
+            </>
+          )}
         </ThemeProvider>
       </BodyWrapper>
     </html>
