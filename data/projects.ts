@@ -19,7 +19,7 @@ export const projects = [
     id: 3,
     name: "Collaborative Task Management",
     techStack: ["React", "Supabase", "Tailwind CSS", "Zustand"],
-    image: "/images/projects/Inprogress.png",
+    image: "/images/projects/CollaborativeTaskManagement.png",
     githubLink:
       "https://github.com/RudhraBharathy/Collaborative-Task-Management-App",
     externalLink: "",
