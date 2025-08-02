@@ -10,7 +10,6 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { Toaster } from "sonner";
 import { metadata as siteMetadata } from "@/lib/metadata";
 import Script from "next/script";
-import UmamiTracker from "@/components/UmamiTracker";
 
 export const metadata = siteMetadata;
 
@@ -81,15 +80,12 @@ export default function RootLayout({
             }}
           />
           {process.env.NODE_DEPLOY_ENV === "prod" && (
-            <>
-              <UmamiTracker />
-              <Script
-                async
-                defer
-                src="https://cloud.umami.is/script.js"
-                data-website-id={UMAMI_ANALYICS_KEY}
-              />
-            </>
+            <Script
+              async
+              defer
+              src="https://cloud.umami.is/script.js"
+              data-website-id={UMAMI_ANALYICS_KEY}
+            />
           )}
         </ThemeProvider>
       </BodyWrapper>

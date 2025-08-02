@@ -16,10 +16,10 @@ export const projects = [
     externalLink: "https://atmcardvalidator.netlify.app/",
   },
   {
-    id: 5,
+    id: 3,
     name: "Collaborative Task Management",
     techStack: ["React", "Supabase", "Tailwind CSS", "Zustand"],
-    image: "/images/projects/inprogress.png",
+    image: "/images/projects/Inprogress.png",
     githubLink:
       "https://github.com/RudhraBharathy/Collaborative-Task-Management-App",
     externalLink: "",
