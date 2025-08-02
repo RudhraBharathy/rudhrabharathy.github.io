@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://rudhrabharathy.github.io
+
+# Sitemaps
+Sitemap: https://rudhrabharathy.github.io/sitemap.xml
