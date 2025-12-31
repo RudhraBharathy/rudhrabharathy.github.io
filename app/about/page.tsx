@@ -80,7 +80,7 @@ export default function AboutPage() {
 
                 <div className="relative bottom-[-1rem] md:bottom-[-4rem] lg:left-16 w-72 h-72 sm:w-96 sm:h-96 2xl:w-[30rem] 2xl:h-[30rem] rounded-3xl overflow-hidden select-none mx-auto z-10">
                   <Image
-                    src="/images/home/picofme.png"
+                    src="/images/home/RB-image2.png"
                     alt="Profile silhouette"
                     fill
                     className="object-contain"

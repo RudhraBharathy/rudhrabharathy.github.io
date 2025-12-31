@@ -113,10 +113,10 @@ export default function Home() {
                 style={{ boxShadow: "-7px 7px 14px 2px rgba(0,0,0,0.3)" }}
               >
                 <Image
-                  src="/images/home/profile.jpg"
+                  src="/images/home/RB-image1.jpg"
                   alt="Profile"
                   fill
-                  className="object-cover"
+                  className="object-cover scale-[1.5] translate-y-10"
                   priority
                 />
               </div>
