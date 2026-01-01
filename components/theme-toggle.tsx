@@ -23,7 +23,7 @@ export default function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="rounded-full bg-slate-200 hover:bg-slate-200 dark:bg-slate-800"
+      className="rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700"
     >
       {resolvedTheme === "dark" ? (
         <FiSun className="text-yellow-500" />

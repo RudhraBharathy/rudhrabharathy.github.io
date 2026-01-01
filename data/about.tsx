@@ -8,12 +8,12 @@ import {
   SiNodedotjs,
   SiTailwindcss,
   SiMongodb,
-  SiSupabase,
   SiGit,
   SiGithub,
   SiMui,
   SiShadcnui,
   SiDocker,
+  SiPostgresql,
 } from "react-icons/si";
 
 interface TechItem {
@@ -110,8 +110,8 @@ export const technologies: TechItem[] = [
     "Backend"
   ),
   createTechItem(
-    <SiSupabase className={iconClass} style={{ color: "#3ecf8e" }} />,
-    "Supabase",
+    <SiPostgresql className={iconClass} style={{ color: "#3ecf8e" }} />,
+    "PostgreSQL",
     "Backend"
   ),
 

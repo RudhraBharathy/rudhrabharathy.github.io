@@ -109,7 +109,7 @@ export default function Home() {
           <div className="flex flex-col items-start custom1xl:!w-[42rem]">
             <div className="w-full flex flex-row items-center justify-start gap-6 md:gap-8 2xl:gap-9 custom1xl:!gap-9">
               <div
-                className="relative w-44 h-44 xs:w-52 xs:h-52 md:w-80 md:h-80 2xl:w-[22rem] 2xl:h-[22rem] custom1xl:!w-[22rem] custom1xl:!h-[22rem] rounded-3xl overflow-hidden select-none"
+                className="relative w-44 h-44 xs:w-52 xs:h-52 md:w-80 md:h-80 2xl:w-88 2xl:h-88 custom1xl:!w-[22rem] custom1xl:!h-[22rem] rounded-3xl overflow-hidden select-none"
                 style={{ boxShadow: "-7px 7px 14px 2px rgba(0,0,0,0.3)" }}
               >
                 <Image
@@ -144,9 +144,8 @@ export default function Home() {
                 {["Hi, I'm", "Rudhra", "Bharathy"].map((text, index) => (
                   <div
                     key={index}
-                    className={`overflow-hidden ${
-                      index === 2 ? "leading-[1.2] min-h-[1em]" : ""
-                    }`}
+                    className={`overflow-hidden ${index === 2 ? "leading-[1.2] min-h-[1em]" : ""
+                      }`}
                   >
                     <div className="relative inline-block">
                       <motion.div
@@ -175,7 +174,7 @@ export default function Home() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                Specialized in Web Development - building beautiful, and thoughtful interfaces!
+                Specialized in full stack web development - building beautiful interfaces, and turning ideas into solutions!
               </motion.p>
             </div>
           </div>
@@ -198,7 +197,7 @@ export default function Home() {
                     >
                       <Link
                         href={href}
-                        className="text-4xl xxs:text-5xl md:text-5xl lg:text-[5rem] 2xl:text-[7rem] custom1xl:!text-[6rem] !leading-[0.8] font-black !cursor-pointer inline-block"
+                        className="text-4xl xxs:text-5xl md:text-5xl lg:text-[5rem] 2xl:text-[7rem] custom1xl:!text-[6rem] leading-[0.8]! font-black cursor-pointer! inline-block"
                       >
                         <RollingText
                           staggerDelay={0.02}

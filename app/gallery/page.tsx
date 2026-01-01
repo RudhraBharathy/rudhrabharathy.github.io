@@ -34,7 +34,7 @@ const GalleryPage: React.FC = () => {
         <div className="my-6">
           <div className="flex flex-col md:flex-row justify-center md:justify-around items-center text-sm sm:text-base gap-2 sm:gap-4 text-center md:text-left">
             <Link
-              className="inline-flex justify-center items-center gap-2"
+              className="inline-flex justify-center items-center gap-2 hover:text-slate-300 transition-colors"
               href="https://www.instagram.com/_fhoto.holic_/"
               target="_blank"
               rel="noopener noreferrer"

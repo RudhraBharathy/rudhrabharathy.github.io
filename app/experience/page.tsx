@@ -145,7 +145,7 @@ const ExperiencePage: React.FC = () => {
               <Link href={"/contact"}>
                 <button
                   className="group flex justify-start items-center relative h-12 w-36 text-lg sm:h-16 sm:w-64 sm:text-3xl bg-white dark:bg-slate-900
-                          border-2 border-emerald-600 text-black dark:text-white font-light rounded-full overflow-hidden transition-all duration-500 
+                          border-2 border-emerald-600 text-black dark:text-white font-light rounded-2xl overflow-hidden transition-all duration-500 
                           hover:scale-105 hover:border-emerald-400 p-3 pl-6 before:absolute before:w-8 before:h-8 sm:before:w-10 sm:before:h-10 
                           before:content-[''] before:right-2 before:top-2 before:z-10 before:bg-indigo-500 before:rounded-full before:blur-lg 
                           before:transition-all before:duration-500 after:absolute after:z-10 after:w-12 after:h-12 sm:after:w-16 sm:after:h-16 

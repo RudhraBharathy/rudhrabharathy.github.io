@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-import { z } from "zod";
 
 interface InstagramPost {
   id: string;
@@ -8,103 +6,69 @@ interface InstagramPost {
   permalink: string;
   caption?: string;
   timestamp: string;
-  media_type: string;
+  media_type: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
   like_count?: number;
 }
 
-const getSamplePosts = (): InstagramPost[] => {
-  return Array(9)
-    .fill(null)
-    .map((_, index) => ({
-      id: `sample-${index}`,
-      media_url: `/api/placeholder/400/400`,
-      permalink: "https://instagram.com",
-      caption: `Sample photography work ${index + 1}`,
-      timestamp: new Date().toISOString(),
-      media_type: "IMAGE",
-    }));
-};
+const CACHE_KEY = "instagram_posts";
+const CACHE_TIME_KEY = "instagram_posts_time";
+const CACHE_TTL = 1000 * 60 * 30;
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-const InstagramPostSchema = z.object({
-  id: z.string(),
-  media_url: z.string().url(),
-  permalink: z.string().url(),
-  caption: z.string().optional(),
-  timestamp: z.string(),
-  media_type: z.enum(["IMAGE", "VIDEO", "CAROUSEL_ALBUM"]),
-  like_count: z.number().optional(),
-});
-
-const InstagramResponseSchema = z.object({
-  data: z.array(InstagramPostSchema),
-});
+const getSamplePosts = (): InstagramPost[] =>
+  Array.from({ length: 9 }).map((_, i) => ({
+    id: `sample-${i}`,
+    media_url: `/fallback/${i + 1}.jpg`,
+    permalink: "#",
+    caption: `Sample photography work ${i + 1}`,
+    timestamp: new Date().toISOString(),
+    media_type: "IMAGE",
+    like_count: Math.floor(Math.random() * 100),
+  }));
 
 export default function useFetchInstapost() {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchInstagramPostsData = async () => {
+    const fetchPosts = async () => {
       try {
-        setLoading(true);
+        const cached = localStorage.getItem(CACHE_KEY);
+        const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
 
-        const cached = sessionStorage.getItem("instagram_posts");
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          setPosts(parsed);
+        if (
+          cached &&
+          cachedTime &&
+          Date.now() - Number(cachedTime) < CACHE_TTL
+        ) {
+          setPosts(JSON.parse(cached));
+          setLoading(false);
           return;
         }
 
-        // Step 1: Fetch latest token from Supabase
-        const { data, error: tokenError } = await supabase
-          .from("instagram_token")
-          .select("access_token")
-          .order("updated_at", { ascending: false })
-          .limit(1)
-          .single();
+        const res = await fetch("/api/instagram-posts");
 
-        if (tokenError || !data)
-          throw new Error("Failed to get token from Supabase");
-
-        const accessToken = data.access_token;
-
-        // Step 2: Call Instagram API using the token
-        const response = await fetch(
-          `https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink,media_type,timestamp&access_token=${accessToken}`
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch Instagram media");
+        if (!res.ok) {
+          throw new Error(`Fetch failed: ${res.status}`);
         }
 
-        const result = await response.json();
-        const validatedResult = InstagramResponseSchema.parse(result);
+        const data: InstagramPost[] = await res.json();
 
-        const imageOnly = validatedResult.data.filter(
-          (post: InstagramPost) =>
-            post.media_type === "IMAGE" || post.media_type === "CAROUSEL_ALBUM"
-        );
-
-        setPosts(imageOnly);
-        sessionStorage.setItem("instagram_posts", JSON.stringify(imageOnly));
+        setPosts(data);
+        localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+        localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
       } catch (err: any) {
-        console.error("Error fetching Instagram posts:", err);
-        setError(err.message);
         const fallback = getSamplePosts();
         setPosts(fallback);
-        sessionStorage.setItem("instagram_posts", JSON.stringify(fallback));
+        localStorage.setItem(CACHE_KEY, JSON.stringify(fallback));
+        localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
+        setError(err.message ?? "Failed to load posts");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchInstagramPostsData();
+    fetchPosts();
   }, []);
 
   return { posts, loading, error };
