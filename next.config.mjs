@@ -2,9 +2,6 @@
 const isProd = process.env.NODE_DEPLOY_ENV === "prod";
 
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
   typescript: {
     ignoreBuildErrors: false,
   },

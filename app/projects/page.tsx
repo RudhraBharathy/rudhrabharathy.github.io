@@ -38,7 +38,7 @@ const ProjectsPage: React.FC = () => {
             <div className="flex items-center lg:items-start justify-center flex-col lg:w-5/6">
               <span className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl mt-4 mb-6 text-black dark:text-white max-w-4xl font-light tracking-tight">
                 Things that
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-400 font-medium">
+                <span className="bg-clip-text text-transparent bg-linear-to-r from-emerald-600 to-emerald-400 font-medium">
                   {" "}
                   I’ve Built
                 </span>
