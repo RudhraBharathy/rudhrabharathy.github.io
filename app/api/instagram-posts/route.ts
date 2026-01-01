@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { Pool } from "pg";
 import { z } from "zod";
 
+export const dynamic = "force-static";
+
 const pool = new Pool({
   connectionString: process.env.NEXT_NEON_DATABASE_URL,
   ssl: { rejectUnauthorized: false },
@@ -36,8 +38,7 @@ export async function GET() {
     const accessToken = rows[0].access_token;
 
     const igRes = await fetch(
-      `https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink,media_type,timestamp,like_count&access_token=${accessToken}`,
-      { cache: "no-store" }
+      `https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink,media_type,timestamp,like_count&access_token=${accessToken}`
     );
 
     if (!igRes.ok) {
