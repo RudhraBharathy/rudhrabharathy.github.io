@@ -14,17 +14,6 @@ const CACHE_KEY = "instagram_posts";
 const CACHE_TIME_KEY = "instagram_posts_time";
 const CACHE_TTL = 1000 * 60 * 30;
 
-const getSamplePosts = (): InstagramPost[] =>
-  Array.from({ length: 9 }).map((_, i) => ({
-    id: `sample-${i}`,
-    media_url: `/fallback/${i + 1}.jpg`,
-    permalink: "#",
-    caption: `Sample photography work ${i + 1}`,
-    timestamp: new Date().toISOString(),
-    media_type: "IMAGE",
-    like_count: Math.floor(Math.random() * 100),
-  }));
-
 export default function useFetchInstapost() {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -58,10 +47,6 @@ export default function useFetchInstapost() {
         localStorage.setItem(CACHE_KEY, JSON.stringify(data));
         localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
       } catch (err: any) {
-        const fallback = getSamplePosts();
-        setPosts(fallback);
-        localStorage.setItem(CACHE_KEY, JSON.stringify(fallback));
-        localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
         setError(err.message ?? "Failed to load posts");
       } finally {
         setLoading(false);

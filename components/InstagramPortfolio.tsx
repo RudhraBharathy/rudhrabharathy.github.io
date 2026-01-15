@@ -74,11 +74,12 @@ export default function InstagramPortfolio() {
               className="group relative aspect-square cursor-pointer overflow-hidden rounded-lg shadow-md"
             >
               <Image
-                src={post.media_url}
+                src={`/api/instagram-image-proxy?url=${encodeURIComponent(post.media_url)}`}
                 alt={post.caption || "Instagram image"}
                 fill
                 sizes="(max-width: 768px) 100vw, 25vw"
                 className="object-cover"
+                unoptimized
               />
               <div className="absolute inset-0 bg-black/0 transition group-hover:bg-black/30" />
             </div>
@@ -106,11 +107,12 @@ export default function InstagramPortfolio() {
                   <div className="flex flex-col items-center gap-4">
                     <div className="relative h-[70vh] w-full">
                       <Image
-                        src={post.media_url}
+                        src={`/api/instagram-image-proxy?url=${encodeURIComponent(post.media_url)}`}
                         alt={post.caption || "Instagram image"}
                         fill
                         className="object-contain"
                         priority={index === selectedIndex}
+                        unoptimized
                       />
                     </div>
 
