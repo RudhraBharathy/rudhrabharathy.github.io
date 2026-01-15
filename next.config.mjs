@@ -6,7 +6,6 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   ...(isProd && {
-    output: "export",
     distDir: "dist",
   }),
   images: {
