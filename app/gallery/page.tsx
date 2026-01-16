@@ -34,7 +34,7 @@ const GalleryPage: React.FC = () => {
         <div className="my-6">
           <div className="flex flex-col md:flex-row justify-center md:justify-around items-center text-sm sm:text-base gap-2 sm:gap-4 text-center md:text-left">
             <Link
-              className="inline-flex justify-center items-center gap-2 hover:text-slate-300 transition-colors"
+              className="inline-flex justify-center items-center gap-2 hover:text-emerald-500 transition-colors"
               href="https://www.instagram.com/_fhoto.holic_/"
               target="_blank"
               rel="noopener noreferrer"
@@ -42,11 +42,11 @@ const GalleryPage: React.FC = () => {
               <FaInstagram className="text-xl sm:text-2xl my-6" />
               <span>_fhoto.holic_</span>
             </Link>
-            <p className="max-w-md">Light, shadow, silence captured forever!</p>
+            <p className="max-w-md">I love <span className="text-emerald-400 font-bold">Photography</span> so these are some of my clicks!</p>
           </div>
         </div>
 
-      <InstagramPortfolio />
+        <InstagramPortfolio />
       </motion.div>
     </div>
   );
