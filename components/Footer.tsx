@@ -17,7 +17,7 @@ const socialLinks: SocialLink[] = [
   { name: "Instagram", url: "https://www.instagram.com/ig_rudhrabharathy" },
   { name: "Github", url: "https://github.com/rudhrabharathy" },
   { name: "Twitter", url: "https://x.com/RudhraBharathy" },
-  { name: "Facebook", url: "https://www.facebook.com/bharathyganeshan/" },
+  { name: "Dev.to", url: "https://dev.to/rudhrabharathy" },
 ];
 
 const navLinks = [

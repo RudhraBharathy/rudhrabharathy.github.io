@@ -11,16 +11,6 @@ const nextConfig = {
   }),
   images: {
     ...(isProd && { unoptimized: true }),
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "*.cdninstagram.com",
-      },
-      {
-        protocol: "https",
-        hostname: "picsum.photos",
-      },
-    ],
   },
   devIndicators: false,
 };

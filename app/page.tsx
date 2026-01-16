@@ -14,7 +14,7 @@ import {
   FaInstagram,
   FaGithub,
   FaXTwitter,
-  FaFacebookF,
+  FaDev,
   FaEnvelope,
 } from "react-icons/fa6";
 
@@ -43,9 +43,9 @@ const socialLinks = [
     label: "Twitter",
   },
   {
-    icon: <FaFacebookF className={iconClass} />,
-    href: "https://www.facebook.com/bharathyganeshan/",
-    label: "Facebook",
+    icon: <FaDev className={iconClass} />,
+    href: "https://dev.to/rudhrabharathy",
+    label: "Dev.to",
   },
   {
     icon: <FaEnvelope className={iconClass} />,
