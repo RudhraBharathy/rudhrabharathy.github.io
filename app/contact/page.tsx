@@ -118,7 +118,7 @@ export default function ContactPage() {
               name="name"
               id="nameInput"
               required
-              className="!mt-6"
+              className="mt-6!"
             />
 
             <Input
@@ -139,10 +139,10 @@ export default function ContactPage() {
               name="message"
               id="messageInput"
               required
-              className="!mt-12 lg:!mt-20"
+              className="mt-8! mb-0! lg:my-10!"
             />
 
-            <div className="flex justify-between items-center !my-12">
+            <div className="flex justify-between items-center my-12!">
               <AnimatedButton
                 onClick={handleSubmit}
                 className="flex items-center gap-2 border border-black dark:border-white rounded-full px-6 py-2 cursor-pointer"

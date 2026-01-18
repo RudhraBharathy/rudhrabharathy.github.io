@@ -35,10 +35,13 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   const flairRef = useRef<HTMLSpanElement>(null);
 
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+
   const [position, setPosition] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
+
   useEffect(() => {
     if (disabled) {
       setPosition({ x: 0, y: 0 });
@@ -159,6 +162,10 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
     <div
       ref={buttonRef}
       onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
+      onTouchEnd={() => setIsHovered(false)}
       className={`w-2/3 2xxs:w-1/2 lg:w-2/5 xl:w-1/4 relative group overflow-hidden rounded-full py-2 pl-4 lg:pl-6 pr-2 font-semibold text-white bg-transparent cursor-pointer ${className}`}
       style={
         {
@@ -184,20 +191,20 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       <span className="absolute inset-0 rounded-full pointer-events-none"></span>
 
       <span
-        className="flex items-center justify-between text-2xl w-full z-10 text-black group-hover:text-white dark:text-white dark:group-hover:text-black transition-colors duration-150"
+        className={`flex items-center justify-between text-2xl w-full z-10 transition-colors duration-150 ${isHovered
+            ? "text-white dark:text-black"
+            : "text-black dark:text-white"
+          }`}
         style={{
           transitionTimingFunction: "var(--ease-in-out-quart)",
         }}
       >
         {value}{" "}
         <div
-          className="inline-flex items-center justify-center 
-                rounded-full p-2 lg:p-3
-                bg-black text-white 
-                group-hover:bg-white group-hover:text-black
-                dark:bg-white dark:text-black 
-                dark:group-hover:bg-slate-900 dark:group-hover:text-white
-                transition-colors duration-150"
+          className={`inline-flex items-center justify-center rounded-full p-2 lg:p-3 transition-colors duration-150 ${isHovered
+              ? "bg-white text-black dark:bg-slate-900 dark:text-white"
+              : "bg-black text-white dark:bg-white dark:text-black"
+            }`}
         >
           <FaTelegramPlane className="text-2xl md:text-3xl" />
         </div>
