@@ -3,10 +3,11 @@
 import { useMotionValue, motion, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
 import React, { useRef } from "react";
-import { FaGithub } from "react-icons/fa6";
+import { FiGithub } from "react-icons/fi";
 import { GoLinkExternal } from "react-icons/go";
 
 interface Project {
+  projectPageLink: string | '/projects';
   id: number;
   name: string;
   techStack: string[];
@@ -64,6 +65,9 @@ const ProjectItem: React.FC<{ project: Project }> = ({ project }) => {
     <motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
+      onClick={() => {
+        window.location.href = project.projectPageLink;
+      }}
       initial="initial"
       whileHover="whileHover"
       className="relative flex items-center justify-between border-b-2 border-neutral-300 dark:border-neutral-700 py-6 transition-colors duration-500 hover:border-black dark:hover:border-neutral-50 cursor-pointer"
@@ -93,7 +97,7 @@ const ProjectItem: React.FC<{ project: Project }> = ({ project }) => {
               className="relative inline-block px-3 py-[3px] text-black dark:text-white border border-neutral-500 dark:border-white rounded-md bg-transparent transition-all duration-300 z-10 overflow-hidden group"
             >
               <span className="flex items-center justify-center flex-row gap-2 relative z-10 transition-colors duration-300 group-hover:text-white dark:group-hover:text-black">
-                <FaGithub />
+                <FiGithub />
                 GitHub
               </span>
               <span className="absolute inset-0 w-0 h-full group-hover:bg-black dark:group-hover:bg-white transition-all duration-300 group-hover:w-full z-0 right-0"></span>
