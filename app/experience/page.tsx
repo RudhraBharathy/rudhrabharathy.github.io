@@ -6,6 +6,7 @@ import { FaBriefcase, FaCalendar } from "react-icons/fa";
 import Link from "next/link";
 import { experiences } from "@/data/experiences";
 import { motion } from "framer-motion";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const ExperiencePage: React.FC = () => {
   const getDurationLength = (duration: string): string => {
@@ -32,9 +33,8 @@ const ExperiencePage: React.FC = () => {
 
     if (remMonths === 0) return `${years} year${years !== 1 ? "s" : ""}`;
 
-    return `${years} year${years !== 1 ? "s" : ""} ${remMonths} month${
-      remMonths !== 1 ? "s" : ""
-    }`;
+    return `${years} year${years !== 1 ? "s" : ""} ${remMonths} month${remMonths !== 1 ? "s" : ""
+      }`;
   };
 
   const uniqueExperiences = experiences.filter(
@@ -155,17 +155,25 @@ const ExperiencePage: React.FC = () => {
                   Hire Me
                 </button>
               </Link>
-
-              <Link
-                href="/projects"
-                className="flex items-center gap-1 underline-effect"
-              >
-                Projects +
-              </Link>
             </div>
           </div>
         </div>
       </motion.div>
+
+      <div className="flex justify-between items-center my-8 md:my-12 gap-4 sm:gap-0">
+        <Link
+          href="/projects"
+          className="flex items-center gap-2 underline-effect"
+        >
+          <BsArrowLeft /> Projects
+        </Link>
+        <Link
+          href="/gallery"
+          className="flex items-center gap-2 underline-effect"
+        >
+          Gallery <BsArrowRight />
+        </Link>
+      </div>
 
       <div className="relative w-full overflow-hidden">
         <Timeline data={timelineData} />

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { FaInstagram } from "react-icons/fa6";
 import InstagramAnnotation from "@/components/InstagramAnnotation";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const GalleryPage: React.FC = () => {
   return (
@@ -51,6 +52,21 @@ const GalleryPage: React.FC = () => {
             </div>
             <p className="max-w-md">I love <span className="text-emerald-400 font-bold">Photography</span> so these are some of my clicks!</p>
           </div>
+        </div>
+
+        <div className="flex justify-between items-center my-8 md:my-12 gap-4 sm:gap-0">
+          <Link
+            href="/experience"
+            className="flex items-center gap-2 underline-effect"
+          >
+            <BsArrowLeft /> Experience
+          </Link>
+          <Link
+            href="/contact"
+            className="flex items-center gap-2 underline-effect"
+          >
+            Contact <BsArrowRight />
+          </Link>
         </div>
 
         <InstagramPortfolio />

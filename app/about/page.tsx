@@ -5,6 +5,7 @@ import { DotPattern } from "@/components/ui/DotPattern";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 export default function AboutPage() {
   return (
@@ -87,16 +88,16 @@ export default function AboutPage() {
 
       <div className="flex justify-between items-center my-8 md:my-12 gap-4 sm:gap-0">
         <Link
-          href="/experience"
+          href="/"
           className="flex items-center gap-2 underline-effect"
         >
-          Experience +
+          <BsArrowLeft /> Home
         </Link>
         <Link
-          href="/contact"
+          href="/projects"
           className="flex items-center gap-2 underline-effect"
         >
-          Contact +
+          Projects <BsArrowRight />
         </Link>
       </div>
 

@@ -11,6 +11,7 @@ import Input from "@/components/ui/input";
 import AnimatedButton from "@/components/AnimatedButton";
 import ContactAnimation from "@/components/ContactAnimation";
 import { motion } from "framer-motion";
+import { BsArrowRight } from "react-icons/bs";
 
 const ContactFormSchema = z.object({
   name: z.string().min(1, "Oops! Forgot to tell me your name? 😅"),
@@ -149,8 +150,8 @@ export default function ContactPage() {
                   formState === "submitting"
                     ? "Sending..."
                     : formState === "success"
-                    ? "Sent!"
-                    : "Submit"
+                      ? "Sent!"
+                      : "Submit"
                 }
                 disabled={formState === "submitting"}
               />
@@ -159,7 +160,7 @@ export default function ContactPage() {
                 href="/"
                 className="flex items-center gap-1 underline-effect"
               >
-                Home +
+                Home <BsArrowRight />
               </Link>
             </div>
           </form>

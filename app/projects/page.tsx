@@ -5,6 +5,7 @@ import { HoverImageLinks } from "@/components/HoverImageLinks";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import { motion } from "framer-motion";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const ProjectsPage: React.FC = () => {
   return (
@@ -55,13 +56,13 @@ const ProjectsPage: React.FC = () => {
               href="/about"
               className="flex items-center justify-end gap-1 underline-effect"
             >
-              About +
+              <BsArrowLeft /> About
             </Link>
             <Link
-              href="/gallery"
+              href="/experience"
               className="flex items-center justify-end gap-1 underline-effect"
             >
-              Gallery +
+              Experience <BsArrowRight />
             </Link>
           </div>
           <HoverImageLinks projects={projects} />
