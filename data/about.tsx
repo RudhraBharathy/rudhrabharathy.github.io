@@ -5,7 +5,6 @@ import {
   SiTypescript,
   SiReact,
   SiNextdotjs,
-  SiNodedotjs,
   SiTailwindcss,
   SiMongodb,
   SiGit,
@@ -15,6 +14,7 @@ import {
   SiDocker,
   SiPostgresql,
 } from "react-icons/si";
+import { RiFirebaseFill } from "react-icons/ri";
 
 interface TechItem {
   icon: React.ReactNode;
@@ -63,7 +63,7 @@ export const technologies: TechItem[] = [
     "Frontend"
   ),
   createTechItem(
-    <SiNextdotjs className={iconClass} style={{ color: "#000000" }} />,
+    <SiNextdotjs className={iconClass} style={{ color: "#ffffff" }} />,
     "Next.js",
     "Frontend"
   ),
@@ -78,7 +78,7 @@ export const technologies: TechItem[] = [
     "Frontend"
   ),
   createTechItem(
-    <SiShadcnui className={iconClass} style={{ color: "#000000" }} />,
+    <SiShadcnui className={iconClass} style={{ color: "#ffffff" }} />,
     "Shadcn/ui",
     "Frontend"
   ),
@@ -95,13 +95,8 @@ export const technologies: TechItem[] = [
     "Backend"
   ),
   createTechItem(
-    <img src="/svg/mysql.svg" alt="MySQL" className={imgClass} />,
-    "MySQL",
-    "Backend"
-  ),
-  createTechItem(
-    <SiNodedotjs className={iconClass} style={{ color: "#3c873a" }} />,
-    "Node.js",
+    <RiFirebaseFill className={iconClass} style={{ color: "#FF9100" }} />,
+    "Firebase",
     "Backend"
   ),
   createTechItem(
@@ -110,7 +105,7 @@ export const technologies: TechItem[] = [
     "Backend"
   ),
   createTechItem(
-    <SiPostgresql className={iconClass} style={{ color: "#3ecf8e" }} />,
+    <SiPostgresql className={iconClass} style={{ color: "#008bb9" }} />,
     "PostgreSQL",
     "Backend"
   ),
@@ -122,7 +117,7 @@ export const technologies: TechItem[] = [
     "DevTools"
   ),
   createTechItem(
-    <SiGithub className={iconClass} style={{ color: "#000000" }} />,
+    <SiGithub className={iconClass} style={{ color: "#ffffff" }} />,
     "GitHub",
     "DevTools"
   ),
