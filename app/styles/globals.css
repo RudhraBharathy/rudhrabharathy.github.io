@@ -139,3 +139,9 @@
     transform-origin: bottom left;
   }
 }
+
+@custom-variant custom1xl {
+  @media (min-width: 1440px) and (min-height: 900px) {
+    @slot;
+  }
+}

@@ -40,7 +40,7 @@ export default function AboutPage() {
               <DotPattern
                 width={20}
                 height={20}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 [mask-image:radial-gradient(300px_circle_at_center,white,transparent)] pointer-events-none z-[1]"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mask-[radial-gradient(300px_circle_at_center,white,transparent)] pointer-events-none z-1"
               />
 
               <div className="flex justify-around gap-4 2xl:mb-6 w-full">
@@ -62,23 +62,15 @@ export default function AboutPage() {
                   <h2 className="text-7xl md:text-8xl font-light my-6 font-space_grotesk">
                     Hey!
                   </h2>
-                  <div className="space-y-4 text-sm sm:text-base 2xl:text-lg leading-relaxed">
+                  <div className="text-sm sm:text-base 2xl:text-2xl leading-relaxed mt-6">
                     <p>
-                      I&apos;m passionate about creating things that are useful,
-                      beautiful, and make a difference. I enjoy working on
-                      projects that challenge me to learn and grow whether it’s
-                      designing, building, or problem-solving.
-                    </p>
-                    <p>
-                      I focus on delivering quality work, paying attention to
-                      detail, and always looking for better ways to do things.
-                      I&apos;m a quick learner, a good team player, and someone
-                      who loves what they do.
+                      I love building things that are useful and look good. I enjoy projects that force me to learn something new,
+                      whether that means designing a new layout or solving a tricky logic problem.
                     </p>
                   </div>
                 </div>
 
-                <div className="relative bottom-[-1rem] md:bottom-[-4rem] lg:left-16 w-72 h-72 sm:w-96 sm:h-96 2xl:w-[30rem] 2xl:h-[30rem] rounded-3xl overflow-hidden select-none mx-auto z-10">
+                <div className="relative -bottom-4 md:-bottom-16 lg:left-16 w-72 h-72 sm:w-96 sm:h-96 2xl:w-120 2xl:h-120 rounded-3xl overflow-hidden select-none mx-auto z-10">
                   <Image
                     src="/images/home/RB-image2.png"
                     alt="Profile silhouette"

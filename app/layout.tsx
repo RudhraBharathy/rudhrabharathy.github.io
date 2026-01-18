@@ -1,6 +1,6 @@
 import type React from "react";
 import "./styles/globals.css";
-import { Inter, Manrope, Space_Grotesk } from "next/font/google";
+import { Inter, Manrope, Space_Grotesk, Caveat } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
@@ -19,6 +19,7 @@ const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space_grotesk",
 });
+const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
 const UMAMI_ANALYICS_KEY = process.env.NEXT_PUBLIC_UMAMI_ANALYTICS_KEY;
 
 export default function RootLayout({
@@ -49,7 +50,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <BodyWrapper
-        className={`${inter.variable} ${manrope.variable} ${space_grotesk.variable} flex flex-col min-h-screen bg-linear-to-br from-white via-gray-100 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950`}
+        className={`${inter.variable} ${manrope.variable} ${space_grotesk.variable} ${caveat.variable} flex flex-col min-h-screen bg-linear-to-br from-white via-gray-100 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950`}
       >
         <div id="smooth-wrapper">
           <div id="smooth-content">

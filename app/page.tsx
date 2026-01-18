@@ -18,7 +18,7 @@ import {
 } from "react-icons/fa6";
 
 const iconClass =
-  "w-5 h-5 xs:w-6 xs:h-6 2xl:w-8 2xl:h-8 custom1xl:!w-8 custom1xl:!h-8";
+  "w-7 h-7 lg:w-5 lg:h-5 xl:w-8 xl:h-8 custom1xl:w-8 custom1xl:h-8";
 const socialLinks = [
   {
     icon: <FaLinkedinIn className={iconClass} />,
@@ -99,9 +99,9 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="w-full flex flex-row items-center justify-center lg:justify-start gap-6 md:gap-8 2xl:gap-9 custom1xl:!gap-9">
+          <div className="w-full flex flex-row items-center justify-center lg:justify-start gap-10 custom1xl:gap-12!">
             <div
-              className="relative w-44 h-44 xs:w-52 xs:h-52 md:w-80 md:h-80 lg:w-64 lg:h-64 xl:w-80 xl:h-80 2xl:w-88 2xl:h-88 custom1xl:!w-[22rem] custom1xl:!h-[22rem] rounded-3xl overflow-hidden select-none shrink-0"
+              className="relative w-44 h-44 xs:w-52 xs:h-52 md:w-80 md:h-80 lg:w-64 lg:h-64 xl:w-80 xl:h-80 custom1xl:w-88! custom1xl:h-88! rounded-3xl overflow-hidden select-none shrink-0"
               style={{ boxShadow: "-7px 7px 14px 2px rgba(0,0,0,0.3)" }}
             >
               <Image
@@ -112,7 +112,7 @@ export default function Home() {
                 priority
               />
             </div>
-            <div className="grid grid-cols-2 gap-6 xs:gap-10 md:flex md:flex-col md:gap-6 cursor-pointer">
+            <div className="grid grid-cols-2 gap-6 xs:gap-10 md:flex md:flex-col md:gap-5 cursor-pointer">
               {socialLinks.map(({ icon, href, label }, i) => (
                 <motion.a
                   key={i}
@@ -132,7 +132,7 @@ export default function Home() {
           </div>
 
           <div className="flex items-start md:items-end justify-evenly flex-col md:flex-row mt-6 lg:mt-3 xl:mt-4 w-full px-10 lg:px-0">
-            <div className="text-4xl xs:text-6xl lg:text-5xl xl:text-8xl 1xl:text-[6.5rem] 2xl:text-[9rem] custom1xl:!text-[8rem] font-normal mb-2 font-manrope lg:leading-[0.85]">
+            <div className="text-4xl xs:text-6xl lg:text-5xl xl:text-8xl 1xl:text-[6.5rem] custom1xl:text-[8rem]! font-normal mb-2 font-manrope lg:leading-[0.85]">
               {["Hi, I'm", "Rudhra", "Bharathy"].map((text, index) => (
                 <div
                   key={index}
@@ -154,7 +154,7 @@ export default function Home() {
               ))}
             </div>
             <motion.p
-              className="w-full md:max-w-[20rem] py-1 xs:py-4 md:pb-4 md:pl-8 text-sm 2xl:text-lg custom1xl:!text-lg md:text-left text-slate-700 dark:text-slate-300"
+              className="w-full md:max-w-[20rem] py-1 xs:py-4 md:pb-4 md:pl-8 text-sm custom1xl:text-lg! md:text-left text-slate-700 dark:text-slate-300"
               initial={{ y: "100%" }}
               animate={{ y: "0%" }}
               transition={{
@@ -170,7 +170,7 @@ export default function Home() {
         </motion.div>
 
         <motion.nav
-          className="w-full lg:w-1/2 flex flex-col items-center justify-center z-30 mt-8 lg:mt-0 lg:mr-8 xl:mr-16 2xl:mr-36 my-4 md:my-6 lg:my-0 lg:mb-24"
+          className="w-full lg:w-1/2 flex flex-col items-center justify-center z-30 mt-8 lg:mt-0 lg:mr-8 xl:mr-16 my-4 md:my-6 lg:my-0 lg:mb-24"
         >
           <ul className="space-y-3 md:space-y-6 lg:space-y-3 xl:space-y-6 text-center font-space_grotesk tracking-tighter relative">
             {navLinks.map(({ name, href }, index) => (
@@ -187,7 +187,7 @@ export default function Home() {
                   >
                     <Link
                       href={href}
-                      className="text-4xl xxs:text-5xl md:text-5xl lg:text-[3.5rem] xl:text-[5rem] 2xl:text-[7rem] custom1xl:!text-[6rem] leading-[0.8]! font-black cursor-pointer! inline-block"
+                      className="text-4xl xxs:text-5xl md:text-5xl lg:text-[3.5rem] xl:text-[5rem] custom1xl:text-[6rem]! leading-[0.8]! font-black cursor-pointer! inline-block"
                     >
                       <RollingText
                         staggerDelay={0.02}
@@ -214,7 +214,7 @@ export default function Home() {
           ease: [0.22, 1, 0.36, 1],
         }}
         className="lg:absolute lg:bottom-4 lg:right-8 text-right font-manrope font-bold flex flex-row gap-3 items-center justify-center lg:justify-end
-        text-sm 2xl:text-lg custom1xl:!text-lg text-slate-600 dark:text-slate-400"
+        text-sm custom1xl:text-lg! text-slate-600 dark:text-slate-400"
       >
         <p>📍 Coimbatore, India</p>
         <p>{"•"}</p>
