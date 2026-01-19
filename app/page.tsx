@@ -131,7 +131,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex items-start md:items-end justify-evenly flex-col md:flex-row mt-6 lg:mt-3 xl:mt-4 w-full px-10 lg:px-0">
+          <div className="flex items-start md:items-end justify-evenly flex-col md:flex-row mt-6 lg:mt-3 xl:mt-10 w-full px-10 lg:px-0 xl:gap-6">
             <div className="text-4xl xs:text-6xl lg:text-5xl xl:text-8xl 1xl:text-[6.5rem] custom1xl:text-[8rem]! font-normal mb-2 font-manrope lg:leading-[0.85]">
               {["Hi, I'm", "Rudhra", "Bharathy"].map((text, index) => (
                 <div
@@ -139,7 +139,7 @@ export default function Home() {
                   className={`overflow-hidden relative inline-block ${index === 2 ? "lg:leading-[1.2] lg:min-h-[1em]" : ""}`}
                 >
                   <motion.p
-                    className="block pr-2 lg:pr-0"
+                    className="block pr-2"
                     initial={{ y: "100%" }}
                     animate={{ y: "0%" }}
                     transition={{
