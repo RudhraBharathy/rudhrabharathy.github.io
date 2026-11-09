@@ -1,0 +1,61 @@
+---
+import { buttonClass, labelClass, titleClass } from "../styles/classes";
+import Site from "../layouts/Site.astro";
+---
+
+<Site title="Page not found">
+  <main id="main">
+    <section aria-labelledby="not-found-title">
+      <div
+        class="draft-grid relative h-70 overflow-hidden border-b border-line bg-page max-wide:h-52"
+        aria-hidden="true"
+      >
+        <svg
+          class="size-full text-drawing"
+          viewBox="0 0 806 280"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <g fill="none" stroke="currentColor" opacity=".35">
+            <path d="M42 30H764M42 250H764M114 0V280M692 0V280" />
+            <path d="M26 238L248 16M558 268L790 36" stroke-dasharray="5 6" />
+            <circle cx="403" cy="140" r="106" stroke-dasharray="3 7" />
+          </g>
+          <text
+            x="403"
+            y="205"
+            text-anchor="middle"
+            class="fill-surface stroke-current font-display text-[190px] font-bold tracking-[-12px] stroke-[1.5px]"
+          >404</text>
+        </svg>
+        <span
+          class="absolute top-4 left-5 border border-line bg-surface px-2 py-1 text-xs text-muted"
+          >ROUTE / NOT DRAWN</span
+        >
+      </div>
+
+      <div class="grid grid-cols-[1fr_auto] gap-8 px-7 py-9 max-wide:block max-wide:px-4.25 max-wide:py-7">
+        <div>
+          <span class:list={[labelClass, "mb-2 block text-accent"]}>Error 404</span>
+          <h1 id="not-found-title" class:list={[titleClass, "mb-4"]}>
+            Page not found.
+          </h1>
+          <p class="max-w-[54ch] text-muted">
+            This route doesn’t exist or has moved. Head back home, or keep
+            exploring my work.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a class={buttonClass} href="/">Back home</a>
+            <a class={buttonClass} href="/projects/">View projects</a>
+          </div>
+        </div>
+        <div
+          class="self-end border-l border-line pl-5 text-right text-xs leading-relaxed text-muted max-wide:mt-8 max-wide:border-t max-wide:border-l-0 max-wide:pt-4 max-wide:pl-0 max-wide:text-left"
+          aria-hidden="true"
+        >
+          <span class="block text-ink">STATUS / 404</span>
+          Requested path unavailable
+        </div>
+      </div>
+    </section>
+  </main>
+</Site>

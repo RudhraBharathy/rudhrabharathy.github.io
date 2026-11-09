@@ -1,0 +1,143 @@
+@import "tailwindcss";
+@source "../**/*.{astro,ts,mdx}";
+
+@font-face {
+  font-family: Space;
+  src: url(/assets/space.woff2);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Manrope;
+  src: url(/assets/manrope.woff2);
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: Manrope, Arial, sans-serif;
+  --font-display: Space, Arial, sans-serif;
+  --breakpoint-wide: 721px;
+}
+
+@theme inline {
+  --color-page: var(--bg);
+  --color-surface: var(--sheet);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--rule);
+  --color-wash: var(--wash);
+  --color-accent: var(--accent);
+  --color-drawing: var(--drawing);
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+html {
+  --bg: #101112;
+  --sheet: #17191a;
+  --ink: #f0efe9;
+  --muted: #acb0ab;
+  --rule: #383c39;
+  --wash: #242726;
+  --accent: #b8cd8a;
+  --drawing: #809384;
+  --grid: #323733;
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  --bg: #edeeea;
+  --sheet: #f7f7f1;
+  --ink: #202421;
+  --muted: #535b54;
+  --rule: #c9cdc3;
+  --wash: #e5e8df;
+  --accent: #39603e;
+  --drawing: #667c67;
+  --grid: #d4d9d0;
+  color-scheme: light;
+}
+
+@layer base {
+  a,
+  button,
+  summary {
+    @apply touch-manipulation focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-accent;
+  }
+  a {
+    @apply underline-offset-4;
+  }
+}
+
+.draft-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.section-divider {
+  background: repeating-linear-gradient(
+    128deg,
+    transparent 0 5px,
+    var(--rule) 5px 6px
+  );
+}
+
+.click-spark-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Theme toggle — smooth icon crossfade */
+.theme-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  width: 15px;
+  height: 15px;
+}
+
+.theme-icon {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Dark mode: show sun (click → go light), hide moon */
+[data-theme="dark"] .theme-icon-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+[data-theme="dark"] .theme-icon-moon {
+  opacity: 0;
+  transform: rotate(-45deg) scale(0.7);
+}
+
+/* Light mode: show moon (click → go dark), hide sun */
+[data-theme="light"] .theme-icon-sun {
+  opacity: 0;
+  transform: rotate(45deg) scale(0.7);
+}
+[data-theme="light"] .theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+@media print {
+  html,
+  html[data-theme] {
+    --bg: #fff;
+    --sheet: #fff;
+    --ink: #111;
+    --muted: #444;
+    --rule: #ccc;
+    color-scheme: light;
+  }
+}

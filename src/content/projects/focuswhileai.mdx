@@ -1,0 +1,31 @@
+---
+title: FocusWhileAI
+category: Browser extension
+summary: Short activities for the wait between an AI prompt and its reply.
+introduction: Waiting for an AI reply makes it easy to wander into another tab. I built FocusWhileAI to give that pause a use inside the conversation.
+image: ../../assets/focus.jpg
+imageAlt: FocusWhileAI home screen with supported AI chat platforms
+order: 1
+demo: https://focuswhileai.web.app/
+source: https://github.com/RudhraBharathy/focuswhileai
+technologies: [React, TypeScript, CRXJS, Firebase]
+---
+
+import { Image } from "astro:assets";
+import activitiesImage from "../../assets/activities.jpg";
+
+## How it works
+
+Choose a breathing exercise, a quick game or a short read. The extension uses your interests to personalize the content it displays while the AI response loads.
+
+<figure className="my-5">
+  <Image
+    className="block w-full max-w-full rounded-md border border-line"
+    src={activitiesImage}
+    alt="FocusWhileAI activities including quick games and breathing exercises"
+    loading="lazy"
+  />
+  <figcaption className="mt-1.5 text-[13px] text-muted">
+    Activity selection inside the extension.
+  </figcaption>
+</figure>

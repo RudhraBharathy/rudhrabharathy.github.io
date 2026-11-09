@@ -1,0 +1,26 @@
+---
+import { headingClass, labelClass } from '../styles/classes';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import { projectPath } from '../data';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+---
+<div class="mt-4">
+  {projects.map(({ id, data }) => (
+    <a class="grid grid-cols-[100px_1fr_auto] items-center gap-4.5 border-t border-line py-3.75 no-underline hover:border-drawing hover:bg-wash motion-safe:transition-colors motion-safe:duration-150 max-wide:grid-cols-[72px_1fr_16px] max-wide:gap-2.5 print:block print:break-inside-avoid" href={projectPath(id)}>
+      <Image class="aspect-[1.55] w-full rounded-[5px] border border-line object-cover print:hidden" src={data.image} alt="" width={200} loading="lazy" />
+      <div class="min-w-0">
+        <span class:list={[labelClass, "mb-0.75 block text-accent"]}>{data.category}</span>
+        <h3 class:list={[headingClass, "text-[21px] leading-[1.2] max-wide:text-[19px]"]}>{data.title}</h3>
+        <p class="mt-1 text-sm leading-[1.55] text-muted max-wide:text-[13px]">{data.summary}</p>
+      </div>
+      <Icon name="lucide:arrow-right" class="shrink-0" size={20} aria-hidden="true" />
+    </a>
+  ))}
+</div>

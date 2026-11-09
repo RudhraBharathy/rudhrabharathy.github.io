@@ -1,0 +1,29 @@
+---
+import { Icon } from "astro-icon/components";
+import ExperienceList from "./ExperienceList.astro";
+import {
+  articleClass,
+  inlineLinkClass,
+  labelClass,
+  titleClass,
+} from "../styles/classes";
+---
+
+<main id="main">
+  <article class={articleClass}>
+    <a class={inlineLinkClass} href="/">
+      <Icon name="lucide:arrow-left" size={16} aria-hidden="true" />Back home
+    </a>
+    <span class:list={[labelClass, "mt-8 mb-0.75 block text-accent"]}>
+      Work history
+    </span>
+    <h1 class:list={[titleClass, "mt-2 mb-4.5"]}>Experience</h1>
+    <p class="max-w-[64ch] text-muted">
+      Product support, frontend development, and the work connecting customer
+      problems to practical solutions.
+    </p>
+    <div class="mt-6">
+      <ExperienceList />
+    </div>
+  </article>
+</main>

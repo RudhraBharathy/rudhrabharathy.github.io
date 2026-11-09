@@ -1,0 +1,278 @@
+---
+import { buttonClass, iconButtonClass, headingClass } from "../styles/classes";
+import { Icon } from "astro-icon/components";
+import portraitImage from "../assets/portrait.jpg";
+import { person } from "../data";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Rudhra Bharathy — Technical Solutions Engineer at Userflow. Browser extensions, web apps, and the work behind them.",
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark" class="scroll-pt-5">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · {person.name}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#17191a" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/assets/manrope.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/space.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} · ${person.name}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta
+      property="og:image"
+      content={new URL(portraitImage.src, Astro.site)}
+    />
+    <meta name="twitter:card" content="summary" />
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem("rb-theme");
+        if (saved === "dark" || saved === "light")
+          document.documentElement.dataset.theme = saved;
+      } catch {}
+    </script>
+  </head>
+  <body
+    class="m-0 bg-page font-sans text-base leading-[1.55] text-ink print:[&_a]:no-underline"
+  >
+    <a
+      class="absolute left-[-9999px] focus:top-1 focus:left-2 focus:z-3 focus:bg-surface print:hidden"
+      href="#main">Skip to content</a
+    >
+    <div
+      class="mx-auto min-h-screen max-w-201.5 border-x border-line bg-surface print:max-w-none print:border-0"
+    >
+      <header
+        class="flex min-h-15 items-center justify-between gap-3 border-b border-line px-6.25 py-3 max-wide:px-4 print:hidden"
+      >
+        <a
+          class:list={[
+            headingClass,
+            "text-2xl no-underline max-wide:text-[22px] font-light italic",
+          ]}
+          href="/">-RB-<span class="sr-only">Rudhra Bharathy home</span></a
+        >
+        <nav
+          aria-label="Main navigation"
+          class="flex items-center gap-2.5 max-wide:gap-1.5 [&>a]:px-1.25 [&>a]:py-2.5 [&>a]:text-sm [&>a]:leading-[1.55] [&>a]:no-underline [&>a[aria-current=page]]:text-accent"
+        >
+          <a
+            href="/experience/"
+            aria-current={currentPath === "/experience/" ? "page" : undefined}
+            >Experience</a
+          >
+          <a
+            href="/projects/"
+            aria-current={currentPath === "/projects/" ? "page" : undefined}
+            >Projects</a
+          >
+          <a
+            href="https://drive.google.com/file/d/1U09-TBzizTW41-rS8NhUv1Q714E8sl3t/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer">Resume</a
+          >
+          <button
+            class:list={[iconButtonClass, "min-w-8 min-h-8 theme-toggle-btn"]}
+            data-theme-toggle
+            aria-label="Switch color theme"
+          >
+            <span class="theme-icon-wrap" aria-hidden="true">
+              <Icon
+                name="lucide:sun"
+                size={15}
+                class="theme-icon theme-icon-sun"
+              />
+              <Icon
+                name="lucide:moon"
+                size={15}
+                class="theme-icon theme-icon-moon"
+              />
+            </span>
+          </button>
+        </nav>
+      </header>
+      <slot />
+      <footer
+        class="flex flex-wrap items-center justify-between gap-3 border-y border-line px-6.25 py-5.5 max-wide:gap-2.5 max-wide:px-4 print:hidden"
+      >
+        <div
+          class="flex flex-wrap items-center gap-2 [&>a]:text-sm [&>a]:leading-[1.55] leading-[1.55]"
+        >
+          <a href={`mailto:${person.email}`}>{person.email}</a>
+          <button
+            class={buttonClass}
+            data-copy={person.email}
+            aria-label="Copy email address"
+            ><Icon name="lucide:copy" size={14} aria-hidden="true" /><span
+              >Copy email</span
+            ></button
+          >
+          <span class="sr-only" data-copy-status role="status"></span>
+        </div>
+      </footer>
+    </div>
+    <canvas
+      class="click-spark-canvas print:hidden"
+      data-click-spark-canvas
+      aria-hidden="true"></canvas>
+    <script>
+      const root = document.documentElement;
+      const toggle = document.querySelector<HTMLButtonElement>(
+        "[data-theme-toggle]",
+      );
+      function updateTheme() {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        toggle?.setAttribute("aria-label", `Switch to ${next} theme`);
+        const themeColor =
+          root.dataset.theme === "dark" ? "#17191a" : "#f7f7f1";
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", themeColor);
+      }
+      updateTheme();
+      toggle?.addEventListener("click", () => {
+        root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+        try {
+          localStorage.setItem("rb-theme", root.dataset.theme);
+        } catch {}
+        updateTheme();
+      });
+      const copy = document.querySelector<HTMLButtonElement>("[data-copy]");
+      const status = document.querySelector<HTMLElement>("[data-copy-status]");
+      copy?.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(copy.dataset.copy || "");
+          if (status) status.textContent = "Email address copied.";
+          const label = copy.querySelector("span");
+          if (label) label.textContent = "Copied";
+        } catch {
+          if (status)
+            status.textContent =
+              "Could not copy automatically. Select the email address to copy it.";
+        }
+      });
+
+      type Spark = {
+        x: number;
+        y: number;
+        angle: number;
+        startedAt: number;
+      };
+
+      const sparkCanvas = document.querySelector<HTMLCanvasElement>(
+        "[data-click-spark-canvas]",
+      );
+      const sparkContext = sparkCanvas?.getContext("2d");
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+      const sparks: Spark[] = [];
+      let sparkFrame = 0;
+
+      function sizeSparkCanvas() {
+        if (!sparkCanvas || !sparkContext) return;
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        sparkCanvas.width = Math.round(window.innerWidth * ratio);
+        sparkCanvas.height = Math.round(window.innerHeight * ratio);
+      }
+
+      function drawSparks(now: number) {
+        if (!sparkCanvas || !sparkContext) return;
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        sparkContext.setTransform(1, 0, 0, 1, 0, 0);
+        sparkContext.clearRect(0, 0, sparkCanvas.width, sparkCanvas.height);
+        sparkContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+        sparkContext.strokeStyle = getComputedStyle(
+          document.documentElement,
+        ).getPropertyValue("--accent");
+        sparkContext.lineCap = "round";
+        sparkContext.lineWidth = 2;
+
+        for (let index = sparks.length - 1; index >= 0; index -= 1) {
+          const spark = sparks[index];
+          const progress = (now - spark.startedAt) / 500;
+          if (progress >= 1) {
+            sparks.splice(index, 1);
+            continue;
+          }
+
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const distance = 30 * eased;
+          const length = 14 * Math.pow(1 - progress, 1.6);
+          const startX = spark.x + Math.cos(spark.angle) * distance;
+          const startY = spark.y + Math.sin(spark.angle) * distance;
+
+          sparkContext.globalAlpha = 1 - progress;
+          sparkContext.beginPath();
+          sparkContext.moveTo(startX, startY);
+          sparkContext.lineTo(
+            startX + Math.cos(spark.angle) * length,
+            startY + Math.sin(spark.angle) * length,
+          );
+          sparkContext.stroke();
+        }
+
+        sparkContext.globalAlpha = 1;
+        sparkFrame = sparks.length ? requestAnimationFrame(drawSparks) : 0;
+      }
+
+      function createClickSpark(x: number, y: number) {
+        const startedAt = performance.now();
+        for (let index = 0; index < 8; index += 1) {
+          sparks.push({
+            x,
+            y,
+            angle: (Math.PI * 2 * index) / 8,
+            startedAt,
+          });
+        }
+        if (!sparkFrame) sparkFrame = requestAnimationFrame(drawSparks);
+      }
+
+      sizeSparkCanvas();
+      window.addEventListener("resize", sizeSparkCanvas);
+      document.addEventListener("click", (event) => {
+        if (reduceMotion.matches) return;
+        const target =
+          event.target instanceof Element ? event.target : document.body;
+
+        if (event.detail === 0) {
+          const rect = target.getBoundingClientRect();
+          createClickSpark(
+            rect.left + rect.width / 2,
+            rect.top + rect.height / 2,
+          );
+          return;
+        }
+        createClickSpark(event.clientX, event.clientY);
+      });
+    </script>
+  </body>
+</html>
