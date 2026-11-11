@@ -52,19 +52,61 @@ export const experience = [
 export const stack = [
   {
     label: "Languages",
-    items: ["TypeScript", "JavaScript", "HTML", "CSS"],
+    items: [
+      { label: "Python", icon: "simple-icons:python" },
+      { label: "JavaScript", icon: "simple-icons:javascript" },
+      { label: "TypeScript", icon: "simple-icons:typescript" },
+    ],
   },
   {
     label: "Frontend",
-    items: ["React", "Astro", "Tailwind CSS", "Motion"],
+    items: [
+      { label: "HTML", icon: "simple-icons:html5" },
+      { label: "CSS", icon: "simple-icons:css3" },
+      { label: "React", icon: "simple-icons:react" },
+      { label: "Tailwind CSS", icon: "simple-icons:tailwindcss" },
+      { label: "shadcn/ui", icon: "simple-icons:shadcnui" },
+      { label: "Motion", icon: "simple-icons:framer" },
+    ],
   },
   {
-    label: "Platforms & APIs",
-    items: ["REST APIs", "Webhooks", "Firebase", "Browser extensions"],
+    label: "Backend",
+    items: [
+      { label: "PostgreSQL", icon: "simple-icons:postgresql" },
+      { label: "REST APIs", icon: "lucide:braces" },
+      { label: "Webhooks", icon: "lucide:webhook" },
+      { label: "Firebase", icon: "simple-icons:firebase" },
+    ],
   },
   {
-    label: "Workflow",
-    items: ["Git", "GitHub", "Figma"],
+    label: "Workflow & AI",
+    items: [
+      { label: "Claude", icon: "simple-icons:claude" },
+      { label: "Cursor", icon: "simple-icons:cursor" },
+      { label: "Gemini", icon: "simple-icons:googlegemini" },
+      { label: "ChatGPT", icon: "simple-icons:openai" },
+      { label: "Zapier", icon: "simple-icons:zapier" },
+      { label: "Chrome DevTools MCP", icon: "simple-icons:googlechrome" },
+    ],
+  },
+  {
+    label: "DevOps",
+    items: [
+      { label: "Git", icon: "simple-icons:git" },
+      { label: "GitHub", icon: "simple-icons:github" },
+      { label: "GitHub Actions", icon: "simple-icons:githubactions" },
+      { label: "Docker", icon: "simple-icons:docker" },
+      { label: "AWS", icon: "simple-icons:amazonwebservices" },
+      { label: "Vercel", icon: "simple-icons:vercel" },
+    ],
+  },
+  {
+    label: "Design",
+    items: [
+      { label: "Figma", icon: "simple-icons:figma" },
+      { label: "Canva", icon: "simple-icons:canva" },
+      { label: "Photoshop", icon: "simple-icons:adobephotoshop" },
+    ],
   },
 ];
 

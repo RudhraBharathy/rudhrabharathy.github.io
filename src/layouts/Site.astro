@@ -1,5 +1,5 @@
 ---
-import { buttonClass, iconButtonClass, headingClass } from "../styles/classes";
+import { iconButtonClass, headingClass } from "../styles/classes";
 import { Icon } from "astro-icon/components";
 import portraitImage from "../assets/portrait.jpg";
 import { person } from "../data";
@@ -119,22 +119,68 @@ const currentPath = Astro.url.pathname;
         </nav>
       </header>
       <slot />
-      <footer
-        class="flex flex-wrap items-center justify-between gap-3 border-y border-line px-6.25 py-5.5 max-wide:gap-2.5 max-wide:px-4 print:hidden"
-      >
+      <footer class="site-footer border-y border-line print:hidden">
         <div
-          class="flex flex-wrap items-center gap-2 [&>a]:text-sm [&>a]:leading-[1.55] leading-[1.55]"
+          class="flex items-center justify-between gap-4 border-b border-line px-6.25 py-3.5 max-wide:px-4"
         >
-          <a href={`mailto:${person.email}`}>{person.email}</a>
-          <button
-            class={buttonClass}
-            data-copy={person.email}
-            aria-label="Copy email address"
-            ><Icon name="lucide:copy" size={14} aria-hidden="true" /><span
-              >Copy email</span
-            ></button
+          <a
+            class:list={[headingClass, "text-xl font-light italic no-underline"]}
+            href="/">-RB-<span class="sr-only">Rudhra Bharathy home</span></a
           >
-          <span class="sr-only" data-copy-status role="status"></span>
+          <nav class="flex items-center gap-1" aria-label="Social links">
+            <a
+              class:list={[iconButtonClass, "h-8 w-8"]}
+              href={person.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit X profile"
+              ><Icon name="simple-icons:x" size={15} aria-hidden="true" /></a
+            >
+            <a
+              class:list={[iconButtonClass, "h-8 w-8"]}
+              href={person.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit GitHub profile"
+              ><Icon
+                name="simple-icons:github"
+                size={16}
+                aria-hidden="true"
+              /></a
+            >
+            <a
+              class:list={[iconButtonClass, "h-8 w-8"]}
+              href={person.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit LinkedIn profile"
+              ><Icon
+                name="simple-icons:linkedin"
+                size={15}
+                aria-hidden="true"
+              /></a
+            >
+            <a
+              class:list={[iconButtonClass, "h-8 w-8"]}
+              href={person.devdotto}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit DEV profile"
+              ><Icon name="fa6-brands:dev" size={16} aria-hidden="true" /></a
+            >
+          </nav>
+        </div>
+        <div class="footer-blueprint draft-grid overflow-hidden px-6.25 max-wide:px-4" aria-hidden="true">
+          <p class="footer-wordmark font-display">RUDHRA</p>
+        </div>
+        <div
+          class="flex flex-wrap items-center justify-between gap-3 border-t border-line px-6.25 py-4 text-sm max-wide:items-start max-wide:px-4"
+        >
+          <p class="text-muted">Coimbatore, India <span aria-hidden="true">//</span> Available worldwide</p>
+          <a class="inline-flex items-center gap-1.5" href={`mailto:${person.email}`}>
+            Start a conversation
+            <Icon name="lucide:arrow-up-right" size={15} aria-hidden="true" />
+          </a>
         </div>
       </footer>
     </div>
@@ -164,21 +210,6 @@ const currentPath = Astro.url.pathname;
         } catch {}
         updateTheme();
       });
-      const copy = document.querySelector<HTMLButtonElement>("[data-copy]");
-      const status = document.querySelector<HTMLElement>("[data-copy-status]");
-      copy?.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(copy.dataset.copy || "");
-          if (status) status.textContent = "Email address copied.";
-          const label = copy.querySelector("span");
-          if (label) label.textContent = "Copied";
-        } catch {
-          if (status)
-            status.textContent =
-              "Could not copy automatically. Select the email address to copy it.";
-        }
-      });
-
       type Spark = {
         x: number;
         y: number;

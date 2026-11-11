@@ -1,35 +1,44 @@
 ---
 import { experience } from "../data";
+import { Icon } from "astro-icon/components";
 import { labelClass } from "../styles/classes";
 ---
 
-<div class="mt-3">
+<div class="experience-tree mt-5">
   {
     experience.map((job, index) => (
-      <details class="group border-b border-line py-3" open={index === 0}>
-        <summary class="flex cursor-pointer list-none items-center gap-3 max-wide:flex-wrap max-wide:gap-1 [&::-webkit-details-marker]:hidden">
-          <span
-            class:list={[
-              labelClass,
-              "w-28.25 shrink-0 text-muted max-wide:w-full",
-            ]}
-          >
-            {job.period}
+      <details class="experience-branch group" open={index === 0}>
+        <summary class="experience-summary [&::-webkit-details-marker]:hidden">
+          <span class="experience-node" aria-hidden="true">
+            <Icon name="lucide:briefcase-business" size={15} />
           </span>
-          <span>
-            <strong>{job.role}</strong> · {job.company}
+          <span class="min-w-0 flex-1">
+            <span class:list={[labelClass, "block text-muted"]}>
+              {job.period}
+            </span>
+            <span class="mt-0.5 block leading-[1.4]">
+              <strong>{job.role}</strong>
+              <span class="text-muted"> · {job.company}</span>
+            </span>
           </span>
-          <span class="ml-auto text-muted" aria-hidden="true">
-            <span class="group-open:hidden">+</span>
-            <span class="hidden group-open:inline">−</span>
-          </span>
+          <Icon
+            name="lucide:chevron-down"
+            class="experience-chevron shrink-0 text-muted"
+            size={18}
+            aria-hidden="true"
+          />
         </summary>
-        <div class="mt-2 mr-7.5 mb-1 ml-31.25 text-sm leading-[1.55] text-muted max-wide:mr-0 max-wide:ml-0">
-          <ul class="list-disc space-y-1 pl-4.5">
-            {job.highlights.map((highlight) => <li>{highlight}</li>)}
+        <div class="experience-panel">
+          <p class:list={[labelClass, "mb-3 text-muted"]}>{job.dates}</p>
+          <ul class="experience-highlights list-none space-y-2 p-0">
+            {job.highlights.map((highlight) => (
+              <li class="relative pl-5 text-sm leading-[1.55] text-muted">
+                {highlight}
+              </li>
+            ))}
           </ul>
           <ul
-            class="mt-3 flex list-none flex-wrap gap-1.5 p-0"
+            class="mt-4 flex list-none flex-wrap gap-1.5 p-0"
             aria-label={`${job.role} technologies`}
           >
             {
@@ -37,7 +46,7 @@ import { labelClass } from "../styles/classes";
                 <li
                   class:list={[
                     labelClass,
-                    "rounded-sm border border-line px-2 py-0.75 text-ink",
+                    "rounded-sm border border-line bg-wash px-2 py-0.75 text-ink",
                   ]}
                 >
                   {technology}

@@ -21,9 +21,11 @@ interface Props {
 }
 
 const { projects } = Astro.props;
-const socialIconClass = `${iconButtonClass} min-h-8 min-w-8 p-1.5 motion-safe:transition-transform`;
+const socialIconClass = `${iconButtonClass} min-h-8 min-w-8 p-1.5`;
 const fieldClass =
   "mt-1.5 w-full rounded-md border border-line bg-page px-3 py-2.5 text-ink placeholder:text-muted focus:border-drawing focus:outline-none";
+const factIconClass =
+  "flex h-7 w-7 shrink-0 items-center justify-center rounded-[5px] border border-line bg-wash text-muted";
 ---
 
 <main id="main">
@@ -66,23 +68,101 @@ const fieldClass =
       />
       <div>
         <h1 class={titleClass}>{person.name}</h1>
-        <div
-          class="mt-1.75 flex flex-col items-start gap-1 text-muted max-wide:max-w-[25ch] max-wide:text-sm max-wide:leading-[1.55]"
-        >
-          <a
-            href={person.locationLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            📍 Coimbatore, Tamil Nadu, India
-          </a>
-          <a href={`mailto:${person.email}`}>{person.email}</a>
-          <p>+91 88705-62981</p>
-        </div>
+        <p class="mt-1.5 text-muted">
+          Developer & Technical Solutions Engineer
+        </p>
       </div>
     </div>
     <div
-      class="grid grid-cols-2 border-b border-line [&>div]:px-7 [&>div]:py-3.5 [&>div+div]:border-l [&>div+div]:border-line max-wide:[&>div]:px-4 max-wide:[&>div]:py-3 max-wide:[&>div]:text-sm leading-[1.55]"
+      class="profile-facts grid grid-cols-2 border-b border-line max-wide:grid-cols-1"
+    >
+      <div class="space-y-2.5 px-7 py-4 max-wide:px-4.25">
+        <div class="flex items-center gap-3">
+          <span class={factIconClass} aria-hidden="true">
+            <Icon name="lucide:map-pin" size={15} />
+          </span>
+          <a
+            href={person.locationLink}
+            target="_blank"
+            rel="noopener noreferrer">Coimbatore, Tamil Nadu, India</a
+          >
+        </div>
+        <div class="flex items-center gap-3">
+          <span class={factIconClass} aria-hidden="true">
+            <Icon name="lucide:mail" size={15} />
+          </span>
+          <div class="copy-inline-group inline-flex items-center gap-4">
+            <a href={`mailto:${person.email}`}>{person.email}</a>
+            <button
+              class:list={[
+                iconButtonClass,
+                "copy-inline-button h-7 w-7 shrink-0 border border-line text-muted",
+              ]}
+              type="button"
+              data-copy-profile={person.email}
+              data-copy-label="Email address"
+              aria-label="Copy email address"
+            >
+              <span data-copy-default aria-hidden="true">
+                <Icon name="lucide:copy" size={13} />
+              </span>
+              <span
+                class="hidden text-accent"
+                data-copy-success
+                aria-hidden="true"
+              >
+                <Icon name="lucide:check" size={13} />
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="space-y-2.5 border-l border-line px-7 py-4 max-wide:border-t max-wide:border-l-0 max-wide:px-4.25"
+      >
+        <div class="flex items-center gap-3">
+          <span class={factIconClass} aria-hidden="true">
+            <Icon name="lucide:clock" size={15} />
+          </span>
+          <p>
+            <time data-local-time>--:--</time>
+            <span class="text-muted">· UTC+5:30</span>
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class={factIconClass} aria-hidden="true">
+            <Icon name="lucide:phone" size={15} />
+          </span>
+          <div class="copy-inline-group inline-flex items-center gap-4">
+            <a href="tel:+918870562981">+91 88705 62981</a>
+            <button
+              class:list={[
+                iconButtonClass,
+                "copy-inline-button h-7 w-7 shrink-0 border border-line text-muted",
+              ]}
+              type="button"
+              data-copy-profile="+91 88705 62981"
+              data-copy-label="Phone number"
+              aria-label="Copy phone number"
+            >
+              <span data-copy-default aria-hidden="true">
+                <Icon name="lucide:copy" size={13} />
+              </span>
+              <span
+                class="hidden text-accent"
+                data-copy-success
+                aria-hidden="true"
+              >
+                <Icon name="lucide:check" size={13} />
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="sr-only" data-profile-copy-status role="status"></span>
+    <div
+      class="grid grid-cols-2 border-b border-line leading-[1.55] [&>div]:px-7 [&>div]:py-3.5 [&>div+div]:border-l [&>div+div]:border-line max-wide:[&>div]:px-4 max-wide:[&>div]:py-3 max-wide:[&>div]:text-sm"
     >
       <div>
         <small class:list={[labelClass, "mb-1 block text-muted"]}
@@ -195,8 +275,14 @@ const fieldClass =
               </div>
               <ul class="flex list-none flex-wrap gap-2 p-0">
                 {group.items.map((item) => (
-                  <li class="rounded-md border border-line bg-wash px-2.5 py-1 text-sm">
-                    {item}
+                  <li class="inline-flex items-center gap-2 rounded-md border border-line bg-wash px-2.5 py-1.5 text-sm">
+                    <Icon
+                      name={item.icon}
+                      class="shrink-0 text-muted"
+                      size={15}
+                      aria-hidden="true"
+                    />
+                    {item.label}
                   </li>
                 ))}
               </ul>
@@ -280,40 +366,62 @@ const fieldClass =
           </button>
         </div>
       </form>
-      <div class="mt-5 flex flex-wrap gap-3 border-t border-line pt-5">
-        <a class={buttonClass} href={`mailto:${person.email}`}>
-          <Icon name="lucide:mail" size={15} aria-hidden="true" />Email
-        </a>
-        <a
-          class={buttonClass}
-          href={person.whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Icon
-            name="simple-icons:whatsapp"
-            size={15}
-            aria-hidden="true"
-          />WhatsApp
-        </a>
-        <a
-          class={buttonClass}
-          href={person.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Icon
-            name="simple-icons:linkedin"
-            size={15}
-            aria-hidden="true"
-          />LinkedIn
-        </a>
-      </div>
     </section>
   </div>
 </main>
 
 <script>
+  const localTime =
+    document.querySelector<HTMLTimeElement>("[data-local-time]");
+  function updateLocalTime() {
+    if (!localTime) return;
+    const now = new Date();
+    localTime.dateTime = now.toISOString();
+    localTime.textContent = new Intl.DateTimeFormat("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    })
+      .format(now)
+      .toUpperCase();
+  }
+  updateLocalTime();
+  window.setInterval(updateLocalTime, 60_000);
+
+  const profileCopyStatus = document.querySelector<HTMLElement>(
+    "[data-profile-copy-status]",
+  );
+  const profileCopyButtons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-copy-profile]",
+  );
+
+  profileCopyButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const value = button.dataset.copyProfile;
+      const label = button.dataset.copyLabel || "Value";
+      if (!value) return;
+
+      try {
+        await navigator.clipboard.writeText(value);
+        if (profileCopyStatus)
+          profileCopyStatus.textContent = `${label} copied.`;
+        button.querySelector("[data-copy-default]")?.classList.add("hidden");
+        button.querySelector("[data-copy-success]")?.classList.remove("hidden");
+        window.setTimeout(() => {
+          button
+            .querySelector("[data-copy-default]")
+            ?.classList.remove("hidden");
+          button.querySelector("[data-copy-success]")?.classList.add("hidden");
+        }, 1500);
+      } catch {
+        if (profileCopyStatus) {
+          profileCopyStatus.textContent = `${label} could not be copied automatically.`;
+        }
+      }
+    });
+  });
+
   const contactForm = document.querySelector<HTMLFormElement>(
     "[data-contact-form]",
   );
