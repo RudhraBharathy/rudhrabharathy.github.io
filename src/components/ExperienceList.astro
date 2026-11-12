@@ -2,6 +2,10 @@
 import { experience } from "../data";
 import { Icon } from "astro-icon/components";
 import { labelClass } from "../styles/classes";
+import {
+  formatExperienceDateRange,
+  formatExperienceDuration,
+} from "../utils/experience";
 ---
 
 <div class="experience-tree mt-5">
@@ -13,12 +17,26 @@ import { labelClass } from "../styles/classes";
             <Icon name="lucide:briefcase-business" size={15} />
           </span>
           <span class="min-w-0 flex-1">
-            <span class:list={[labelClass, "block text-muted"]}>
-              {job.period}
-            </span>
-            <span class="mt-0.5 block leading-[1.4]">
+            <span class="block leading-[1.4]">
               <strong>{job.role}</strong>
               <span class="text-muted"> · {job.company}</span>
+            </span>
+            <span
+              class:list={[
+                labelClass,
+                "mt-1 flex flex-wrap items-center gap-1.5 text-muted",
+              ]}
+            >
+              {formatExperienceDateRange(job.start, job.end)}
+              <span aria-hidden="true">|</span>
+              <span class="sr-only">for </span>
+              <span
+                data-experience-duration
+                data-start={job.start}
+                data-end={job.end ?? ""}
+              >
+                {formatExperienceDuration(job.start, job.end)}
+              </span>
             </span>
           </span>
           <Icon
@@ -29,7 +47,6 @@ import { labelClass } from "../styles/classes";
           />
         </summary>
         <div class="experience-panel">
-          <p class:list={[labelClass, "mb-3 text-muted"]}>{job.dates}</p>
           <ul class="experience-highlights list-none space-y-2 p-0">
             {job.highlights.map((highlight) => (
               <li class="relative pl-5 text-sm leading-[1.55] text-muted">
@@ -43,19 +60,75 @@ import { labelClass } from "../styles/classes";
           >
             {
               job.technologies.map((technology) => (
-                <li
-                  class:list={[
-                    labelClass,
-                    "rounded-sm border border-line bg-wash px-2 py-0.75 text-ink",
-                  ]}
-                >
+                <li class="rounded-sm bg-wash px-2 py-1 text-[11px] leading-normal text-muted">
                   {technology}
                 </li>
               ))
             }
           </ul>
+          {
+            job.previousRole && (
+              <div class="experience-previous-role mt-5 border-t border-line pt-4">
+                <p class="leading-[1.4]">
+                  <strong>{job.previousRole.role}</strong>
+                </p>
+                <p
+                  class:list={[
+                    labelClass,
+                    "mt-1 flex flex-wrap items-center gap-1.5 text-muted",
+                  ]}
+                >
+                  {formatExperienceDateRange(
+                    job.previousRole.start,
+                    job.previousRole.end,
+                  )}
+                  <span aria-hidden="true">|</span>
+                  <span class="sr-only">for </span>
+                  <span
+                    data-experience-duration
+                    data-start={job.previousRole.start}
+                    data-end={job.previousRole.end}
+                  >
+                    {formatExperienceDuration(
+                      job.previousRole.start,
+                      job.previousRole.end,
+                    )}
+                  </span>
+                </p>
+                <ul class="experience-highlights mt-3 list-none space-y-2 p-0">
+                  {job.previousRole.highlights.map((highlight) => (
+                    <li class="relative pl-5 text-sm leading-[1.55] text-muted">
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+                <ul
+                  class="mt-4 flex list-none flex-wrap gap-1.5 p-0"
+                  aria-label={`${job.previousRole.role} technologies`}
+                >
+                  {job.previousRole.technologies.map((technology) => (
+                    <li class="rounded-sm bg-wash px-2 py-1 text-[11px] leading-normal text-muted">
+                      {technology}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
         </div>
       </details>
     ))
   }
 </div>
+
+<script>
+  import { formatExperienceDuration } from "../utils/experience";
+
+  document.querySelectorAll<HTMLElement>("[data-experience-duration]").forEach(
+    (element) => {
+      const { start, end } = element.dataset;
+
+      if (start) element.textContent = formatExperienceDuration(start, end || null);
+    },
+  );
+</script>

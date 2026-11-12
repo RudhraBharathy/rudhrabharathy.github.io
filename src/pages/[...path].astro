@@ -33,7 +33,7 @@ const pageTitles: Record<string, string> = {
   gallery: 'Photography gallery',
   projects: 'Projects',
 };
-const title = pageTitles[page] || project?.data.title || 'Developer & Technical Solutions Engineer';
+const title = pageTitles[page] || project?.data.title || 'Rudhra Bharathy & Technical Solutions Engineer';
 ---
 <Site title={title} description={project?.data.summary}>
   {page === 'home' && <Home projects={projects} />}

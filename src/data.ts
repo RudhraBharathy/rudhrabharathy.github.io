@@ -12,20 +12,28 @@ export const person = {
 
 export const experience = [
   {
-    period: "2024 – present",
-    dates: "August 2024 – present",
+    start: "2025-02",
+    end: null,
     role: "Technical Solutions Engineer",
     company: "Beamer × Userflow",
     highlights: [
       "Investigate issues in customer environments, including DOM conflicts, dynamic selectors, and flow behavior in single-page applications.",
-      "Build and maintain Userflow interface components and in-app experiences.",
       "Turn customer feedback into product improvements, custom solutions, and developer tools with the product and engineering teams.",
     ],
     technologies: ["JavaScript", "React", "REST APIs", "Webhooks", "Git"],
+    previousRole: {
+      start: "2024-08",
+      end: "2025-01",
+      role: "Intern",
+      highlights: [
+        "Built and maintained Userflow interface components and in-app experiences.",
+      ],
+      technologies: ["JavaScript", "React", "Git"],
+    },
   },
   {
-    period: "2022 – 2024",
-    dates: "August 2022 – July 2024",
+    start: "2022-08",
+    end: "2024-07",
     role: "Frontend developer",
     company: "Freelance",
     highlights: [
@@ -36,8 +44,8 @@ export const experience = [
     technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Figma"],
   },
   {
-    period: "2021 – 2022",
-    dates: "December 2021 – May 2022",
+    start: "2021-12",
+    end: "2022-05",
     role: "Frontend developer intern",
     company: "ToSpace",
     highlights: [
@@ -67,6 +75,7 @@ export const stack = [
       { label: "Tailwind CSS", icon: "simple-icons:tailwindcss" },
       { label: "shadcn/ui", icon: "simple-icons:shadcnui" },
       { label: "Motion", icon: "simple-icons:framer" },
+      { label: "Posthog", icon: "simple-icons:posthog" },
     ],
   },
   {
