@@ -1,0 +1,78 @@
+---
+import { Icon } from "astro-icon/components";
+import { person } from "../data";
+import {
+  buttonClass,
+  labelClass,
+  sectionTitleClass,
+} from "../styles/classes";
+
+const fieldClass =
+  "mt-1.5 w-full rounded-md border border-line bg-page px-3 py-2.5 text-ink placeholder:text-muted focus:border-drawing focus:outline-none";
+---
+
+<section
+  class="px-7 py-6.25 max-wide:px-4.25"
+  id="contact"
+  aria-labelledby="contact-heading"
+>
+  <h2 class={sectionTitleClass} id="contact-heading">Let’s connect.</h2>
+  <p class="mt-3 max-w-[60ch] text-muted">
+    Have a project, a technical problem, or just want to say hello? Choose
+    whichever channel works for you.
+  </p>
+  <form
+    class="mt-5 grid gap-4"
+    action={`mailto:${person.email}`}
+    method="post"
+    enctype="text/plain"
+    data-contact-form
+    data-recipient={person.email}
+  >
+    <label>
+      <span class={labelClass}>Email or name</span>
+      <input
+        class={fieldClass}
+        type="text"
+        name="sender"
+        autocomplete="name"
+        placeholder="you@example.com or your name"
+        required
+      />
+    </label>
+    <label>
+      <span class={labelClass}>Message</span>
+      <textarea
+        class={fieldClass}
+        name="message"
+        rows="5"
+        placeholder="What would you like to discuss?"
+        required></textarea>
+    </label>
+    <div>
+      <button class={buttonClass} type="submit">
+        <Icon name="lucide:send" size={15} aria-hidden="true" />Send message
+      </button>
+    </div>
+  </form>
+</section>
+
+<script>
+  const contactForm = document.querySelector<HTMLFormElement>(
+    "[data-contact-form]",
+  );
+
+  contactForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const recipient = contactForm.dataset.recipient;
+    if (!recipient) return;
+
+    const data = new FormData(contactForm);
+    const sender = String(data.get("sender") || "").trim();
+    const message = String(data.get("message") || "").trim();
+    const subject = encodeURIComponent(`Portfolio message from ${sender}`);
+    const body = encodeURIComponent(message);
+    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+  });
+</script>
