@@ -184,10 +184,6 @@ const currentPath = Astro.url.pathname;
         </div>
       </footer>
     </div>
-    <canvas
-      class="click-spark-canvas print:hidden"
-      data-click-spark-canvas
-      aria-hidden="true"></canvas>
     <script>
       const root = document.documentElement;
       const toggle = document.querySelector<HTMLButtonElement>(
@@ -209,100 +205,6 @@ const currentPath = Astro.url.pathname;
           localStorage.setItem("rb-theme", root.dataset.theme);
         } catch {}
         updateTheme();
-      });
-      type Spark = {
-        x: number;
-        y: number;
-        angle: number;
-        startedAt: number;
-      };
-
-      const sparkCanvas = document.querySelector<HTMLCanvasElement>(
-        "[data-click-spark-canvas]",
-      );
-      const sparkContext = sparkCanvas?.getContext("2d");
-      const reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      );
-      const sparks: Spark[] = [];
-      let sparkFrame = 0;
-
-      function sizeSparkCanvas() {
-        if (!sparkCanvas || !sparkContext) return;
-        const ratio = Math.min(window.devicePixelRatio || 1, 2);
-        sparkCanvas.width = Math.round(window.innerWidth * ratio);
-        sparkCanvas.height = Math.round(window.innerHeight * ratio);
-      }
-
-      function drawSparks(now: number) {
-        if (!sparkCanvas || !sparkContext) return;
-        const ratio = Math.min(window.devicePixelRatio || 1, 2);
-        sparkContext.setTransform(1, 0, 0, 1, 0, 0);
-        sparkContext.clearRect(0, 0, sparkCanvas.width, sparkCanvas.height);
-        sparkContext.setTransform(ratio, 0, 0, ratio, 0, 0);
-        sparkContext.strokeStyle = getComputedStyle(
-          document.documentElement,
-        ).getPropertyValue("--accent");
-        sparkContext.lineCap = "round";
-        sparkContext.lineWidth = 2;
-
-        for (let index = sparks.length - 1; index >= 0; index -= 1) {
-          const spark = sparks[index];
-          const progress = (now - spark.startedAt) / 500;
-          if (progress >= 1) {
-            sparks.splice(index, 1);
-            continue;
-          }
-
-          const eased = 1 - Math.pow(1 - progress, 3);
-          const distance = 30 * eased;
-          const length = 14 * Math.pow(1 - progress, 1.6);
-          const startX = spark.x + Math.cos(spark.angle) * distance;
-          const startY = spark.y + Math.sin(spark.angle) * distance;
-
-          sparkContext.globalAlpha = 1 - progress;
-          sparkContext.beginPath();
-          sparkContext.moveTo(startX, startY);
-          sparkContext.lineTo(
-            startX + Math.cos(spark.angle) * length,
-            startY + Math.sin(spark.angle) * length,
-          );
-          sparkContext.stroke();
-        }
-
-        sparkContext.globalAlpha = 1;
-        sparkFrame = sparks.length ? requestAnimationFrame(drawSparks) : 0;
-      }
-
-      function createClickSpark(x: number, y: number) {
-        const startedAt = performance.now();
-        for (let index = 0; index < 8; index += 1) {
-          sparks.push({
-            x,
-            y,
-            angle: (Math.PI * 2 * index) / 8,
-            startedAt,
-          });
-        }
-        if (!sparkFrame) sparkFrame = requestAnimationFrame(drawSparks);
-      }
-
-      sizeSparkCanvas();
-      window.addEventListener("resize", sizeSparkCanvas);
-      document.addEventListener("click", (event) => {
-        if (reduceMotion.matches) return;
-        const target =
-          event.target instanceof Element ? event.target : document.body;
-
-        if (event.detail === 0) {
-          const rect = target.getBoundingClientRect();
-          createClickSpark(
-            rect.left + rect.width / 2,
-            rect.top + rect.height / 2,
-          );
-          return;
-        }
-        createClickSpark(event.clientX, event.clientY);
       });
     </script>
   </body>
