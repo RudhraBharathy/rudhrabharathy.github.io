@@ -84,22 +84,25 @@ const currentPath = Astro.url.pathname;
           class="flex items-center gap-2.5 max-wide:gap-1.5 [&>a]:px-1.25 [&>a]:py-2.5 [&>a]:text-sm [&>a]:leading-[1.55] [&>a]:no-underline [&>a[aria-current=page]]:text-accent"
         >
           <a
+            class="transition-colors hover:text-accent"
             href="/experience/"
             aria-current={currentPath === "/experience/" ? "page" : undefined}
             >Experience</a
           >
           <a
+            class="transition-colors hover:text-accent"
             href="/projects/"
             aria-current={currentPath === "/projects/" ? "page" : undefined}
             >Projects</a
           >
           <a
+            class="transition-colors hover:text-accent"
             href="https://drive.google.com/file/d/1U09-TBzizTW41-rS8NhUv1Q714E8sl3t/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer">Resume</a
           >
           <button
-            class:list={[iconButtonClass, "min-w-8 min-h-8 theme-toggle-btn"]}
+            class:list={[iconButtonClass, "min-w-8 min-h-8 theme-toggle-btn transition-colors hover:text-accent"]}
             data-theme-toggle
             aria-label="Switch color theme"
           >

@@ -6,7 +6,6 @@ import kodaiImage from "../assets/kodai.jpg";
 import { stack } from "../data";
 import {
   inlineLinkClass,
-  labelClass,
   sectionTitleClass,
 } from "../styles/classes";
 import ContactSection from "./ContactSection.astro";
@@ -52,15 +51,9 @@ const { projects } = Astro.props;
       <h2 class={sectionTitleClass} id="stack-heading">Stack</h2>
       <ol class="mt-4 border-t border-line">
         {
-          stack.map((group, index) => (
+          stack.map((group) => (
             <li class="grid grid-cols-[150px_1fr] gap-5 border-b border-line py-4 max-wide:grid-cols-1 max-wide:gap-2.5">
               <div class="flex items-baseline gap-2.5">
-                <span
-                  class:list={[labelClass, "text-muted"]}
-                  aria-hidden="true"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
                 <h3 class="font-semibold">{group.label}</h3>
               </div>
               <ul class="flex list-none flex-wrap gap-2 p-0">

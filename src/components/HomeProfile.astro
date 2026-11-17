@@ -10,7 +10,7 @@ import {
   titleClass,
 } from "../styles/classes";
 
-const socialIconClass = `${iconButtonClass} min-h-8 min-w-8 p-1.5`;
+const socialIconClass = `${iconButtonClass} min-h-8 min-w-8 p-1.5 hover:text-accent`;
 const factIconClass =
   "flex h-7 w-7 shrink-0 items-center justify-center rounded-[5px] border border-line bg-wash text-muted";
 ---
@@ -53,9 +53,11 @@ const factIconClass =
       fetchpriority="high"
     />
     <div>
+      <p class="mb-1 block text-muted">Hi, I’m</p>
       <h1 class={titleClass}>{person.name}</h1>
       <p class="mt-1.5 text-muted">
-        Developer & Technical Solutions Engineer
+        Building web products and solving the problems between users, code, and
+        product.
       </p>
     </div>
   </div>
@@ -63,7 +65,7 @@ const factIconClass =
     class="profile-facts grid grid-cols-2 border-b border-line max-wide:grid-cols-1"
   >
     <div class="space-y-2.5 px-7 py-4 max-wide:px-4.25">
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 hover:*:text-accent *:transition-colors">
         <span class={factIconClass} aria-hidden="true">
           <Icon name="lucide:map-pin" size={15} />
         </span>
@@ -73,7 +75,7 @@ const factIconClass =
           rel="noopener noreferrer">Coimbatore, Tamil Nadu, India</a
         >
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 hover:*:text-accent *:transition-colors">
         <span class={factIconClass} aria-hidden="true">
           <Icon name="lucide:mail" size={15} />
         </span>
@@ -111,7 +113,7 @@ const factIconClass =
           <span class="text-muted">· UTC+5:30</span>
         </p>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 hover:*:text-accent *:transition-colors">
         <span class={factIconClass} aria-hidden="true">
           <Icon name="lucide:phone" size={15} />
         </span>
@@ -143,14 +145,14 @@ const factIconClass =
     class="grid grid-cols-2 border-b border-line leading-[1.55] [&>div]:px-7 [&>div]:py-3.5 [&>div+div]:border-l [&>div+div]:border-line max-wide:[&>div]:px-4 max-wide:[&>div]:py-3 max-wide:[&>div]:text-sm"
   >
     <div>
-      <small class:list={[labelClass, "mb-1 block text-muted"]}>Currently</small>
+      <p class="mb-3 block text-muted text-sm">Currently</p>
       Technical Solutions Engineer at <a
         class={inlineLinkClass}
         href="https://www.userflow.com/">Userflow</a
       >
     </div>
     <div>
-      <small class:list={[labelClass, "mb-1 block text-muted"]}>Socials</small>
+      <p class="mb-1 block text-muted text-sm">Socials</p>
       <div class="mt-2 flex flex-wrap items-center gap-3">
         <a
           class={socialIconClass}
@@ -158,15 +160,7 @@ const factIconClass =
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit LinkedIn profile"
-          ><Icon name="simple-icons:linkedin" size={19} aria-hidden="true" /></a
-        >
-        <a
-          class={socialIconClass}
-          href={person.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visit X profile"
-          ><Icon name="simple-icons:x" size={19} aria-hidden="true" /></a
+          ><Icon name="simple-icons:linkedin" size={18} aria-hidden="true" /></a
         >
         <a
           class={socialIconClass}
@@ -174,7 +168,15 @@ const factIconClass =
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit GitHub profile"
-          ><Icon name="simple-icons:github" size={19} aria-hidden="true" /></a
+          ><Icon name="simple-icons:github" size={18} aria-hidden="true" /></a
+        >
+        <a
+          class={socialIconClass}
+          href={person.twitter}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit X profile"
+          ><Icon name="simple-icons:x" size={18} aria-hidden="true" /></a
         >
         <a
           class={socialIconClass}
@@ -182,7 +184,7 @@ const factIconClass =
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit DEV profile"
-          ><Icon name="fa6-brands:dev" size={19} aria-hidden="true" /></a
+          ><Icon name="fa6-brands:dev" size={18} aria-hidden="true" /></a
         >
       </div>
     </div>
@@ -192,16 +194,16 @@ const factIconClass =
     class="space-y-3 px-7 py-6 max-wide:px-4.25 [&_p]:max-w-[64ch] [&_p]:text-pretty"
   >
     <p>
-      I specialize in full-stack web development: building thoughtful interfaces
-      and turning product ideas into working solutions.
+      <strong class="text-accent">Build.</strong> Thoughtful full-stack web
+      products, from polished interfaces to the systems behind them.
     </p>
     <p>
-      I also work directly with customers, investigate technical issues, and
-      help teams turn real-world problems into product improvements.
+      <strong class="text-accent">Solve.</strong> Real-world technical issues,
+      turning customer feedback into practical product improvements.
     </p>
     <p>
-      Outside work, I photograph the places I travel and the details I find
-      along the way.
+      <strong class="text-accent">Explore.</strong> Places, light, and the small
+      details I discover through photography.
     </p>
   </div>
 </div>

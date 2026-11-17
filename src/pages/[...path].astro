@@ -2,17 +2,13 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Site from '../layouts/Site.astro';
 import Home from '../components/Home.astro';
-import ExperiencePage from '../components/ExperiencePage.astro';
 import Gallery from '../components/Gallery.astro';
 import Project from '../components/Project.astro';
-import ProjectsPage from '../components/ProjectsPage.astro';
 export async function getStaticPaths() {
   const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
   return [
     { params: { path: undefined }, props: { page: 'home', projects } },
-    { params: { path: 'experience' }, props: { page: 'experience', projects } },
     { params: { path: 'gallery' }, props: { page: 'gallery', projects } },
-    { params: { path: 'projects' }, props: { page: 'projects', projects } },
     ...projects.map((project, index) => ({
       params: { path: `projects/${project.id}` },
       props: { page: 'project', projects, project, next: projects[(index + 1) % projects.length] },
@@ -29,16 +25,12 @@ interface Props {
 
 const { page, projects, project, next } = Astro.props;
 const pageTitles: Record<string, string> = {
-  experience: 'Experience',
   gallery: 'Photography gallery',
-  projects: 'Projects',
 };
 const title = pageTitles[page] || project?.data.title || 'Rudhra Bharathy & Technical Solutions Engineer';
 ---
 <Site title={title} description={project?.data.summary}>
   {page === 'home' && <Home projects={projects} />}
-  {page === 'experience' && <ExperiencePage />}
   {page === 'gallery' && <Gallery />}
-  {page === 'projects' && <ProjectsPage projects={projects} />}
   {project && next && <Project project={project} next={next} />}
 </Site>
