@@ -147,7 +147,7 @@ html[data-theme="light"] {
   transform: translateY(-100%);
 }
 
-.experience-summary:hover {
+.experience-branch:hover {
   color: var(--accent);
 }
 

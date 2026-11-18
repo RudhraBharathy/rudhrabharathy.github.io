@@ -17,18 +17,50 @@ export const experience = [
     role: "Technical Solutions Engineer",
     company: "Beamer × Userflow",
     highlights: [
-      "Investigate issues in customer environments, including DOM conflicts, dynamic selectors, and flow behavior in single-page applications.",
-      "Turn customer feedback into product improvements, custom solutions, and developer tools with the product and engineering teams.",
+      [
+        "Built and maintain Userflow’s ",
+        {
+          text: "AI Skills Library",
+          href: "https://github.com/userflow/ai-skills-library",
+        },
+        ", with 15+ skills that work in Claude Code, Cursor, Codex and more.",
+      ],
+      [
+        "Contributed to Userflow product features that solve customer problems, and built internal AI tools such as an ",
+        { text: "AI Summary Bot" },
+        " that auto-summarizes support conversations.",
+      ],
+      [
+        "Resolved backline escalations by finding root causes and handing engineering bugs they could reproduce.",
+      ],
+      [
+        "Helped customers fix userflow product issues and setup problems on both technical and non-technical calls.",
+      ],
+      [
+        "Led research on the element selector tool that informed Product’s Q3 roadmap, and built a ",
+        { text: "React Native SDK" },
+        " and won the internal hackathon.",
+      ],
     ],
-    technologies: ["JavaScript", "React", "REST APIs", "Webhooks", "Git"],
+    technologies: [
+      "JavaScript",
+      "React",
+      "REST APIs",
+      "Cloudflare Workers",
+      "Webhooks",
+      "Git",
+      "Jira",
+      "Figma",
+    ],
     previousRole: {
       start: "2024-08",
       end: "2025-01",
       role: "Intern",
       highlights: [
         "Built and maintained Userflow interface components and in-app experiences.",
+        "Handled Userflow customer issues and debugged customer userflow.js setups",
       ],
-      technologies: ["JavaScript", "React", "Git"],
+      technologies: ["JavaScript", "React", "Git", "Intercom"],
     },
   },
   {
@@ -37,11 +69,42 @@ export const experience = [
     role: "Frontend developer",
     company: "Freelance",
     highlights: [
-      "Designed and developed responsive websites and landing pages with an emphasis on performance and accessibility.",
-      "Worked directly with clients to understand their goals and deliver tailored frontend solutions.",
-      "Delivered projects through clear communication, practical scope, and reliable handoff.",
+      [
+        "Designed and developed ",
+        { text: "responsive websites " },
+        "and landing pages with an emphasis on ",
+        { text: "performance" },
+        " and ",
+        { text: "accessibility" },
+        ".",
+      ],
+      [
+        "Worked directly with clients to understand their goals and deliver tailored frontend solutions.",
+      ],
+      [
+        "Delivered projects through ",
+        { text: "clear communication "} ,
+        "practical scope, and ",
+        { text: "reliable handoff" },
+        ".",
+      ],
     ],
-    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Figma"],
+    technologies: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "Figma",
+      "Git",
+      "GitHub",
+      "Vercel",
+    ],
+    work: {
+      label: "Sri Guru Associate",
+      href: "https://sriguruassociate.com/",
+    },
   },
   {
     start: "2021-12",
@@ -49,11 +112,32 @@ export const experience = [
     role: "Frontend developer intern",
     company: "ToSpace",
     highlights: [
-      "Developed and deployed responsive websites and static landing pages.",
-      "Applied lazy loading, accessibility practices, and performance improvements to production pages.",
-      "Added measured interface motion while keeping media loading efficient.",
+      [
+        "Developed and ",
+        { text: "deployed" },
+        " responsive websites and static landing pages.",
+      ],
+      [
+        "Applied lazy loading, accessibility practices, and performance improvements to ",
+        { text: "production" },
+        " pages.",
+      ],
+      [
+        "Added measured interface ",
+        { text: "animations" },
+        " while keeping media loading efficient.",
+      ],
     ],
-    technologies: ["HTML", "CSS", "JavaScript", "Git", "PHP"],
+    technologies: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "PHP",
+      "jQuery",
+      "AOS.js",
+      "Git",
+      "GitHub",
+    ],
   },
 ];
 

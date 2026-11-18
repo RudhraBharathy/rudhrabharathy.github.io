@@ -50,7 +50,26 @@ import {
           <ul class="experience-highlights list-none space-y-2 p-0">
             {job.highlights.map((highlight) => (
               <li class="relative pl-5 text-sm leading-[1.55] text-muted">
-                {highlight}
+                {Array.isArray(highlight)
+                  ? highlight.map((part) =>
+                      typeof part === "string" ? (
+                        part
+                      ) : "href" in part ? (
+                        <a
+                          class="font-semibold text-accent underline"
+                          href={part.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {part.text}
+                        </a>
+                      ) : (
+                        <strong class="font-semibold text-accent">
+                          {part.text}
+                        </strong>
+                      ),
+                    )
+                  : highlight}
               </li>
             ))}
           </ul>
@@ -66,6 +85,26 @@ import {
               ))
             }
           </ul>
+          {
+            "work" in job && job.work && (
+              <p class:list={[labelClass, "mt-3 text-muted"]}>
+                Website I built: {" "}
+                <a
+                  class="inline-flex items-center gap-1 font-semibold text-accent underline"
+                  href={job.work.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {job.work.label}
+                  <Icon
+                    name="lucide:arrow-up-right"
+                    size={13}
+                    aria-hidden="true"
+                  />
+                </a>
+              </p>
+            )
+          }
           {
             job.previousRole && (
               <div class="experience-previous-role mt-5 border-t border-line pt-4">
