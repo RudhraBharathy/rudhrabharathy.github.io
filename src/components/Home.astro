@@ -1,13 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import kodaiImage from "../assets/kodai.jpg";
 import { stack } from "../data";
-import {
-  inlineLinkClass,
-  sectionTitleClass,
-} from "../styles/classes";
+import { labelClass, sectionTitleClass } from "../styles/classes";
 import ContactSection from "./ContactSection.astro";
 import ExperienceList from "./ExperienceList.astro";
 import HomeProfile from "./HomeProfile.astro";
@@ -81,27 +76,39 @@ const { projects } = Astro.props;
       aria-labelledby="about-heading"
     >
       <h2 class={sectionTitleClass} id="about-heading">Beyond the screen.</h2>
-      <div
-        class="mt-4 flex items-center gap-4.5 max-wide:items-start [&_p]:max-w-110 [&_a]:text-sm [&_a]:leading-[1.55] leading-[1.55]"
+      <p class="mt-2 max-w-120 text-muted">
+        Places, light, and small details I notice when I travel.
+      </p>
+      <a
+        class="group relative mt-5 grid min-h-40 grid-cols-[1fr_5.5rem] overflow-hidden rounded-md border border-line bg-surface no-underline shadow-[0_2px_0_var(--rule)] active:translate-y-px hover:border-drawing hover:bg-wash motion-safe:transition-[border-color,background-color,transform] motion-safe:duration-200 max-wide:grid-cols-[1fr_4.25rem]"
+        href="/gallery/"
       >
-        <Image
-          class="h-20.5 w-27.5 rounded-sm object-cover"
-          src={kodaiImage}
-          alt="Mountain landscape in Kodaikanal"
-          width={220}
-          loading="lazy"
-        />
-        <div>
-          <p>I take photos when I travel. This one is from my Kodai Diaries.</p>
-          <a class={inlineLinkClass} href="/gallery/"
-            >Open the gallery <Icon
-              name="lucide:arrow-right"
-              size={15}
-              aria-hidden="true"
-            /></a
+        <span
+          class="draft-grid pointer-events-none absolute inset-0 opacity-35 group-hover:opacity-55 motion-safe:transition-opacity motion-safe:duration-200"
+          aria-hidden="true"
+        >
+        </span>
+        <span class="relative flex flex-col justify-between gap-8 p-5 max-wide:p-4">
+          <span class:list={[labelClass, "text-muted"]}>
+            Travel · Places · Light
+          </span>
+          <span
+            class="max-w-110 font-display text-[clamp(30px,5vw,46px)] leading-[1.05] font-bold tracking-[-0.055em] group-hover:text-accent motion-safe:transition-colors motion-safe:duration-200"
           >
-        </div>
-      </div>
+            Enter the photo journal
+          </span>
+        </span>
+        <span
+          class="relative flex items-center justify-center border-l border-line bg-wash text-accent group-hover:border-accent group-hover:bg-accent group-hover:text-surface motion-safe:transition-colors motion-safe:duration-200"
+          aria-hidden="true"
+        >
+          <Icon
+            name="lucide:arrow-up-right"
+            class="group-hover:translate-x-1 group-hover:-translate-y-1 motion-safe:transition-transform motion-safe:duration-200"
+            size={28}
+          />
+        </span>
+      </a>
     </section>
     <div class="section-divider h-2.25 border-y border-line" aria-hidden="true">
     </div>

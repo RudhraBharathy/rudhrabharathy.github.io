@@ -206,3 +206,121 @@ export const stack = [
 export function projectPath(id: string) {
   return `/projects/${id}/`;
 }
+
+const galleryAssets = import.meta.glob<ImageMetadata>(
+  "./assets/gallery/*.{jpg,jpeg}",
+  { eager: true, import: "default" },
+);
+
+const galleryPosts = [
+  {
+    file: "18074505103822355.jpeg",
+    title: "The luck of the Irish ☘️🍃",
+    alt: "Close-up of clover leaves",
+  },
+  {
+    file: "18112210285496731.jpeg",
+    title: "Next stop: wherever life takes me 🚉✨",
+    alt: "Train stopped at a railway platform",
+  },
+  {
+    file: "18055816730214873.jpeg",
+    title: "Kodai Diaries 🏞️",
+    alt: "Landscape in Kodaikanal",
+  },
+  {
+    file: "18085980139727135.jpeg",
+    title: "Sunset by the sea 🌅🌊",
+    alt: "Sunset over the sea",
+  },
+  {
+    file: "18026853176365265.jpeg",
+    title: "Gangaikonda Cholapuram ✨",
+    alt: "Gangaikonda Cholapuram temple",
+  },
+  {
+    file: "17955758576776913.jpeg",
+    title: "Luna 🌑🌙",
+    alt: "The moon in a dark sky",
+  },
+  {
+    file: "18071007544768405.jpeg",
+    title: "Infinity Above ✨🌌",
+    alt: "Star-filled midnight sky",
+  },
+  {
+    file: "18057480641009772.jpeg",
+    title: "Thanjavur Big Temple ✨",
+    alt: "Brihadeeswarar Temple in Thanjavur",
+  },
+  {
+    file: "18059089033587427.jpeg",
+    title: "Arabian Sea coast 🌊🌴",
+    alt: "Arabian Sea coastline",
+  },
+  {
+    file: "18317056009146486.jpeg",
+    title: "Kookal Eco Farms 🍃🍂",
+    alt: "Landscape at Kookal Eco Farms",
+  },
+  {
+    file: "17897204879939199.jpeg",
+    title: "Green Iguana 💫",
+    alt: "Green iguana",
+  },
+  {
+    file: "17868739958973079.jpg",
+    title: "China rose 🌺",
+    alt: "China rose flower",
+  },
+  {
+    file: "17902802132829496.jpg",
+    title: "Myna ✨",
+    alt: "Myna bird",
+  },
+  {
+    file: "18153027004292782.jpg",
+    title: "Roses 🌹🍃",
+    alt: "Rose flowers",
+  },
+  {
+    file: "17984497672877956.jpeg",
+    title: "Mexican Sphagneticola 💛",
+    alt: "Mexican Sphagneticola flower",
+  },
+  {
+    file: "17968129490483042.jpeg",
+    title: "Flower Rooftop ✨",
+    alt: "Flowers in a rooftop garden",
+  },
+  {
+    file: "17963547965161530.jpeg",
+    title: "Puppy 🐾🐕",
+    alt: "Puppy",
+  },
+  {
+    file: "18253531138126450.jpeg",
+    title: "Plants 🍂🍃",
+    alt: "Green plant leaves",
+  },
+  {
+    file: "18004598689592181.jpeg",
+    title: "Tree-lined road 🌳🛣️🌳",
+    alt: "Tree-lined road",
+  },
+  {
+    file: "17950206659325210.jpeg",
+    title: "Vernonia Cinerea 🌷",
+    alt: "Vernonia Cinerea flower",
+  },
+  {
+    file: "17928926525636496.jpeg",
+    title: "Blue skies ☁️⛅💙",
+    alt: "Clouds in a blue sky",
+  },
+];
+
+export const gallery = galleryPosts.map(({ file, ...post }) => ({
+  ...post,
+  src: galleryAssets[`./assets/gallery/${file}`]!,
+}));

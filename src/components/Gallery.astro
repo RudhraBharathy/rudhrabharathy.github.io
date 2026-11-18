@@ -1,8 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
-import kodaiImage from "../assets/kodai.jpg";
-import { person } from "../data";
+import { gallery, person } from "../data";
+import Masonry from "./Masonry.astro";
 import {
   articleClass,
   buttonClass,
@@ -36,19 +35,8 @@ import {
         <Icon name="lucide:arrow-up-right" size={15} aria-hidden="true" />
       </a>
     </div>
-    <figure class="mt-8">
-      <Image
-        class="block aspect-4/3 w-full rounded-md border border-line object-cover"
-        src={kodaiImage}
-        alt="Mountain landscape in Kodaikanal"
-        width={1000}
-        loading="eager"
-        fetchpriority="high"
-      />
-      <figcaption class="mt-2 flex items-center justify-between gap-4 text-sm">
-        <span>Kodai Diaries</span>
-        <span class="text-muted">Kodaikanal, Tamil Nadu</span>
-      </figcaption>
-    </figure>
+    <div class="mt-8">
+      <Masonry items={gallery} />
+    </div>
   </article>
 </main>

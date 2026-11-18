@@ -1,0 +1,524 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+interface GalleryItem {
+  src: ImageMetadata;
+  alt: string;
+  title?: string;
+  description?: string;
+}
+
+interface Props {
+  items: GalleryItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="masonry" data-masonry-gallery>
+  <div class="masonry__grid" data-masonry-grid>
+    {
+      items.map((item, index) => (
+        <div
+          class="masonry__item"
+          data-masonry-item
+          data-aspect={item.src.height / item.src.width}
+        >
+          <button
+            class="masonry__card"
+            type="button"
+            aria-label={`View ${item.title ?? item.alt}`}
+            aria-haspopup="dialog"
+            data-masonry-card
+            data-index={index}
+            data-title={item.title}
+            data-description={item.description}
+            style={`aspect-ratio: ${item.src.width} / ${item.src.height}`}
+          >
+            <span class="masonry__media">
+              <span class="masonry__parallax" data-masonry-parallax>
+                <Image
+                  class="masonry__image"
+                  src={item.src}
+                  alt={item.alt}
+                  width={1000}
+                  loading={index < 5 ? "eager" : "lazy"}
+                  fetchpriority={index === 0 ? "high" : "auto"}
+                  decoding="async"
+                />
+              </span>
+              {(item.title || item.description) && (
+                <span class="masonry__caption">
+                  {item.title && <span class="masonry__title">{item.title}</span>}
+                  {item.description && (
+                    <span class="masonry__description">{item.description}</span>
+                  )}
+                </span>
+              )}
+            </span>
+          </button>
+        </div>
+      ))
+    }
+  </div>
+
+  <dialog class="lightbox" aria-label="Photography viewer" data-masonry-dialog>
+    <figure class="lightbox__figure">
+      <img class="lightbox__image" alt="" data-masonry-dialog-image />
+      <figcaption class="lightbox__caption" data-masonry-dialog-caption>
+        <span data-masonry-dialog-title></span>
+        <span class="lightbox__description" data-masonry-dialog-description></span>
+      </figcaption>
+    </figure>
+    <button
+      class="lightbox__button lightbox__close"
+      type="button"
+      aria-label="Close image"
+      data-masonry-dialog-close
+    >
+      <Icon name="lucide:x" size={20} aria-hidden="true" />
+    </button>
+    <button
+      class="lightbox__button lightbox__previous"
+      type="button"
+      aria-label="Previous image"
+      data-masonry-dialog-previous
+      hidden={items.length < 2}
+    >
+      <Icon name="lucide:arrow-left" size={20} aria-hidden="true" />
+    </button>
+    <button
+      class="lightbox__button lightbox__next"
+      type="button"
+      aria-label="Next image"
+      data-masonry-dialog-next
+      hidden={items.length < 2}
+    >
+      <Icon name="lucide:arrow-right" size={20} aria-hidden="true" />
+    </button>
+  </dialog>
+</div>
+
+<script>
+  const GAP = 12;
+  const COLUMN_WIDTH = 220;
+  const PARALLAX_STRENGTH = 0.18;
+
+  const clamp = (value: number, min: number, max: number) =>
+    Math.min(max, Math.max(min, value));
+
+  document.querySelectorAll<HTMLElement>("[data-masonry-gallery]").forEach((gallery) => {
+    const grid = gallery.querySelector<HTMLElement>("[data-masonry-grid]");
+    const items = Array.from(
+      gallery.querySelectorAll<HTMLElement>("[data-masonry-item]"),
+    );
+    const cards = Array.from(
+      gallery.querySelectorAll<HTMLButtonElement>("[data-masonry-card]"),
+    );
+    const dialog = gallery.querySelector<HTMLDialogElement>("[data-masonry-dialog]");
+    const dialogImage = gallery.querySelector<HTMLImageElement>(
+      "[data-masonry-dialog-image]",
+    );
+    const dialogCaption = gallery.querySelector<HTMLElement>(
+      "[data-masonry-dialog-caption]",
+    );
+    const dialogTitle = gallery.querySelector<HTMLElement>(
+      "[data-masonry-dialog-title]",
+    );
+    const dialogDescription = gallery.querySelector<HTMLElement>(
+      "[data-masonry-dialog-description]",
+    );
+    const closeButton = gallery.querySelector<HTMLButtonElement>(
+      "[data-masonry-dialog-close]",
+    );
+    const previousButton = gallery.querySelector<HTMLButtonElement>(
+      "[data-masonry-dialog-previous]",
+    );
+    const nextButton = gallery.querySelector<HTMLButtonElement>(
+      "[data-masonry-dialog-next]",
+    );
+
+    if (
+      !grid ||
+      !dialog ||
+      !dialogImage ||
+      !dialogCaption ||
+      !dialogTitle ||
+      !dialogDescription ||
+      !closeButton ||
+      !previousButton ||
+      !nextButton
+    )
+      return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let activeIndex = 0;
+    let lastTrigger: HTMLButtonElement | null = null;
+    let parallaxFrame = 0;
+    let previousOverflow = "";
+
+    const updateParallax = () => {
+      parallaxFrame = 0;
+      if (reducedMotion.matches) return;
+
+      const viewportCenter = window.innerHeight / 2;
+      items.forEach((item) => {
+        const layer = item.querySelector<HTMLElement>("[data-masonry-parallax]");
+        if (!layer) return;
+
+        const bounds = item.getBoundingClientRect();
+        if (bounds.bottom < -200 || bounds.top > window.innerHeight + 200) return;
+
+        const reach = PARALLAX_STRENGTH * 0.2 * bounds.height;
+        const shift = clamp(
+          -(bounds.top + bounds.height / 2 - viewportCenter) *
+            PARALLAX_STRENGTH *
+            0.25,
+          -reach,
+          reach,
+        );
+        layer.style.transform = `translate3d(0, ${shift.toFixed(2)}px, 0) scale(${(
+          1 +
+          PARALLAX_STRENGTH * 0.4
+        ).toFixed(3)})`;
+      });
+    };
+
+    const scheduleParallax = () => {
+      if (!parallaxFrame) parallaxFrame = requestAnimationFrame(updateParallax);
+    };
+
+    const layout = () => {
+      const width = grid.clientWidth;
+      if (!width || !items.length) return;
+
+      const columns = Math.min(
+        items.length,
+        Math.max(1, Math.floor((width + GAP) / (COLUMN_WIDTH + GAP))),
+      );
+      const itemWidth = (width - GAP * (columns - 1)) / columns;
+      const heights = new Array<number>(columns).fill(0);
+
+      items.forEach((item) => {
+        const shortest = Math.min(...heights);
+        const column = heights.indexOf(shortest);
+        const aspect = Number(item.dataset.aspect) || 1;
+        const height = itemWidth * aspect;
+
+        item.style.width = `${itemWidth}px`;
+        item.style.height = `${height}px`;
+        item.style.left = `${column * (itemWidth + GAP)}px`;
+        item.style.top = `${shortest}px`;
+        heights[column] = shortest + height + GAP;
+      });
+
+      grid.style.height = `${Math.max(...heights) - GAP}px`;
+      grid.dataset.ready = "";
+      scheduleParallax();
+    };
+
+    const showImage = (index: number) => {
+      const card = cards[index];
+      const image = card?.querySelector<HTMLImageElement>("img");
+      if (!card || !image) return;
+
+      activeIndex = index;
+      dialogImage.src = image.currentSrc || image.src;
+      dialogImage.alt = image.alt;
+      dialogTitle.textContent = card.dataset.title ?? "";
+      dialogDescription.textContent = card.dataset.description ?? "";
+      dialogCaption.hidden = !card.dataset.title && !card.dataset.description;
+    };
+
+    const stepImage = (direction: number) => {
+      if (cards.length < 2) return;
+      showImage((activeIndex + direction + cards.length) % cards.length);
+    };
+
+    cards.forEach((card, index) => {
+      card.addEventListener("click", () => {
+        lastTrigger = card;
+        showImage(index);
+        previousOverflow = document.documentElement.style.overflow;
+        document.documentElement.style.overflow = "hidden";
+        dialog.showModal();
+        closeButton.focus();
+      });
+    });
+
+    closeButton.addEventListener("click", () => dialog.close());
+    previousButton.addEventListener("click", () => stepImage(-1));
+    nextButton.addEventListener("click", () => stepImage(1));
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") stepImage(-1);
+      if (event.key === "ArrowRight") stepImage(1);
+    });
+    dialog.addEventListener("close", () => {
+      document.documentElement.style.overflow = previousOverflow;
+      lastTrigger?.focus();
+    });
+
+    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+      items.forEach((item) => (item.dataset.visible = ""));
+    } else {
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            (entry.target as HTMLElement).dataset.visible = "";
+            revealObserver.unobserve(entry.target);
+          });
+        },
+        { rootMargin: "0px 0px -6% 0px" },
+      );
+      items.forEach((item) => revealObserver.observe(item));
+    }
+
+    const resizeObserver = new ResizeObserver(layout);
+    resizeObserver.observe(grid);
+    window.addEventListener("scroll", scheduleParallax, { passive: true });
+    reducedMotion.addEventListener("change", scheduleParallax);
+    layout();
+  });
+</script>
+
+<style>
+  .masonry__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 12px;
+  }
+
+  .masonry__grid[data-ready] {
+    position: relative;
+    display: block;
+  }
+
+  .masonry__grid[data-ready] .masonry__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .masonry__card {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    border-radius: 0.375rem;
+    background: var(--wash);
+    color: inherit;
+    cursor: zoom-in;
+    opacity: 1;
+    text-align: left;
+  }
+
+  .masonry__grid[data-ready] .masonry__card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 450ms ease,
+      transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 150ms ease;
+  }
+
+  .masonry__grid[data-ready] .masonry__item[data-visible] .masonry__card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .masonry__media,
+  .masonry__parallax {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  .masonry__media {
+    overflow: hidden;
+  }
+
+  .masonry__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    user-select: none;
+  }
+
+  .masonry__card:hover {
+    border-color: var(--drawing);
+  }
+
+  .masonry__card:hover .masonry__image {
+    transform: scale(1.04);
+  }
+
+  .masonry__caption {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 42px 14px 12px;
+    background: linear-gradient(transparent, rgb(0 0 0 / 62%));
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px);
+    transition:
+      opacity 250ms ease,
+      transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .masonry__card:hover .masonry__caption,
+  .masonry__card:focus-visible .masonry__caption {
+    opacity: 1;
+    transform: none;
+  }
+
+  .masonry__title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .masonry__description {
+    font-size: 12px;
+    line-height: 1.4;
+    opacity: 0.8;
+  }
+
+  .lightbox {
+    width: 100vw;
+    max-width: none;
+    height: 100vh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .lightbox[open] {
+    display: grid;
+    place-items: center;
+  }
+
+  .lightbox::backdrop {
+    background: rgb(9 9 11 / 92%);
+  }
+
+  .lightbox__figure {
+    display: grid;
+    max-width: calc(100vw - 9rem);
+    max-height: calc(100vh - 4rem);
+    gap: 12px;
+    justify-items: center;
+    margin: 0;
+  }
+
+  .lightbox__image {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100vh - 8rem);
+    border-radius: 0.375rem;
+    object-fit: contain;
+  }
+
+  .lightbox__caption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 14px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .lightbox__caption[hidden] {
+    display: none;
+  }
+
+  .lightbox__description {
+    opacity: 0.65;
+  }
+
+  .lightbox__button {
+    position: fixed;
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgb(255 255 255 / 14%);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 10%);
+    color: #fff;
+    cursor: pointer;
+    transition: background 150ms ease;
+  }
+
+  .lightbox__button:hover {
+    background: rgb(255 255 255 / 18%);
+  }
+
+  .lightbox__close {
+    top: 16px;
+    right: 16px;
+  }
+
+  .lightbox__previous {
+    top: calc(50% - 22px);
+    left: 16px;
+  }
+
+  .lightbox__next {
+    top: calc(50% - 22px);
+    right: 16px;
+  }
+
+  @media (hover: none) {
+    .masonry__caption {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .lightbox__figure {
+      max-width: calc(100vw - 2rem);
+    }
+
+    .lightbox__previous {
+      bottom: 16px;
+      left: 16px;
+      top: auto;
+    }
+
+    .lightbox__next {
+      right: 16px;
+      bottom: 16px;
+      top: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .masonry__grid[data-ready] .masonry__card,
+    .masonry__image,
+    .masonry__caption {
+      transition: none;
+    }
+  }
+</style>
