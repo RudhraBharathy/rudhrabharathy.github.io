@@ -1,0 +1,87 @@
+---
+import { Icon } from "astro-icon/components";
+import { person } from "../data";
+import { headingClass, inlineLinkClass } from "../styles/classes";
+
+const socials = [
+  { label: "GitHub", href: person.github },
+  { label: "LinkedIn", href: person.linkedin },
+  { label: "X", href: person.twitter },
+  { label: "DEV", href: person.devdotto },
+];
+
+const railLinkClass =
+  "flex min-h-12 items-center justify-between gap-1.5 px-3 no-underline hover:bg-wash hover:text-accent focus-visible:z-1 focus-visible:outline-offset-[-3px] [&_svg]:shrink-0";
+---
+
+<footer id="site-footer" class="border-y border-line print:hidden">
+  <div class="flex min-h-32 flex-col items-start justify-center px-7 py-6 max-wide:px-4.25">
+    <a
+      class:list={[
+        headingClass,
+        "text-[clamp(25px,5vw,39px)] leading-[1.12] no-underline",
+      ]}
+      href="/"
+      data-restore-scroll
+      aria-label={`${person.name} home`}
+    >
+      {person.name}
+    </a>
+    <a
+      class:list={[inlineLinkClass, "min-h-7 text-[13px] text-muted"]}
+      href={person.locationLink}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Coimbatore, Tamilnadu, India
+    </a>
+  </div>
+
+  <nav
+    class="footer-rail mx-3 mb-3 grid grid-cols-5 border border-line text-[13px] text-muted max-[520px]:grid-cols-2"
+    aria-label="Contact and social links"
+  >
+    <a
+      class:list={[
+        railLinkClass,
+        "bg-wash font-bold text-accent max-[520px]:col-span-full",
+      ]}
+      href={`mailto:${person.email}`}
+    >
+      Email me
+      <Icon name="lucide:arrow-up-right" size={14} aria-hidden="true" />
+    </a>
+    {socials.map(({ label, href }) => (
+      <a
+        class={railLinkClass}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {label}
+        <Icon
+          class="text-drawing"
+          name="lucide:arrow-up-right"
+          size={14}
+          aria-hidden="true"
+        />
+      </a>
+    ))}
+  </nav>
+</footer>
+
+<style>
+  .footer-rail > a:not(:last-child) {
+    border-inline-end: 1px solid var(--rule);
+  }
+
+  @media (width < 520px) {
+    .footer-rail > a:nth-child(odd) {
+      border-inline-end: none;
+    }
+
+    .footer-rail > a + a {
+      border-block-start: 1px solid var(--rule);
+    }
+  }
+</style>

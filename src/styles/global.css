@@ -234,23 +234,6 @@ html[data-theme="light"] {
   content: "";
 }
 
-.footer-blueprint {
-  position: relative;
-}
-
-.footer-wordmark {
-  margin: 0;
-  color: transparent;
-  font-size: clamp(4.5rem, 17vw, 8.75rem);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: -0.08em;
-  text-align: center;
-  -webkit-text-stroke: 1px var(--rule);
-  transform: translateY(0.08em);
-  user-select: none;
-}
-
 @keyframes branch-draw {
   from {
     opacity: 0;
