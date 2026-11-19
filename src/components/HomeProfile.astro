@@ -45,7 +45,7 @@ const factIconClass =
   <MagneticEngraving intensity={2} />
   <div class="flex items-center gap-5 border-b border-line px-7 py-6.25 max-wide:gap-3.25 max-wide:px-4.25 [&>div]:min-w-0">
     <Image
-      class="h-35 w-35 shrink-0 rounded-sm border border-line object-cover max-wide:h-19.5 max-wide:w-17.5"
+      class="size-35 shrink-0 rounded-sm border border-line object-cover max-wide:size-[clamp(5rem,23vw,7rem)]"
       src={portraitImage}
       alt="Rudhra Bharathy"
       width={160}
@@ -53,9 +53,13 @@ const factIconClass =
       loading="eager"
       fetchpriority="high"
     />
-    <div>
+    <div class="max-wide:text-sm">
       <p class="mb-1 block text-muted">Hi, I’m</p>
-      <h1 class={titleClass}>{person.name}</h1>
+      <h1
+        class:list={[titleClass, "max-wide:text-[clamp(1.5rem,6.8vw,2.25rem)]"]}
+      >
+        {person.name}
+      </h1>
       <p class="mt-1.5 text-muted">
         Building web products and solving the problems between users, code, and
         product.

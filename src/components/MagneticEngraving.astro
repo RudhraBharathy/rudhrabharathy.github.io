@@ -63,6 +63,7 @@ const { intensity = 1 } = Astro.props;
     const interaction = window.matchMedia(
       "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
     );
+    const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
     let strokes: Stroke[] = [];
     let width = 0;
     let height = 0;
@@ -109,6 +110,12 @@ const { intensity = 1 } = Astro.props;
       pulses = pulses.filter((pulse) => clock - pulse.start < pulse.life);
       const introSpeed = Math.max(700, Math.hypot(width, height) / 2 / 1.1);
       let introBusy = false;
+      const outside =
+        pointer &&
+        (pointer.x < 0 ||
+          pointer.x > width ||
+          pointer.y < 0 ||
+          pointer.y > height);
 
       context.clearRect(0, 0, width, height);
       context.lineWidth = settings.lineWidth;
@@ -132,7 +139,9 @@ const { intensity = 1 } = Astro.props;
         const dx = stroke.seenX - stroke.x;
         const dy = stroke.seenY - stroke.y;
         const near = Math.hypot(dx, dy);
-        let goal = pointer ? Math.atan2(dy, dx) + Math.PI / 2 : restAngle;
+        let goal = pointer
+          ? Math.atan2(dy, dx) + (outside ? 0 : Math.PI / 2)
+          : restAngle;
         let shown = 1;
         if (introLive) {
           const distanceFromCenter = Math.hypot(
@@ -204,7 +213,7 @@ const { intensity = 1 } = Astro.props;
       }
 
       introLive = introLive && introBusy;
-      if ((settling || introLive || pulses.length) && interaction.matches)
+      if ((settling || introLive || pulses.length) && motion.matches)
         requestDraw();
       else lastTime = 0;
     };
@@ -279,9 +288,10 @@ const { intensity = 1 } = Astro.props;
 
     function updatePointer(event: PointerEvent) {
       if (
-        !interaction.matches ||
-        event.pointerType === "touch" ||
-        intensity === 0
+        !motion.matches ||
+        intensity === 0 ||
+        (event.type === "pointermove" &&
+          (!interaction.matches || event.pointerType === "touch"))
       )
         return;
       const bounds = canvas.getBoundingClientRect();
@@ -292,36 +302,50 @@ const { intensity = 1 } = Astro.props;
       requestDraw();
     }
 
-    document.addEventListener("pointermove", updatePointer);
-    document.addEventListener("pointerdown", (event) => {
-      if (event.pointerType === "touch") return;
-      updatePointer(event);
-      if (!pointer || !visible || !interaction.matches || event.button !== 0)
+    function addPulse(event: PointerEvent) {
+      if (!visible || !motion.matches || intensity === 0 || event.button !== 0)
         return;
-      if (
-        pointer.x < 0 ||
-        pointer.x > width ||
-        pointer.y < 0 ||
-        pointer.y > height
-      )
+      const bounds = canvas.getBoundingClientRect();
+      const origin = {
+        x: event.clientX - bounds.left,
+        y: event.clientY - bounds.top,
+      };
+      if (origin.x < 0 || origin.x > width || origin.y < 0 || origin.y > height)
         return;
       const farthest = Math.hypot(
-        Math.max(pointer.x, width - pointer.x),
-        Math.max(pointer.y, height - pointer.y),
+        Math.max(origin.x, width - origin.x),
+        Math.max(origin.y, height - origin.y),
       );
       pulses.push({
-        ...pointer,
+        ...origin,
         start: clock,
         life: Math.min(6, farthest / 520 + 0.44),
       });
       if (pulses.length > 6) pulses.shift();
       requestDraw();
+    }
+
+    document.addEventListener("pointermove", updatePointer);
+    document.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch") return;
+      updatePointer(event);
+      if (pointer && interaction.matches) addPulse(event);
     });
-    document.documentElement.addEventListener("pointerleave", () => {
+    // Native scrolling cancels the pointer before pointerup, so swipes do not trigger it.
+    document.addEventListener("pointerup", (event) => {
+      if (event.pointerType !== "touch" || !event.isPrimary) return;
+      if (event.target === canvas) {
+        pointer = null;
+        addPulse(event);
+      } else updatePointer(event);
+    });
+    document.documentElement.addEventListener("pointerleave", (event) => {
+      if (event.pointerType === "touch") return;
       pointer = null;
       requestDraw();
     });
     interaction.addEventListener("change", reset);
+    motion.addEventListener("change", reset);
     window.addEventListener("blur", reset);
     document.addEventListener("visibilitychange", reset);
     new ResizeObserver(resize).observe(canvas);
