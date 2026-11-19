@@ -1,0 +1,345 @@
+---
+interface Props {
+  intensity?: number;
+}
+
+const { intensity = 1 } = Astro.props;
+---
+
+<div
+  class="h-38.5 overflow-hidden border-b border-line bg-page max-wide:h-28"
+  aria-hidden="true"
+>
+  <canvas
+    class="block size-full"
+    data-magnetic-engraving
+    data-intensity={intensity}
+  ></canvas>
+</div>
+
+<script>
+  // Orbit and spring response adapted from React Bits Magnet Lines by David Haz.
+  // Source: https://github.com/DavidHDev/react-bits/tree/main/src/ts-default/Backgrounds/MagnetLines
+  interface Stroke {
+    x: number;
+    y: number;
+    angle: number;
+    velocity: number;
+    seenX: number;
+    seenY: number;
+  }
+
+  interface Pulse {
+    x: number;
+    y: number;
+    start: number;
+    life: number;
+  }
+
+  function initializeEngraving(canvas: HTMLCanvasElement) {
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    const intensity = Math.max(0, Number(canvas.dataset.intensity));
+    const settings = {
+      spacing: 20,
+      lineWidth: 1.25,
+      lineHeight: 12,
+      stretch: 0.2,
+      baseAngle: -30,
+      radius: 100,
+      fade: 0.65,
+      inertia: 0.35,
+      bounce: 0.3,
+      ripple: 0.35,
+    };
+    const restAngle = ((settings.baseAngle + 90) * Math.PI) / 180;
+    const stiffness = (6 + 42 * (1 - settings.inertia) ** 2) ** 2 * intensity;
+    const damping = 2 * Math.sqrt(stiffness) * (1 - 0.75 * settings.bounce);
+    const wrap = (angle: number) =>
+      Math.atan2(Math.sin(angle * 2), Math.cos(angle * 2)) / 2;
+    const smoothstep = (value: number) =>
+      value ** 3 * (value * (value * 6 - 15) + 10);
+    const interaction = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+    );
+    let strokes: Stroke[] = [];
+    let width = 0;
+    let height = 0;
+    let drawing = "";
+    let accent = "";
+    let pointer: { x: number; y: number } | null = null;
+    const target = { x: 0, y: 0 };
+    let pulses: Pulse[] = [];
+    let clock = 0;
+    let introTime = 0;
+    let introLive = false;
+    let initialized = false;
+    let frame = 0;
+    let lastTime = 0;
+    let visible = true;
+
+    function requestDraw() {
+      if (!frame && visible && !document.hidden) {
+        frame = requestAnimationFrame(draw);
+      }
+    }
+
+    const draw = (time: number) => {
+      frame = 0;
+      const dt = (lastTime ? Math.min(time - lastTime, 50) : 16) / 1000;
+      const steps = Math.max(1, Math.ceil(dt * 240));
+      const stepTime = dt / steps;
+      let settling = false;
+      lastTime = time;
+      clock += dt;
+      if (introLive) introTime += dt;
+
+      if (pointer) {
+        const follow = 1 - Math.exp(-dt / 0.035);
+        target.x += (pointer.x - target.x) * follow;
+        target.y += (pointer.y - target.y) * follow;
+        if (Math.hypot(pointer.x - target.x, pointer.y - target.y) > 0.01) {
+          settling = true;
+        } else {
+          target.x = pointer.x;
+          target.y = pointer.y;
+        }
+      }
+      pulses = pulses.filter((pulse) => clock - pulse.start < pulse.life);
+      const introSpeed = Math.max(700, Math.hypot(width, height) / 2 / 1.1);
+      let introBusy = false;
+
+      context.clearRect(0, 0, width, height);
+      context.lineWidth = settings.lineWidth;
+      context.lineCap = "round";
+
+      for (const stroke of strokes) {
+        const distance = Math.hypot(target.x - stroke.x, target.y - stroke.y);
+        const lag = (settings.ripple / 900) * distance;
+        const follow = lag > 0 ? 1 - Math.exp(-dt / lag) : 1;
+        stroke.seenX += (target.x - stroke.seenX) * follow;
+        stroke.seenY += (target.y - stroke.seenY) * follow;
+        if (
+          pointer &&
+          Math.hypot(target.x - stroke.seenX, target.y - stroke.seenY) > 0.01
+        ) {
+          settling = true;
+        } else {
+          stroke.seenX = target.x;
+          stroke.seenY = target.y;
+        }
+        const dx = stroke.seenX - stroke.x;
+        const dy = stroke.seenY - stroke.y;
+        const near = Math.hypot(dx, dy);
+        let goal = pointer ? Math.atan2(dy, dx) + Math.PI / 2 : restAngle;
+        let shown = 1;
+        if (introLive) {
+          const distanceFromCenter = Math.hypot(
+            stroke.x - width / 2,
+            stroke.y - height / 2,
+          );
+          const progress = Math.min(
+            1,
+            Math.max(0, (introTime - distanceFromCenter / introSpeed) / 0.65),
+          );
+          goal = restAngle + wrap(goal - restAngle) * smoothstep(progress);
+          shown = Math.min(1, progress * 2.5);
+          if (progress < 1) introBusy = true;
+        }
+
+        for (let step = 0; step < steps; step++) {
+          stroke.velocity +=
+            (stiffness * wrap(goal - stroke.angle) -
+              damping * stroke.velocity) *
+            stepTime;
+          stroke.angle += stroke.velocity * stepTime;
+        }
+        if (
+          Math.abs(stroke.velocity) < 0.002 &&
+          Math.abs(wrap(goal - stroke.angle)) < 0.0005
+        ) {
+          stroke.angle += wrap(goal - stroke.angle);
+          stroke.velocity = 0;
+        } else {
+          settling = true;
+        }
+
+        let spin = 0;
+        let flash = 0;
+        for (const pulse of pulses) {
+          const age = clock - pulse.start;
+          const gap = Math.hypot(stroke.x - pulse.x, stroke.y - pulse.y);
+          const progress = (age * 520 - gap) / (520 * 0.34);
+          if (progress > 0 && progress < 1)
+            spin += smoothstep(progress) * Math.PI;
+          const band = (age * 520 - gap - (520 * 0.34) / 2) / 60;
+          flash += Math.exp(-band * band) * Math.max(0, 1 - age / pulse.life);
+        }
+
+        const emphasis = pointer
+          ? Math.min(
+              1,
+              Math.exp(-(near ** 2) / settings.radius ** 2) * intensity,
+            )
+          : 0;
+        const length =
+          (settings.lineHeight / 2) * (1 + settings.stretch * emphasis);
+        const x = Math.cos(stroke.angle + spin) * length;
+        const y = Math.sin(stroke.angle + spin) * length;
+        const opacity =
+          Math.min(
+            1,
+            1 - settings.fade + settings.fade * emphasis + flash * 0.6,
+          ) * shown;
+        context.beginPath();
+        context.moveTo(stroke.x - x, stroke.y - y);
+        context.lineTo(stroke.x + x, stroke.y + y);
+        context.strokeStyle = drawing;
+        context.globalAlpha = opacity;
+        context.stroke();
+        context.strokeStyle = accent;
+        context.globalAlpha = Math.min(1, emphasis * 0.6 + flash * 0.4) * shown;
+        context.stroke();
+      }
+
+      introLive = introLive && introBusy;
+      if ((settling || introLive || pulses.length) && interaction.matches)
+        requestDraw();
+      else lastTime = 0;
+    };
+
+    function reset() {
+      pointer = null;
+      pulses = [];
+      introLive = false;
+      cancelAnimationFrame(frame);
+      frame = 0;
+      lastTime = 0;
+      for (const stroke of strokes) {
+        stroke.angle = restAngle;
+        stroke.velocity = 0;
+        stroke.seenX = target.x;
+        stroke.seenY = target.y;
+      }
+      requestDraw();
+    }
+
+    const resize = () => {
+      const nextWidth = canvas.clientWidth;
+      const nextHeight = canvas.clientHeight;
+      if (!nextWidth || !nextHeight) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (
+        width === nextWidth &&
+        height === nextHeight &&
+        canvas.width === Math.round(width * dpr) &&
+        canvas.height === Math.round(height * dpr)
+      )
+        return;
+      width = nextWidth;
+      height = nextHeight;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      strokes = [];
+
+      const columns = Math.max(1, Math.round(width / settings.spacing));
+      const rows = Math.max(1, Math.round(height / settings.spacing));
+      target.x = width / 2;
+      target.y = height / 2;
+
+      for (let row = 0; row < rows; row++) {
+        for (let column = 0; column < columns; column++) {
+          const x = ((column + 0.5) * width) / columns;
+          const y = ((row + 0.5) * height) / rows;
+
+          strokes.push({
+            x,
+            y,
+            angle: restAngle,
+            velocity: 0,
+            seenX: target.x,
+            seenY: target.y,
+          });
+        }
+      }
+      reset();
+      introLive = !initialized && interaction.matches && intensity > 0;
+      introTime = 0;
+      initialized = true;
+    };
+
+    function updateColors() {
+      const style = getComputedStyle(canvas);
+      drawing = style.getPropertyValue("--drawing").trim();
+      accent = style.getPropertyValue("--accent").trim();
+      requestDraw();
+    }
+
+    function updatePointer(event: PointerEvent) {
+      if (
+        !interaction.matches ||
+        event.pointerType === "touch" ||
+        intensity === 0
+      )
+        return;
+      const bounds = canvas.getBoundingClientRect();
+      pointer = {
+        x: event.clientX - bounds.left,
+        y: event.clientY - bounds.top,
+      };
+      requestDraw();
+    }
+
+    document.addEventListener("pointermove", updatePointer);
+    document.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch") return;
+      updatePointer(event);
+      if (!pointer || !visible || !interaction.matches || event.button !== 0)
+        return;
+      if (
+        pointer.x < 0 ||
+        pointer.x > width ||
+        pointer.y < 0 ||
+        pointer.y > height
+      )
+        return;
+      const farthest = Math.hypot(
+        Math.max(pointer.x, width - pointer.x),
+        Math.max(pointer.y, height - pointer.y),
+      );
+      pulses.push({
+        ...pointer,
+        start: clock,
+        life: Math.min(6, farthest / 520 + 0.44),
+      });
+      if (pulses.length > 6) pulses.shift();
+      requestDraw();
+    });
+    document.documentElement.addEventListener("pointerleave", () => {
+      pointer = null;
+      requestDraw();
+    });
+    interaction.addEventListener("change", reset);
+    window.addEventListener("blur", reset);
+    document.addEventListener("visibilitychange", reset);
+    new ResizeObserver(resize).observe(canvas);
+    new MutationObserver(updateColors).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) requestDraw();
+      else reset();
+    }).observe(canvas);
+
+    updateColors();
+    resize();
+  }
+
+  document
+    .querySelectorAll<HTMLCanvasElement>("[data-magnetic-engraving]")
+    .forEach(initializeEngraving);
+</script>

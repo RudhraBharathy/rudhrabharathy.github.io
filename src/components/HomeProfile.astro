@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import portraitImage from "../assets/portrait.jpg";
+import MagneticEngraving from "./MagneticEngraving.astro";
 import { person } from "../data";
 import {
   iconButtonClass,
@@ -15,32 +16,7 @@ const factIconClass =
 ---
 
 <div>
-  <div
-    class="draft-grid relative h-38.5 overflow-hidden border-b border-line bg-page max-wide:h-28 [&_svg]:size-full [&_svg]:text-drawing"
-    aria-hidden="true"
-  >
-    <svg viewBox="0 0 760 154" preserveAspectRatio="xMidYMid slice">
-      <g fill="none" stroke="currentColor" opacity=".45">
-        <path
-          d="M-20 142L243 -10M340 178L720 -40M110 28H646M110 133H646"
-          stroke-dasharray="4 5"
-        ></path>
-        <path d="M176 10V143M580 10V143"></path>
-      </g>
-      <g transform="translate(223 104) skewY(-8)">
-        <text
-          class="fill-surface stroke-current font-display text-[122px] font-bold tracking-[-9px] stroke-[1.3px]"
-          x="4"
-          y="8"
-        >
-          -RB-
-        </text>
-        <text class="fill-surface stroke-current font-display text-[122px] font-bold tracking-[-9px] stroke-[1.3px]">
-          -RB-
-        </text>
-      </g>
-    </svg>
-  </div>
+  <MagneticEngraving intensity={2} />
   <div class="flex items-center gap-5 border-b border-line px-7 py-6.25 max-wide:gap-3.25 max-wide:px-4.25 [&>div]:min-w-0">
     <Image
       class="h-35 w-35 shrink-0 rounded-sm border border-line object-cover max-wide:h-19.5 max-wide:w-17.5"
