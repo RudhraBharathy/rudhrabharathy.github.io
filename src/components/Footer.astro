@@ -4,10 +4,10 @@ import { person } from "../data";
 import { headingClass, inlineLinkClass } from "../styles/classes";
 
 const socials = [
-  { label: "GitHub", href: person.github },
-  { label: "LinkedIn", href: person.linkedin },
-  { label: "X", href: person.twitter },
-  { label: "DEV", href: person.devdotto },
+  { label: "GitHub", href: person.github, platform: "github" },
+  { label: "LinkedIn", href: person.linkedin, platform: "linkedin" },
+  { label: "X", href: person.twitter, platform: "x" },
+  { label: "DEV", href: person.devdotto, platform: "dev" },
 ];
 
 const railLinkClass =
@@ -47,14 +47,19 @@ const railLinkClass =
         "bg-wash font-bold text-accent max-[520px]:col-span-full",
       ]}
       href={`mailto:${person.email}`}
+      data-analytics-event="email_clicked"
+      data-analytics-location="footer"
     >
       Email me
       <Icon name="lucide:arrow-up-right" size={14} aria-hidden="true" />
     </a>
-    {socials.map(({ label, href }) => (
+    {socials.map(({ label, href, platform }) => (
       <a
         class={railLinkClass}
         href={href}
+        data-analytics-event="social_link_clicked"
+        data-analytics-platform={platform}
+        data-analytics-location="footer"
         target="_blank"
         rel="noopener noreferrer"
       >

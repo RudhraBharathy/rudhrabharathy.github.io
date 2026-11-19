@@ -18,6 +18,9 @@ const { projects, heading: Heading = "h3" } = Astro.props;
     <a
       class="group grid grid-cols-[100px_1fr_auto] items-center gap-4.5 border-t border-line py-3.75 no-underline hover:border-drawing hover:bg-wash motion-safe:transition-colors motion-safe:duration-150 max-wide:grid-cols-[72px_1fr_16px] max-wide:gap-2.5 print:block print:break-inside-avoid"
       href={projectPath(id)}
+      data-analytics-event="project_clicked"
+      data-project={id}
+      data-project-name={data.title}
     >
       <Image
         class="aspect-[1.55] w-full rounded-[5px] border border-line object-cover print:hidden"

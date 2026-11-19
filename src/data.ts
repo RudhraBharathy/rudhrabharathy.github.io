@@ -1,6 +1,8 @@
 export const person = {
   name: "Rudhra Bharathy",
   email: "bharathyganeshan@gmail.com",
+  phone: "+91 88705 62981",
+  location: "Coimbatore, Tamil Nadu, India",
   github: "https://github.com/RudhraBharathy",
   linkedin: "https://linkedin.com/in/rudhrabharathy",
   twitter: "https://x.com/rudhrabharathy",
@@ -22,6 +24,7 @@ export const experience = [
         {
           text: "AI Skills Library",
           href: "https://github.com/userflow/ai-skills-library",
+          analyticsEvent: "ai_skills_library_clicked",
         },
         ", with 15+ skills that work in Claude Code, Cursor, Codex and more.",
       ],

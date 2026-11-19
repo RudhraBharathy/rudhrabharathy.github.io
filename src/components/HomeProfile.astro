@@ -11,6 +11,32 @@ import {
 } from "../styles/classes";
 
 const socialIconClass = `${iconButtonClass} min-h-8 min-w-8 p-1.5 hover:text-accent`;
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: person.linkedin,
+    icon: "simple-icons:linkedin",
+    platform: "linkedin",
+  },
+  {
+    label: "GitHub",
+    href: person.github,
+    icon: "simple-icons:github",
+    platform: "github",
+  },
+  {
+    label: "X",
+    href: person.twitter,
+    icon: "simple-icons:x",
+    platform: "x",
+  },
+  {
+    label: "DEV",
+    href: person.devdotto,
+    icon: "fa6-brands:dev",
+    platform: "dev",
+  },
+];
 const factIconClass =
   "flex h-7 w-7 shrink-0 items-center justify-center rounded-[5px] border border-line bg-wash text-muted";
 ---
@@ -43,7 +69,7 @@ const factIconClass =
           <Icon name="lucide:map-pin" size={15} />
         </span>
         <a href={person.locationLink} target="_blank" rel="noopener noreferrer">
-          Coimbatore, Tamil Nadu, India
+          {person.location}
         </a>
       </div>
       <div class="flex items-center gap-3 hover:*:text-accent *:transition-colors">
@@ -51,7 +77,12 @@ const factIconClass =
           <Icon name="lucide:mail" size={15} />
         </span>
         <div class="copy-inline-group inline-flex min-w-0 items-center gap-4">
-          <a class="wrap-anywhere" href={`mailto:${person.email}`}>
+          <a
+            class="wrap-anywhere"
+            href={`mailto:${person.email}`}
+            data-analytics-event="email_clicked"
+            data-analytics-location="profile"
+          >
             {person.email}
           </a>
           <button
@@ -62,6 +93,7 @@ const factIconClass =
             type="button"
             data-copy-profile={person.email}
             data-copy-label="Email address"
+            data-copy-field="email"
             aria-label="Copy email address"
           >
             <span data-copy-default aria-hidden="true">
@@ -93,15 +125,16 @@ const factIconClass =
           <Icon name="lucide:phone" size={15} />
         </span>
         <div class="copy-inline-group inline-flex items-center gap-4">
-          <a href="tel:+918870562981">+91 88705 62981</a>
+          <a href={`tel:${person.phone.replaceAll(" ", "")}`}>{person.phone}</a>
           <button
             class:list={[
               iconButtonClass,
               "copy-inline-button h-7 w-7 shrink-0 border border-line text-muted",
             ]}
             type="button"
-            data-copy-profile="+91 88705 62981"
+            data-copy-profile={person.phone}
             data-copy-label="Phone number"
+            data-copy-field="phone"
             aria-label="Copy phone number"
           >
             <span data-copy-default aria-hidden="true">
@@ -137,42 +170,20 @@ const factIconClass =
     <div>
       <p class="mb-1 block text-muted text-sm">Socials</p>
       <div class="mt-2 flex flex-wrap items-center gap-3">
-        <a
-          class={socialIconClass}
-          href={person.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visit LinkedIn profile"
-        >
-          <Icon name="simple-icons:linkedin" size={18} aria-hidden="true" />
-        </a>
-        <a
-          class={socialIconClass}
-          href={person.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visit GitHub profile"
-        >
-          <Icon name="simple-icons:github" size={18} aria-hidden="true" />
-        </a>
-        <a
-          class={socialIconClass}
-          href={person.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visit X profile"
-        >
-          <Icon name="simple-icons:x" size={18} aria-hidden="true" />
-        </a>
-        <a
-          class={socialIconClass}
-          href={person.devdotto}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visit DEV profile"
-        >
-          <Icon name="fa6-brands:dev" size={18} aria-hidden="true" />
-        </a>
+        {socialLinks.map(({ label, href, icon, platform }) => (
+          <a
+            class={socialIconClass}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${label} profile`}
+            data-analytics-event="social_link_clicked"
+            data-analytics-platform={platform}
+            data-analytics-location="profile"
+          >
+            <Icon name={icon} size={18} aria-hidden="true" />
+          </a>
+        ))}
       </div>
     </div>
   </div>
@@ -194,6 +205,8 @@ const factIconClass =
 </div>
 
 <script>
+  import { captureEvent } from "../libs/analytics";
+
   const localTime =
     document.querySelector<HTMLTimeElement>("[data-local-time]");
 
@@ -230,6 +243,10 @@ const factIconClass =
 
       try {
         await navigator.clipboard.writeText(value);
+        const field = button.dataset.copyField;
+        if (field === "email" || field === "phone") {
+          captureEvent("contact_detail_copied", { field });
+        }
         if (profileCopyStatus) {
           profileCopyStatus.textContent = `${label} copied.`;
         }

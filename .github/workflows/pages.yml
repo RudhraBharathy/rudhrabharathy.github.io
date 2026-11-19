@@ -21,11 +21,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - name: Build site
+        run: |
+          if ! yarn build; then
+            if [[ -z "$POSTHOG_PERSONAL_API_KEY" || -z "$POSTHOG_PROJECT_ID" || -z "$POSTHOG_HOST" ]]; then
+              exit 1
+            fi
+            echo "::warning::Build with PostHog source maps failed. Retrying without uploads."
+            POSTHOG_PERSONAL_API_KEY= yarn build
+          fi
+          find dist -type f -name '*.map' -delete
         env:
           PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_ACCESS_KEY }}
+          PUBLIC_POSTHOG_PROJECT_TOKEN: ${{ secrets.PUBLIC_POSTHOG_PROJECT_TOKEN }}
+          PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST }}
+          POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
+          POSTHOG_PROJECT_ID: ${{ vars.POSTHOG_PROJECT_ID }}
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

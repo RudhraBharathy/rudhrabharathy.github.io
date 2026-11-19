@@ -92,6 +92,9 @@ const currentPath = Astro.url.pathname;
           <a
             class="transition-colors hover:text-accent"
             href="/experience/"
+            data-analytics-event="navigation_clicked"
+            data-analytics-destination="experience"
+            data-analytics-location="header"
             aria-current={currentPath === "/experience/" ? "page" : undefined}
           >
             Experience
@@ -99,6 +102,9 @@ const currentPath = Astro.url.pathname;
           <a
             class="transition-colors hover:text-accent"
             href="/projects/"
+            data-analytics-event="navigation_clicked"
+            data-analytics-destination="projects"
+            data-analytics-location="header"
             aria-current={currentPath === "/projects/" ? "page" : undefined}
           >
             Projects
@@ -106,6 +112,7 @@ const currentPath = Astro.url.pathname;
           <a
             class="transition-colors hover:text-accent"
             href="https://drive.google.com/file/d/1U09-TBzizTW41-rS8NhUv1Q714E8sl3t/view?usp=sharing"
+            data-analytics-event="resume_clicked"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -138,7 +145,8 @@ const currentPath = Astro.url.pathname;
       <Footer />
     </div>
     <script>
-      import "../scripts/navigation";
+      import "../libs/analytics";
+      import "../libs/navigation";
 
       const root = document.documentElement;
       const toggle = document.querySelector<HTMLButtonElement>(

@@ -20,7 +20,7 @@ const WEB3FORMS_URL = "https://api.web3forms.com/submit";
     Have a project, a technical problem, or just want to say hello?
   </p>
   <form
-    class="mt-5 grid gap-4"
+    class="ph-no-capture mt-5 grid gap-4"
     action={WEB3FORMS_URL}
     method="post"
     data-contact-form
@@ -59,6 +59,7 @@ const WEB3FORMS_URL = "https://api.web3forms.com/submit";
       <button
         class={`${buttonClass} disabled:cursor-wait disabled:opacity-60`}
         type="submit"
+        data-analytics-event="contact_submit_clicked"
       >
         <Icon name="lucide:send" size={15} aria-hidden="true" />
         Send message
@@ -75,6 +76,8 @@ const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 </section>
 
 <script>
+  import { captureEvent, captureContactFailure } from "../libs/analytics";
+
   const contactForm = document.querySelector<HTMLFormElement>(
     "[data-contact-form]",
   );
@@ -93,6 +96,7 @@ const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 
     const formData = new FormData(contactForm);
     if (!formData.get("access_key")) {
+      captureContactFailure("missing_configuration");
       result.textContent =
         "The contact form is not configured yet. Please use the email link below.";
       return;
@@ -115,13 +119,16 @@ const WEB3FORMS_URL = "https://api.web3forms.com/submit";
         result.textContent =
           "Message sent successfully. Thanks for getting in touch!";
         contactForm.reset();
+        captureEvent("contact_submit_succeeded");
       } else {
+        captureContactFailure("provider_rejected", response.status);
         result.textContent =
           typeof data.message === "string" && data.message
             ? data.message
             : "Your message could not be sent. Please try again.";
       }
     } catch {
+      captureContactFailure("request_failed");
       result.textContent =
         "Your message could not be sent. Please check your connection and try again.";
     } finally {

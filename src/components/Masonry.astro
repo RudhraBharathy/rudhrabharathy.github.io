@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { getImage, Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 
 interface GalleryItem {
@@ -14,6 +14,13 @@ interface Props {
 }
 
 const { items } = Astro.props;
+const viewerImages = await Promise.all(
+  items.map(({ src }) => getImage({ src, width: 1000 })),
+);
+const thumbnailSizes =
+  "(width < 488px) calc(100vw - 36px), (width < 742px) calc((100vw - 48px) / 2), 242px";
+const viewerButtonClass =
+  "fixed grid size-11 cursor-pointer place-items-center rounded-[999px] border border-[rgb(255_255_255/14%)] bg-[rgb(255_255_255/10%)] p-0 text-white [transition:background_150ms_ease] hover:bg-[rgb(255_255_255/18%)]";
 ---
 
 <div data-masonry-gallery>
@@ -33,7 +40,7 @@ const { items } = Astro.props;
           aria-label={`View ${item.title ?? item.alt}`}
           aria-haspopup="dialog"
           data-masonry-card
-          data-index={index}
+          data-viewer-src={viewerImages[index].src}
           data-title={item.title}
           data-description={item.description}
           style={`aspect-ratio: ${item.src.width} / ${item.src.height}`}
@@ -44,7 +51,9 @@ const { items } = Astro.props;
                 class="pointer-events-none block h-full w-full object-cover select-none [transition:transform_700ms_cubic-bezier(0.2,0.8,0.2,1)] group-hover/card:transform-[scale(1.04)] motion-reduce:transition-none"
                 src={item.src}
                 alt={item.alt}
-                width={1000}
+                width={480}
+                widths={[320, 480, 720, 960]}
+                sizes={thumbnailSizes}
                 loading={index < 5 ? "eager" : "lazy"}
                 fetchpriority={index === 0 ? "high" : "auto"}
                 decoding="async"
@@ -90,7 +99,7 @@ const { items } = Astro.props;
       </figcaption>
     </figure>
     <button
-      class="fixed top-4 right-4 grid size-11 cursor-pointer place-items-center rounded-[999px] border border-[rgb(255_255_255/14%)] bg-[rgb(255_255_255/10%)] p-0 text-white [transition:background_150ms_ease] hover:bg-[rgb(255_255_255/18%)]"
+      class:list={[viewerButtonClass, "top-4 right-4"]}
       type="button"
       aria-label="Close image"
       data-masonry-dialog-close
@@ -98,7 +107,10 @@ const { items } = Astro.props;
       <Icon name="lucide:x" size={20} aria-hidden="true" />
     </button>
     <button
-      class="fixed top-[calc(50%-22px)] left-4 grid size-11 cursor-pointer place-items-center rounded-[999px] border border-[rgb(255_255_255/14%)] bg-[rgb(255_255_255/10%)] p-0 text-white [transition:background_150ms_ease] hover:bg-[rgb(255_255_255/18%)] [@media(max-width:640px)]:top-auto [@media(max-width:640px)]:bottom-4"
+      class:list={[
+        viewerButtonClass,
+        "top-[calc(50%-22px)] left-4 [@media(max-width:640px)]:top-auto [@media(max-width:640px)]:bottom-4",
+      ]}
       type="button"
       aria-label="Previous image"
       data-masonry-dialog-previous
@@ -107,7 +119,10 @@ const { items } = Astro.props;
       <Icon name="lucide:arrow-left" size={20} aria-hidden="true" />
     </button>
     <button
-      class="fixed top-[calc(50%-22px)] right-4 grid size-11 cursor-pointer place-items-center rounded-[999px] border border-[rgb(255_255_255/14%)] bg-[rgb(255_255_255/10%)] p-0 text-white [transition:background_150ms_ease] hover:bg-[rgb(255_255_255/18%)] [@media(max-width:640px)]:top-auto [@media(max-width:640px)]:bottom-4"
+      class:list={[
+        viewerButtonClass,
+        "top-[calc(50%-22px)] right-4 [@media(max-width:640px)]:top-auto [@media(max-width:640px)]:bottom-4",
+      ]}
       type="button"
       aria-label="Next image"
       data-masonry-dialog-next
@@ -249,10 +264,10 @@ const { items } = Astro.props;
       const showImage = (index: number) => {
         const card = cards[index];
         const image = card?.querySelector<HTMLImageElement>("img");
-        if (!card || !image) return;
+        if (!card?.dataset.viewerSrc || !image) return;
 
         activeIndex = index;
-        dialogImage.src = image.currentSrc || image.src;
+        dialogImage.src = card.dataset.viewerSrc;
         dialogImage.alt = image.alt;
         dialogTitle.textContent = card.dataset.title ?? "";
         dialogDescription.textContent = card.dataset.description ?? "";

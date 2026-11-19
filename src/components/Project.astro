@@ -33,6 +33,8 @@ const { Content } = await render(project);
       <a
         class={buttonClass}
         href={data.demo}
+        data-analytics-event="project_demo_clicked"
+        data-project={project.id}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -42,6 +44,8 @@ const { Content } = await render(project);
       <a
         class={buttonClass}
         href={data.source}
+        data-analytics-event="project_source_clicked"
+        data-project={project.id}
         target="_blank"
         rel="noopener noreferrer"
       >

@@ -1,27 +1,11 @@
 # Rudhra Bharathy’s portfolio
 
-Astro, TypeScript, Tailwind CSS v4, MDX, and Lucide. Static output for GitHub Pages.
-
-## Development
-
-Use Node.js 24 and npm.
-
-```sh
-npm ci
-npm run dev
-```
-
-## Build
-
-```sh
-npm run build
-npm run preview
-```
-
-The profile is at `/`. The site also has `/experience/`, `/gallery/`, and `/projects/`, with individual project pages under `/projects/`. The Resume link in the header opens Google Drive.
-
-Project content lives in `src/content/projects/`. Experience and profile links live in `src/data.ts`. Styles live in `src/styles/global.css`.
-
-## GitHub Pages
-
-In repository Settings → Pages, select GitHub Actions. The **Deploy portfolio to GitHub Pages** workflow runs on pushes to `main` and can also be run manually. The configured site is `https://rudhrabharathy.github.io`.
+| Technology                                                                                            | Used for                 |
+| ----------------------------------------------------------------------------------------------------- | ------------------------ |
+| ![Astro](https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=white)                        | Static site framework    |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)         | Type safety              |
+| ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?logo=tailwindcss&logoColor=white) | Styling                  |
+| ![MDX](https://img.shields.io/badge/MDX-FCB32C?logo=mdx&logoColor=black)                              | Project content          |
+| ![Lucide](https://img.shields.io/badge/Lucide-F56565?logo=lucide&logoColor=white)                     | Icons through Astro Icon |
+| ![PostHog](https://img.shields.io/badge/PostHog-000000?logo=posthog&logoColor=white)                  | Analytics                |
+| ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222222?logo=githubpages&logoColor=white)    | Hosting                  |

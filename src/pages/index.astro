@@ -1,0 +1,13 @@
+---
+import { getCollection } from "astro:content";
+import Home from "../components/Home.astro";
+import Site from "../layouts/Site.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Site title="Rudhra Bharathy & Technical Solutions Engineer">
+  <Home projects={projects} />
+</Site>
