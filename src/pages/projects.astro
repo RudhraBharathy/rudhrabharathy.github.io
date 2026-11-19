@@ -1,14 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import { Icon } from "astro-icon/components";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Projects from "../components/Projects.astro";
 import Site from "../layouts/Site.astro";
-import {
-  articleClass,
-  inlineLinkClass,
-  labelClass,
-  titleClass,
-} from "../styles/classes";
+import { articleClass, labelClass, titleClass } from "../styles/classes";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -18,10 +13,7 @@ const projects = (await getCollection("projects")).sort(
 <Site title="Projects">
   <main id="main">
     <article class={articleClass}>
-      <a class={inlineLinkClass} href="/">
-        <Icon name="lucide:arrow-left" size={16} aria-hidden="true" />
-        Back home
-      </a>
+      <Breadcrumbs items={[{ label: "Projects" }]} />
       <span class:list={[labelClass, "mt-8 mb-0.75 block text-accent"]}>
         Selected work
       </span>

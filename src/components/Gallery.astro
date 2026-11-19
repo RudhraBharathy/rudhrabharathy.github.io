@@ -2,10 +2,10 @@
 import { Icon } from "astro-icon/components";
 import { gallery, person } from "../data";
 import Masonry from "./Masonry.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
 import {
   articleClass,
   buttonClass,
-  inlineLinkClass,
   labelClass,
   titleClass,
 } from "../styles/classes";
@@ -13,10 +13,7 @@ import {
 
 <main id="main">
   <article class={articleClass}>
-    <a class={inlineLinkClass} href="/">
-      <Icon name="lucide:arrow-left" size={16} aria-hidden="true" />
-      Back home
-    </a>
+    <Breadcrumbs items={[{ label: "Gallery" }]} />
     <span class:list={[labelClass, "mt-8 mb-0.75 block text-accent"]}>
       Beyond the screen
     </span>

@@ -1,22 +1,14 @@
 ---
-import { Icon } from "astro-icon/components";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import ExperienceList from "../components/ExperienceList.astro";
 import Site from "../layouts/Site.astro";
-import {
-  articleClass,
-  inlineLinkClass,
-  labelClass,
-  titleClass,
-} from "../styles/classes";
+import { articleClass, labelClass, titleClass } from "../styles/classes";
 ---
 
 <Site title="Experience">
   <main id="main">
     <article class={articleClass}>
-      <a class={inlineLinkClass} href="/">
-        <Icon name="lucide:arrow-left" size={16} aria-hidden="true" />
-        Back home
-      </a>
+      <Breadcrumbs items={[{ label: "Experience" }]} />
       <span class:list={[labelClass, "mt-8 mb-0.75 block text-accent"]}>
         Work history
       </span>

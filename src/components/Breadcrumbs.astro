@@ -1,0 +1,42 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  items: { label: string; href?: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="text-sm text-muted">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    <li>
+      <a class="no-underline hover:text-accent" href="/" data-restore-scroll>
+        Home
+      </a>
+    </li>
+    {items.map(({ label, href }) => (
+      <li class="flex min-w-0 items-center gap-2">
+        <Icon
+          name="lucide:chevron-right"
+          size={14}
+          class="shrink-0"
+          aria-hidden="true"
+        />
+        {href ? (
+          <a
+            class="no-underline hover:text-accent"
+            href={href}
+            data-restore-scroll
+          >
+            {label}
+          </a>
+        ) : (
+          <span class="text-ink wrap-anywhere" aria-current="page">
+            {label}
+          </span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

@@ -80,6 +80,7 @@ const currentPath = Astro.url.pathname;
             "text-2xl no-underline max-wide:text-[22px] font-light italic",
           ]}
           href="/"
+          data-restore-scroll
         >
           -RB-<span class="sr-only">Rudhra Bharathy home</span>
         </a>
@@ -141,6 +142,7 @@ const currentPath = Astro.url.pathname;
               "text-xl font-light italic no-underline",
             ]}
             href="/"
+            data-restore-scroll
           >
             -RB-<span class="sr-only">Rudhra Bharathy home</span>
           </a>
@@ -205,6 +207,8 @@ const currentPath = Astro.url.pathname;
       </footer>
     </div>
     <script>
+      import "../scripts/navigation";
+
       const root = document.documentElement;
       const toggle = document.querySelector<HTMLButtonElement>(
         "[data-theme-toggle]",
