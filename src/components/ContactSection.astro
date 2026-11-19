@@ -1,10 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
-import { person } from "../data";
 import { buttonClass, labelClass, sectionTitleClass } from "../styles/classes";
 
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY?.trim() || "";
 const fieldClass =
   "mt-1.5 w-full rounded-md border border-line bg-page px-3 py-2.5 text-ink placeholder:text-muted focus:border-drawing focus:outline-none";
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 ---
 
 <section
@@ -20,20 +21,27 @@ const fieldClass =
   </p>
   <form
     class="mt-5 grid gap-4"
-    action={`mailto:${person.email}`}
+    action={WEB3FORMS_URL}
     method="post"
-    enctype="text/plain"
     data-contact-form
-    data-recipient={person.email}
   >
+    <input type="hidden" name="access_key" value={accessKey} />
+    <input type="hidden" name="subject" value="New portfolio message" />
+    <input
+      type="checkbox"
+      name="botcheck"
+      class="hidden"
+      tabindex="-1"
+      aria-hidden="true"
+    />
     <label>
-      <span class={labelClass}>Email or name</span>
+      <span class={labelClass}>Email</span>
       <input
         class={fieldClass}
-        type="text"
-        name="sender"
-        autocomplete="name"
-        placeholder="you@example.com or your name"
+        type="email"
+        name="email"
+        autocomplete="email"
+        placeholder="you@example.com"
         required
       />
     </label>
@@ -48,11 +56,21 @@ const fieldClass =
       ></textarea>
     </label>
     <div>
-      <button class={buttonClass} type="submit">
+      <button
+        class={`${buttonClass} disabled:cursor-wait disabled:opacity-60`}
+        type="submit"
+      >
         <Icon name="lucide:send" size={15} aria-hidden="true" />
         Send message
       </button>
     </div>
+    <p
+      class="text-sm text-muted empty:hidden"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      data-contact-result
+    ></p>
   </form>
 </section>
 
@@ -61,17 +79,54 @@ const fieldClass =
     "[data-contact-form]",
   );
 
-  contactForm?.addEventListener("submit", (event) => {
+  const result = contactForm?.querySelector<HTMLElement>(
+    "[data-contact-result]",
+  );
+  const submitButton = contactForm?.querySelector<HTMLButtonElement>(
+    "button[type='submit']",
+  );
+
+  contactForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const recipient = contactForm.dataset.recipient;
-    if (!recipient) return;
+    if (!result || !submitButton || submitButton.disabled) return;
 
-    const data = new FormData(contactForm);
-    const sender = String(data.get("sender") || "").trim();
-    const message = String(data.get("message") || "").trim();
-    const subject = encodeURIComponent(`Portfolio message from ${sender}`);
-    const body = encodeURIComponent(message);
-    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    const formData = new FormData(contactForm);
+    if (!formData.get("access_key")) {
+      result.textContent =
+        "The contact form is not configured yet. Please use the email link below.";
+      return;
+    }
+
+    submitButton.disabled = true;
+    contactForm.setAttribute("aria-busy", "true");
+    result.textContent = "Sending...";
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const data: { success?: boolean; message?: string } =
+        await response.json();
+
+      if (response.ok && data.success === true) {
+        result.textContent =
+          "Message sent successfully. Thanks for getting in touch!";
+        contactForm.reset();
+      } else {
+        result.textContent =
+          typeof data.message === "string" && data.message
+            ? data.message
+            : "Your message could not be sent. Please try again.";
+      }
+    } catch {
+      result.textContent =
+        "Your message could not be sent. Please check your connection and try again.";
+    } finally {
+      submitButton.disabled = false;
+      contactForm.removeAttribute("aria-busy");
+    }
   });
 </script>
