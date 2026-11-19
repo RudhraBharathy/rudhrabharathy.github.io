@@ -1,12 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { Icon } from "astro-icon/components";
-import { stack } from "../data";
-import { labelClass, sectionTitleClass } from "../styles/classes";
+import { sectionTitleClass } from "../styles/classes";
 import ContactSection from "./ContactSection.astro";
 import ExperienceList from "./ExperienceList.astro";
+import GalleryTeaser from "./GalleryTeaser.astro";
 import HomeProfile from "./HomeProfile.astro";
 import Projects from "./Projects.astro";
+import Stack from "./Stack.astro";
 
 interface Props {
   projects: CollectionEntry<"projects">[];
@@ -49,78 +49,12 @@ const { projects } = Astro.props;
       class="section-divider h-2.25 border-y border-line"
       aria-hidden="true"
     ></div>
-    <section
-      class="px-7 py-6.25 max-wide:px-4.25"
-      aria-labelledby="stack-heading"
-    >
-      <h2 class={sectionTitleClass} id="stack-heading">
-        Stack
-      </h2>
-      <ol class="mt-4 border-t border-line">
-        {stack.map((group) => (
-          <li class="grid grid-cols-[150px_1fr] gap-5 border-b border-line py-4 max-wide:grid-cols-1 max-wide:gap-2.5">
-            <div class="flex items-baseline gap-2.5">
-              <h3 class="font-semibold">{group.label}</h3>
-            </div>
-            <ul class="flex list-none flex-wrap gap-2 p-0">
-              {group.items.map((item) => (
-                <li class="inline-flex items-center gap-2 rounded-md border border-line bg-wash px-2.5 py-1.5 text-sm">
-                  <Icon
-                    name={item.icon}
-                    class="shrink-0 text-muted"
-                    size={15}
-                    aria-hidden="true"
-                  />
-                  {item.label}
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ol>
-    </section>
+    <Stack />
     <div
       class="section-divider h-2.25 border-y border-line"
       aria-hidden="true"
     ></div>
-    <section
-      class="px-7 py-6.25 max-wide:px-4.25"
-      aria-labelledby="about-heading"
-    >
-      <h2 class={sectionTitleClass} id="about-heading">
-        Beyond the screen.
-      </h2>
-      <p class="mt-2 max-w-120 text-muted">
-        A visual record of life beyond the screen.
-      </p>
-      <a
-        class="group relative mt-5 grid min-h-40 grid-cols-[1fr_5.5rem] overflow-hidden rounded-md border border-line bg-surface no-underline shadow-[0_2px_0_var(--rule)] active:translate-y-px hover:border-drawing hover:bg-wash motion-safe:transition-[border-color,background-color,transform] motion-safe:duration-200 max-wide:grid-cols-[1fr_4.25rem]"
-        href="/gallery/"
-      >
-        <span
-          class="draft-grid pointer-events-none absolute inset-0 opacity-35 group-hover:opacity-55 motion-safe:transition-opacity motion-safe:duration-200"
-          aria-hidden="true"
-        ></span>
-        <span class="relative flex flex-col justify-between gap-8 p-5 max-wide:p-4">
-          <span class:list={[labelClass, "text-muted"]}>
-            Photography · Nature · Moments
-          </span>
-          <span class="max-w-110 font-display text-[clamp(30px,5vw,46px)] leading-[1.05] font-bold tracking-[-0.055em] group-hover:text-accent motion-safe:transition-colors motion-safe:duration-200">
-            Enter the photo journal
-          </span>
-        </span>
-        <span
-          class="relative flex items-center justify-center border-l border-line bg-wash text-accent group-hover:border-accent group-hover:bg-accent group-hover:text-surface motion-safe:transition-colors motion-safe:duration-200"
-          aria-hidden="true"
-        >
-          <Icon
-            name="lucide:arrow-up-right"
-            class="group-hover:translate-x-1 group-hover:-translate-y-1 motion-safe:transition-transform motion-safe:duration-200"
-            size={28}
-          />
-        </span>
-      </a>
-    </section>
+    <GalleryTeaser />
     <div
       class="section-divider h-2.25 border-y border-line"
       aria-hidden="true"

@@ -30,13 +30,23 @@ const { Content } = await render(project);
     <h1 class:list={[titleClass, "mt-8 mb-4.5"]}>{data.title}</h1>
     <p class="max-w-[64ch]">{data.introduction}</p>
     <div class="flex flex-wrap items-center gap-3 px-0 py-4.5">
-      <a class={buttonClass} href={data.demo}>
+      <a
+        class={buttonClass}
+        href={data.demo}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Open live project{" "}
         <Icon name="lucide:arrow-up-right" size={16} aria-hidden="true" />
       </a>
-      <a class={buttonClass} href={data.source}>
+      <a
+        class={buttonClass}
+        href={data.source}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Icon name="lucide:code-xml" size={16} aria-hidden="true" />
-        Read source
+        Read source code
       </a>
     </div>
     <figure class="my-5">

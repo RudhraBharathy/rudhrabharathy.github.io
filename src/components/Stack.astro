@@ -1,0 +1,33 @@
+---
+import { Icon } from "astro-icon/components";
+import { stack } from "../data";
+import { sectionTitleClass } from "../styles/classes";
+---
+
+<section class="px-7 py-6.25 max-wide:px-4.25" aria-labelledby="stack-heading">
+  <h2 class={sectionTitleClass} id="stack-heading">
+    Stack
+  </h2>
+  <ol class="mt-4 border-t border-line">
+    {stack.map((group) => (
+      <li class="grid grid-cols-[150px_1fr] gap-5 border-b border-line py-4 max-wide:grid-cols-1 max-wide:gap-2.5">
+        <div class="flex items-baseline gap-2.5">
+          <h3 class="font-semibold">{group.label}</h3>
+        </div>
+        <ul class="flex list-none flex-wrap gap-2 p-0">
+          {group.items.map((item) => (
+            <li class="inline-flex items-center gap-2 rounded-md border border-line bg-wash px-2.5 py-1.5 text-sm">
+              <Icon
+                name={item.icon}
+                class="shrink-0 text-muted"
+                size={15}
+                aria-hidden="true"
+              />
+              {item.label}
+            </li>
+          ))}
+        </ul>
+      </li>
+    ))}
+  </ol>
+</section>
