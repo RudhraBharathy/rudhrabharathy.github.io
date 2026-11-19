@@ -8,11 +8,13 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = "Rudhra Bharathy — Technical Solutions Engineer at Userflow. Browser extensions, web apps, and the work behind them.",
+  noindex = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const currentPath = Astro.url.pathname;
@@ -26,7 +28,11 @@ const currentPath = Astro.url.pathname;
     <title>{title} · {person.name}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#17191a" />
-    <link rel="canonical" href={canonical} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <link rel="canonical" href={canonical} />
+    )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link
       rel="preload"
@@ -45,7 +51,7 @@ const currentPath = Astro.url.pathname;
     <meta property="og:type" content="website" />
     <meta property="og:title" content={`${title} · ${person.name}`} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta
       property="og:image"
       content={new URL(portraitImage.src, Astro.site)}
@@ -67,7 +73,7 @@ const currentPath = Astro.url.pathname;
       Skip to content
     </a>
     <div class="mx-auto min-h-screen max-w-201.5 border-x border-line bg-surface print:max-w-none print:border-0">
-      <header class="flex min-h-15 items-center justify-between gap-3 border-b border-line px-6.25 py-3 max-wide:px-4 print:hidden">
+      <header class="flex min-h-15 items-center justify-between gap-3 border-b border-line px-6.25 py-3 max-wide:px-4 max-[360px]:gap-1 print:hidden">
         <a
           class:list={[
             headingClass,
@@ -79,7 +85,7 @@ const currentPath = Astro.url.pathname;
         </a>
         <nav
           aria-label="Main navigation"
-          class="flex items-center gap-2.5 max-wide:gap-1.5 [&>a]:px-1.25 [&>a]:py-2.5 [&>a]:text-sm [&>a]:leading-[1.55] [&>a]:no-underline [&>a[aria-current=page]]:text-accent"
+          class="flex items-center gap-2.5 max-wide:gap-1.5 [&>a]:px-1.25 [&>a]:py-2.5 [&>a]:text-sm [&>a]:leading-[1.55] [&>a]:no-underline [&>a[aria-current=page]]:text-accent max-[360px]:[&>a]:px-0.5"
         >
           <a
             class="transition-colors hover:text-accent"

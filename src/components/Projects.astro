@@ -7,9 +7,10 @@ import { projectPath } from "../data";
 
 interface Props {
   projects: CollectionEntry<"projects">[];
+  heading?: "h2" | "h3";
 }
 
-const { projects } = Astro.props;
+const { projects, heading: Heading = "h3" } = Astro.props;
 ---
 
 <div class="mt-4">
@@ -26,14 +27,14 @@ const { projects } = Astro.props;
         loading="lazy"
       />
       <div class="min-w-0">
-        <h3
+        <Heading
           class:list={[
             headingClass,
             "text-[21px] leading-[1.2] max-wide:text-[19px] group-hover:transition-colors group-hover:text-accent",
           ]}
         >
           {data.title}
-        </h3>
+        </Heading>
         <p class="mt-1 text-sm leading-[1.55] text-muted max-wide:text-[13px]">
           {data.summary}
         </p>

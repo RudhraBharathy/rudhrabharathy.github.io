@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
+import { projectPath } from "../data";
 
 export const GET: APIRoute = async ({ site }) => {
   const projects = await getCollection("projects");
@@ -8,8 +9,7 @@ export const GET: APIRoute = async ({ site }) => {
     "/experience/",
     "/gallery/",
     "/projects/",
-    "/resume/",
-    ...projects.map((project) => `/projects/${project.id}/`),
+    ...projects.map((project) => projectPath(project.id)),
   ];
   const urls = paths
     .map((path) => `<url><loc>${new URL(path, site).href}</loc></url>`)

@@ -6,7 +6,6 @@ import { person } from "../data";
 import {
   iconButtonClass,
   inlineLinkClass,
-  labelClass,
   titleClass,
 } from "../styles/classes";
 
@@ -75,8 +74,8 @@ const factIconClass =
         <span class={factIconClass} aria-hidden="true">
           <Icon name="lucide:mail" size={15} />
         </span>
-        <div class="copy-inline-group inline-flex items-center gap-4">
-          <a href={`mailto:${person.email}`}>{person.email}</a>
+        <div class="copy-inline-group inline-flex min-w-0 items-center gap-4">
+          <a class="wrap-anywhere" href={`mailto:${person.email}`}>{person.email}</a>
           <button
             class:list={[
               iconButtonClass,

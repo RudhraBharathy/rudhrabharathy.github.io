@@ -4,24 +4,24 @@ Astro, TypeScript, Tailwind CSS v4, MDX, and Lucide. Static output for GitHub Pa
 
 ## Development
 
-Use Node.js 24 and pnpm 11.
+Use Node.js 24 and npm.
 
 ```sh
-pnpm install
-pnpm dev
+npm ci
+npm run dev
 ```
 
 ## Build
 
 ```sh
-pnpm build
-pnpm preview
+npm run build
+npm run preview
 ```
 
-The profile is at `/`, with individual pages under `/projects/` and a browser-readable résumé at `/resume/`.
+The profile is at `/`. The site also has `/experience/`, `/gallery/`, and `/projects/`, with individual project pages under `/projects/`. The Resume link in the header opens Google Drive.
 
-Project content lives in `src/content/projects/`. Experience and profile links live in `src/data.ts`. The résumé uses that same content. Styles live in `src/styles/global.css`.
+Project content lives in `src/content/projects/`. Experience and profile links live in `src/data.ts`. Styles live in `src/styles/global.css`.
 
 ## GitHub Pages
 
-In repository Settings → Pages, select GitHub Actions. Run the **Deploy portfolio to GitHub Pages** workflow manually after pushing the source. The configured site is `https://rudhrabharathy.github.io`.
+In repository Settings → Pages, select GitHub Actions. The **Deploy portfolio to GitHub Pages** workflow runs on pushes to `main` and can also be run manually. The configured site is `https://rudhrabharathy.github.io`.
