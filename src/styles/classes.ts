@@ -7,5 +7,6 @@ export const headingClass = "font-display font-bold tracking-[-0.055em]";
 export const titleClass = `${headingClass} text-[clamp(30px,5vw,45px)] leading-[1.1] wrap-anywhere`;
 export const sectionTitleClass = `${headingClass} text-[26px] leading-[1.2]`;
 export const labelClass = "text-xs leading-normal tracking-[0.01em]";
-export const inlineLinkClass = "inline-flex items-center gap-1.5 hover:text-accent/90 hover:underline";
+export const inlineLinkClass =
+  "inline-flex items-center gap-1.5 hover:text-accent/90 hover:underline";
 export const articleClass = "px-7 pt-7.5 pb-10 max-wide:px-4.25 print:p-0";
