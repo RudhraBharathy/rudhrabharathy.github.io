@@ -9,165 +9,154 @@ import {
 ---
 
 <div class="experience-tree mt-5">
-  {
-    experience.map((job, index) => (
-      <details class="experience-branch group" open={index === 0}>
-        <summary class="experience-summary [&::-webkit-details-marker]:hidden">
-          <span class="experience-node" aria-hidden="true">
-            <Icon name="lucide:briefcase-business" size={15} />
+  {experience.map((job, index) => (
+    <details class="experience-branch group" open={index === 0}>
+      <summary class="experience-summary [&::-webkit-details-marker]:hidden">
+        <span class="experience-node" aria-hidden="true">
+          <Icon name="lucide:briefcase-business" size={15} />
+        </span>
+        <span class="min-w-0 flex-1">
+          <span class="block leading-[1.4]">
+            <strong>{job.role}</strong>
+            <span class="text-muted"> · {job.company}</span>
           </span>
-          <span class="min-w-0 flex-1">
-            <span class="block leading-[1.4]">
-              <strong>{job.role}</strong>
-              <span class="text-muted"> · {job.company}</span>
-            </span>
+          <span
+            class:list={[
+              labelClass,
+              "mt-1 flex flex-wrap items-center gap-1.5 text-muted",
+            ]}
+          >
+            {formatExperienceDateRange(job.start, job.end)}
+            <span aria-hidden="true">|</span>
+            <span class="sr-only">for </span>
             <span
+              data-experience-duration
+              data-start={job.start}
+              data-end={job.end ?? ""}
+            >
+              {formatExperienceDuration(job.start, job.end)}
+            </span>
+          </span>
+        </span>
+        <Icon
+          name="lucide:chevron-down"
+          class="experience-chevron shrink-0 text-muted"
+          size={18}
+          aria-hidden="true"
+        />
+      </summary>
+      <div class="experience-panel">
+        <ul class="experience-highlights list-none space-y-2 p-0">
+          {job.highlights.map((highlight) => (
+            <li class="relative pl-5 text-sm leading-[1.55] text-muted">
+              {Array.isArray(highlight)
+                ? highlight.map((part) =>
+                    typeof part === "string" ? (
+                      part
+                    ) : "href" in part ? (
+                      <a
+                        class="font-semibold text-accent underline"
+                        href={part.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {part.text}
+                      </a>
+                    ) : (
+                      <strong class="font-semibold text-accent">
+                        {part.text}
+                      </strong>
+                    ),
+                  )
+                : highlight}
+            </li>
+          ))}
+        </ul>
+        <ul
+          class="mt-4 flex list-none flex-wrap gap-1.5 p-0"
+          aria-label={`${job.role} technologies`}
+        >
+          {job.technologies.map((technology) => (
+            <li class="rounded-sm bg-wash px-2 py-1 text-[11px] leading-normal text-muted">
+              {technology}
+            </li>
+          ))}
+        </ul>
+        {"work" in job && job.work && (
+          <p class:list={[labelClass, "mt-3 text-muted"]}>
+            Website I built:{" "}
+            <a
+              class="inline-flex items-center gap-1 font-semibold text-accent underline"
+              href={job.work.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {job.work.label}
+              <Icon name="lucide:arrow-up-right" size={13} aria-hidden="true" />
+            </a>
+          </p>
+        )}
+        {job.previousRole && (
+          <div class="experience-previous-role mt-5 border-t border-line pt-4">
+            <p class="leading-[1.4]">
+              <strong>{job.previousRole.role}</strong>
+            </p>
+            <p
               class:list={[
                 labelClass,
                 "mt-1 flex flex-wrap items-center gap-1.5 text-muted",
               ]}
             >
-              {formatExperienceDateRange(job.start, job.end)}
+              {formatExperienceDateRange(
+                job.previousRole.start,
+                job.previousRole.end,
+              )}
               <span aria-hidden="true">|</span>
               <span class="sr-only">for </span>
               <span
                 data-experience-duration
-                data-start={job.start}
-                data-end={job.end ?? ""}
+                data-start={job.previousRole.start}
+                data-end={job.previousRole.end}
               >
-                {formatExperienceDuration(job.start, job.end)}
+                {formatExperienceDuration(
+                  job.previousRole.start,
+                  job.previousRole.end,
+                )}
               </span>
-            </span>
-          </span>
-          <Icon
-            name="lucide:chevron-down"
-            class="experience-chevron shrink-0 text-muted"
-            size={18}
-            aria-hidden="true"
-          />
-        </summary>
-        <div class="experience-panel">
-          <ul class="experience-highlights list-none space-y-2 p-0">
-            {job.highlights.map((highlight) => (
-              <li class="relative pl-5 text-sm leading-[1.55] text-muted">
-                {Array.isArray(highlight)
-                  ? highlight.map((part) =>
-                      typeof part === "string" ? (
-                        part
-                      ) : "href" in part ? (
-                        <a
-                          class="font-semibold text-accent underline"
-                          href={part.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {part.text}
-                        </a>
-                      ) : (
-                        <strong class="font-semibold text-accent">
-                          {part.text}
-                        </strong>
-                      ),
-                    )
-                  : highlight}
-              </li>
-            ))}
-          </ul>
-          <ul
-            class="mt-4 flex list-none flex-wrap gap-1.5 p-0"
-            aria-label={`${job.role} technologies`}
-          >
-            {
-              job.technologies.map((technology) => (
+            </p>
+            <ul class="experience-highlights mt-3 list-none space-y-2 p-0">
+              {job.previousRole.highlights.map((highlight) => (
+                <li class="relative pl-5 text-sm leading-[1.55] text-muted">
+                  {highlight}
+                </li>
+              ))}
+            </ul>
+            <ul
+              class="mt-4 flex list-none flex-wrap gap-1.5 p-0"
+              aria-label={`${job.previousRole.role} technologies`}
+            >
+              {job.previousRole.technologies.map((technology) => (
                 <li class="rounded-sm bg-wash px-2 py-1 text-[11px] leading-normal text-muted">
                   {technology}
                 </li>
-              ))
-            }
-          </ul>
-          {
-            "work" in job && job.work && (
-              <p class:list={[labelClass, "mt-3 text-muted"]}>
-                Website I built: {" "}
-                <a
-                  class="inline-flex items-center gap-1 font-semibold text-accent underline"
-                  href={job.work.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {job.work.label}
-                  <Icon
-                    name="lucide:arrow-up-right"
-                    size={13}
-                    aria-hidden="true"
-                  />
-                </a>
-              </p>
-            )
-          }
-          {
-            job.previousRole && (
-              <div class="experience-previous-role mt-5 border-t border-line pt-4">
-                <p class="leading-[1.4]">
-                  <strong>{job.previousRole.role}</strong>
-                </p>
-                <p
-                  class:list={[
-                    labelClass,
-                    "mt-1 flex flex-wrap items-center gap-1.5 text-muted",
-                  ]}
-                >
-                  {formatExperienceDateRange(
-                    job.previousRole.start,
-                    job.previousRole.end,
-                  )}
-                  <span aria-hidden="true">|</span>
-                  <span class="sr-only">for </span>
-                  <span
-                    data-experience-duration
-                    data-start={job.previousRole.start}
-                    data-end={job.previousRole.end}
-                  >
-                    {formatExperienceDuration(
-                      job.previousRole.start,
-                      job.previousRole.end,
-                    )}
-                  </span>
-                </p>
-                <ul class="experience-highlights mt-3 list-none space-y-2 p-0">
-                  {job.previousRole.highlights.map((highlight) => (
-                    <li class="relative pl-5 text-sm leading-[1.55] text-muted">
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
-                <ul
-                  class="mt-4 flex list-none flex-wrap gap-1.5 p-0"
-                  aria-label={`${job.previousRole.role} technologies`}
-                >
-                  {job.previousRole.technologies.map((technology) => (
-                    <li class="rounded-sm bg-wash px-2 py-1 text-[11px] leading-normal text-muted">
-                      {technology}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
-          }
-        </div>
-      </details>
-    ))
-  }
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </details>
+  ))}
 </div>
 
 <script>
   import { formatExperienceDuration } from "../utils/experience";
 
-  document.querySelectorAll<HTMLElement>("[data-experience-duration]").forEach(
-    (element) => {
+  document
+    .querySelectorAll<HTMLElement>("[data-experience-duration]")
+    .forEach((element) => {
       const { start, end } = element.dataset;
 
-      if (start) element.textContent = formatExperienceDuration(start, end || null);
-    },
-  );
+      if (start)
+        element.textContent = formatExperienceDuration(start, end || null);
+    });
 </script>

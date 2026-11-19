@@ -83,7 +83,7 @@ export const experience = [
       ],
       [
         "Delivered projects through ",
-        { text: "clear communication "} ,
+        { text: "clear communication " },
         "practical scope, and ",
         { text: "reliable handoff" },
         ".",

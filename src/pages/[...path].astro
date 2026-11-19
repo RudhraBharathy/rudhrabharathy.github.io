@@ -1,36 +1,47 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
-import Site from '../layouts/Site.astro';
-import Home from '../components/Home.astro';
-import Gallery from '../components/Gallery.astro';
-import Project from '../components/Project.astro';
+import { getCollection, type CollectionEntry } from "astro:content";
+import Site from "../layouts/Site.astro";
+import Home from "../components/Home.astro";
+import Gallery from "../components/Gallery.astro";
+import Project from "../components/Project.astro";
 export async function getStaticPaths() {
-  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+  const projects = (await getCollection("projects")).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
   return [
-    { params: { path: undefined }, props: { page: 'home', projects } },
-    { params: { path: 'gallery' }, props: { page: 'gallery', projects } },
+    { params: { path: undefined }, props: { page: "home", projects } },
+    { params: { path: "gallery" }, props: { page: "gallery", projects } },
     ...projects.map((project, index) => ({
       params: { path: `projects/${project.id}` },
-      props: { page: 'project', projects, project, next: projects[(index + 1) % projects.length] },
+      props: {
+        page: "project",
+        projects,
+        project,
+        next: projects[(index + 1) % projects.length],
+      },
     })),
   ];
 }
 
 interface Props {
   page: string;
-  projects: CollectionEntry<'projects'>[];
-  project?: CollectionEntry<'projects'>;
-  next?: CollectionEntry<'projects'>;
+  projects: CollectionEntry<"projects">[];
+  project?: CollectionEntry<"projects">;
+  next?: CollectionEntry<"projects">;
 }
 
 const { page, projects, project, next } = Astro.props;
 const pageTitles: Record<string, string> = {
-  gallery: 'Photography gallery',
+  gallery: "Photography gallery",
 };
-const title = pageTitles[page] || project?.data.title || 'Rudhra Bharathy & Technical Solutions Engineer';
+const title =
+  pageTitles[page] ||
+  project?.data.title ||
+  "Rudhra Bharathy & Technical Solutions Engineer";
 ---
+
 <Site title={title} description={project?.data.summary}>
-  {page === 'home' && <Home projects={projects} />}
-  {page === 'gallery' && <Gallery />}
+  {page === "home" && <Home projects={projects} />}
+  {page === "gallery" && <Gallery />}
   {project && next && <Project project={project} next={next} />}
 </Site>

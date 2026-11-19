@@ -1,39 +1,85 @@
 ---
-import { buttonClass, titleClass, sectionTitleClass, labelClass, inlineLinkClass, articleClass } from '../styles/classes';
-import { Image } from 'astro:assets';
-import { render, type CollectionEntry } from 'astro:content';
-import { Icon } from 'astro-icon/components';
-import { projectPath } from '../data';
+import {
+  buttonClass,
+  titleClass,
+  sectionTitleClass,
+  labelClass,
+  inlineLinkClass,
+  articleClass,
+} from "../styles/classes";
+import { Image } from "astro:assets";
+import { render, type CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+import { projectPath } from "../data";
 
 interface Props {
-  project: CollectionEntry<'projects'>;
-  next: CollectionEntry<'projects'>;
+  project: CollectionEntry<"projects">;
+  next: CollectionEntry<"projects">;
 }
 
 const { project, next } = Astro.props;
 const { data } = project;
 const { Content } = await render(project);
 ---
+
 <main id="main">
   <article class={articleClass}>
-    <a class={inlineLinkClass} href="/#projects"><Icon name="lucide:arrow-left" size={16} aria-hidden="true" />All projects</a>
+    <a class={inlineLinkClass} href="/#projects">
+      <Icon name="lucide:arrow-left" size={16} aria-hidden="true" />
+      All projects
+    </a>
     <h1 class:list={[titleClass, "mt-8 mb-4.5"]}>{data.title}</h1>
     <p class="max-w-[64ch]">{data.introduction}</p>
     <div class="flex flex-wrap items-center gap-3 px-0 py-4.5">
-      <a class={buttonClass} href={data.demo}>Open live project <Icon name="lucide:arrow-up-right" size={16} aria-hidden="true" /></a>
-      <a class={buttonClass} href={data.source}><Icon name="lucide:code-xml" size={16} aria-hidden="true" />Read source</a>
+      <a class={buttonClass} href={data.demo}>
+        Open live project{" "}
+        <Icon name="lucide:arrow-up-right" size={16} aria-hidden="true" />
+      </a>
+      <a class={buttonClass} href={data.source}>
+        <Icon name="lucide:code-xml" size={16} aria-hidden="true" />
+        Read source
+      </a>
     </div>
     <figure class="my-5">
-      <Image class="block w-full max-w-full rounded-md border border-line" src={data.image} alt={data.imageAlt} width={1000} loading="eager" fetchpriority="high" />
-      <figcaption class="mt-1.5 text-[13px] text-muted">{data.summary}</figcaption>
+      <Image
+        class="block w-full max-w-full rounded-md border border-line"
+        src={data.image}
+        alt={data.imageAlt}
+        width={1000}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <figcaption class="mt-1.5 text-[13px] text-muted">
+        {data.summary}
+      </figcaption>
     </figure>
-    <div class="[&_h2]:mt-7 [&_h2]:mb-2.5 [&_h2]:font-display [&_h2]:text-[26px] [&_h2]:leading-[1.2] [&_h2]:font-bold [&_h2]:tracking-[-0.055em] [&_p]:max-w-[64ch] [&_p+p]:mt-3.5"><Content /></div>
+    <div class="[&_h2]:mt-7 [&_h2]:mb-2.5 [&_h2]:font-display [&_h2]:text-[26px] [&_h2]:leading-[1.2] [&_h2]:font-bold [&_h2]:tracking-[-0.055em] [&_p]:max-w-[64ch] [&_p+p]:mt-3.5">
+      <Content />
+    </div>
     <h2 class:list={[sectionTitleClass, "mt-7 mb-2.5"]}>Built with</h2>
-    <ul class="mt-3 flex list-none flex-wrap gap-2 p-0" aria-label="Technologies used">
-      {data.technologies.map((technology) => <li class:list={[labelClass, "rounded-sm border border-line px-2 py-0.75"]}>{technology}</li>)}
+    <ul
+      class="mt-3 flex list-none flex-wrap gap-2 p-0"
+      aria-label="Technologies used"
+    >
+      {data.technologies.map((technology) => (
+        <li
+          class:list={[
+            labelClass,
+            "rounded-sm border border-line px-2 py-0.75",
+          ]}
+        >
+          {technology}
+        </li>
+      ))}
     </ul>
-    <a class="mt-8 flex items-center justify-between gap-5 border-t border-line pt-5.5 no-underline [&_small]:block [&_small]:text-muted [&_strong]:block" href={projectPath(next.id)}>
-      <span><small class={labelClass}>Next project</small><strong>{next.data.title}</strong></span>
+    <a
+      class="mt-8 flex items-center justify-between gap-5 border-t border-line pt-5.5 no-underline [&_small]:block [&_small]:text-muted [&_strong]:block"
+      href={projectPath(next.id)}
+    >
+      <span>
+        <small class={labelClass}>Next project</small>
+        <strong>{next.data.title}</strong>
+      </span>
       <Icon name="lucide:arrow-right" size={22} aria-hidden="true" />
     </a>
   </article>

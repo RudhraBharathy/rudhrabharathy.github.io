@@ -18,66 +18,80 @@ const { projects } = Astro.props;
 <main id="main">
   <HomeProfile />
   <div class="min-w-0">
-    <div class="section-divider h-2.25 border-y border-line" aria-hidden="true">
-    </div>
+    <div
+      class="section-divider h-2.25 border-y border-line"
+      aria-hidden="true"
+    ></div>
     <section
       class="px-7 py-6.25 max-wide:px-4.25"
       id="projects"
       aria-labelledby="projects-heading"
     >
-      <h2 class={sectionTitleClass} id="projects-heading">Things I’ve made.</h2>
+      <h2 class={sectionTitleClass} id="projects-heading">
+        Things I’ve made.
+      </h2>
       <Projects projects={projects} />
     </section>
-    <div class="section-divider h-2.25 border-y border-line" aria-hidden="true">
-    </div>
+    <div
+      class="section-divider h-2.25 border-y border-line"
+      aria-hidden="true"
+    ></div>
     <section
       class="px-7 py-6.25 max-wide:px-4.25"
       aria-labelledby="experience-heading"
     >
-      <h2 class={sectionTitleClass} id="experience-heading">Experience</h2>
+      <h2 class={sectionTitleClass} id="experience-heading">
+        Experience
+      </h2>
       <ExperienceList />
     </section>
-    <div class="section-divider h-2.25 border-y border-line" aria-hidden="true">
-    </div>
+    <div
+      class="section-divider h-2.25 border-y border-line"
+      aria-hidden="true"
+    ></div>
     <section
       class="px-7 py-6.25 max-wide:px-4.25"
       aria-labelledby="stack-heading"
     >
-      <h2 class={sectionTitleClass} id="stack-heading">Stack</h2>
+      <h2 class={sectionTitleClass} id="stack-heading">
+        Stack
+      </h2>
       <ol class="mt-4 border-t border-line">
-        {
-          stack.map((group) => (
-            <li class="grid grid-cols-[150px_1fr] gap-5 border-b border-line py-4 max-wide:grid-cols-1 max-wide:gap-2.5">
-              <div class="flex items-baseline gap-2.5">
-                <h3 class="font-semibold">{group.label}</h3>
-              </div>
-              <ul class="flex list-none flex-wrap gap-2 p-0">
-                {group.items.map((item) => (
-                  <li class="inline-flex items-center gap-2 rounded-md border border-line bg-wash px-2.5 py-1.5 text-sm">
-                    <Icon
-                      name={item.icon}
-                      class="shrink-0 text-muted"
-                      size={15}
-                      aria-hidden="true"
-                    />
-                    {item.label}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))
-        }
+        {stack.map((group) => (
+          <li class="grid grid-cols-[150px_1fr] gap-5 border-b border-line py-4 max-wide:grid-cols-1 max-wide:gap-2.5">
+            <div class="flex items-baseline gap-2.5">
+              <h3 class="font-semibold">{group.label}</h3>
+            </div>
+            <ul class="flex list-none flex-wrap gap-2 p-0">
+              {group.items.map((item) => (
+                <li class="inline-flex items-center gap-2 rounded-md border border-line bg-wash px-2.5 py-1.5 text-sm">
+                  <Icon
+                    name={item.icon}
+                    class="shrink-0 text-muted"
+                    size={15}
+                    aria-hidden="true"
+                  />
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
       </ol>
     </section>
-    <div class="section-divider h-2.25 border-y border-line" aria-hidden="true">
-    </div>
+    <div
+      class="section-divider h-2.25 border-y border-line"
+      aria-hidden="true"
+    ></div>
     <section
       class="px-7 py-6.25 max-wide:px-4.25"
       aria-labelledby="about-heading"
     >
-      <h2 class={sectionTitleClass} id="about-heading">Beyond the screen.</h2>
+      <h2 class={sectionTitleClass} id="about-heading">
+        Beyond the screen.
+      </h2>
       <p class="mt-2 max-w-120 text-muted">
-        Places, light, and small details I notice when I travel.
+        A visual record of life beyond the screen.
       </p>
       <a
         class="group relative mt-5 grid min-h-40 grid-cols-[1fr_5.5rem] overflow-hidden rounded-md border border-line bg-surface no-underline shadow-[0_2px_0_var(--rule)] active:translate-y-px hover:border-drawing hover:bg-wash motion-safe:transition-[border-color,background-color,transform] motion-safe:duration-200 max-wide:grid-cols-[1fr_4.25rem]"
@@ -86,15 +100,12 @@ const { projects } = Astro.props;
         <span
           class="draft-grid pointer-events-none absolute inset-0 opacity-35 group-hover:opacity-55 motion-safe:transition-opacity motion-safe:duration-200"
           aria-hidden="true"
-        >
-        </span>
+        ></span>
         <span class="relative flex flex-col justify-between gap-8 p-5 max-wide:p-4">
           <span class:list={[labelClass, "text-muted"]}>
-            Travel · Places · Light
+            Photography · Nature · Moments
           </span>
-          <span
-            class="max-w-110 font-display text-[clamp(30px,5vw,46px)] leading-[1.05] font-bold tracking-[-0.055em] group-hover:text-accent motion-safe:transition-colors motion-safe:duration-200"
-          >
+          <span class="max-w-110 font-display text-[clamp(30px,5vw,46px)] leading-[1.05] font-bold tracking-[-0.055em] group-hover:text-accent motion-safe:transition-colors motion-safe:duration-200">
             Enter the photo journal
           </span>
         </span>
@@ -110,8 +121,10 @@ const { projects } = Astro.props;
         </span>
       </a>
     </section>
-    <div class="section-divider h-2.25 border-y border-line" aria-hidden="true">
-    </div>
+    <div
+      class="section-divider h-2.25 border-y border-line"
+      aria-hidden="true"
+    ></div>
     <ContactSection />
   </div>
 </main>

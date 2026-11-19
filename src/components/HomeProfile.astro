@@ -24,25 +24,25 @@ const factIconClass =
       <g fill="none" stroke="currentColor" opacity=".45">
         <path
           d="M-20 142L243 -10M340 178L720 -40M110 28H646M110 133H646"
-          stroke-dasharray="4 5"></path>
+          stroke-dasharray="4 5"
+        ></path>
         <path d="M176 10V143M580 10V143"></path>
       </g>
       <g transform="translate(223 104) skewY(-8)">
         <text
           class="fill-surface stroke-current font-display text-[122px] font-bold tracking-[-9px] stroke-[1.3px]"
           x="4"
-          y="8">-RB-</text
+          y="8"
         >
-        <text
-          class="fill-surface stroke-current font-display text-[122px] font-bold tracking-[-9px] stroke-[1.3px]"
-          >-RB-</text
-        >
+          -RB-
+        </text>
+        <text class="fill-surface stroke-current font-display text-[122px] font-bold tracking-[-9px] stroke-[1.3px]">
+          -RB-
+        </text>
       </g>
     </svg>
   </div>
-  <div
-    class="flex items-center gap-5 border-b border-line px-7 py-6.25 max-wide:gap-3.25 max-wide:px-4.25 [&>div]:min-w-0"
-  >
+  <div class="flex items-center gap-5 border-b border-line px-7 py-6.25 max-wide:gap-3.25 max-wide:px-4.25 [&>div]:min-w-0">
     <Image
       class="h-35 w-35 shrink-0 rounded-sm border border-line object-cover max-wide:h-19.5 max-wide:w-17.5"
       src={portraitImage}
@@ -61,19 +61,15 @@ const factIconClass =
       </p>
     </div>
   </div>
-  <div
-    class="profile-facts grid grid-cols-2 border-b border-line max-wide:grid-cols-1"
-  >
+  <div class="profile-facts grid grid-cols-2 border-b border-line max-wide:grid-cols-1">
     <div class="space-y-2.5 px-7 py-4 max-wide:px-4.25">
       <div class="flex items-center gap-3 hover:*:text-accent *:transition-colors">
         <span class={factIconClass} aria-hidden="true">
           <Icon name="lucide:map-pin" size={15} />
         </span>
-        <a
-          href={person.locationLink}
-          target="_blank"
-          rel="noopener noreferrer">Coimbatore, Tamil Nadu, India</a
-        >
+        <a href={person.locationLink} target="_blank" rel="noopener noreferrer">
+          Coimbatore, Tamil Nadu, India
+        </a>
       </div>
       <div class="flex items-center gap-3 hover:*:text-accent *:transition-colors">
         <span class={factIconClass} aria-hidden="true">
@@ -94,16 +90,18 @@ const factIconClass =
             <span data-copy-default aria-hidden="true">
               <Icon name="lucide:copy" size={13} />
             </span>
-            <span class="hidden text-accent" data-copy-success aria-hidden="true">
+            <span
+              class="hidden text-accent"
+              data-copy-success
+              aria-hidden="true"
+            >
               <Icon name="lucide:check" size={13} />
             </span>
           </button>
         </div>
       </div>
     </div>
-    <div
-      class="space-y-2.5 border-l border-line px-7 py-4 max-wide:border-t max-wide:border-l-0 max-wide:px-4.25"
-    >
+    <div class="space-y-2.5 border-l border-line px-7 py-4 max-wide:border-t max-wide:border-l-0 max-wide:px-4.25">
       <div class="flex items-center gap-3">
         <span class={factIconClass} aria-hidden="true">
           <Icon name="lucide:clock" size={15} />
@@ -132,7 +130,11 @@ const factIconClass =
             <span data-copy-default aria-hidden="true">
               <Icon name="lucide:copy" size={13} />
             </span>
-            <span class="hidden text-accent" data-copy-success aria-hidden="true">
+            <span
+              class="hidden text-accent"
+              data-copy-success
+              aria-hidden="true"
+            >
               <Icon name="lucide:check" size={13} />
             </span>
           </button>
@@ -141,15 +143,13 @@ const factIconClass =
     </div>
   </div>
   <span class="sr-only" data-profile-copy-status role="status"></span>
-  <div
-    class="grid grid-cols-2 border-b border-line leading-[1.55] [&>div]:px-7 [&>div]:py-3.5 [&>div+div]:border-l [&>div+div]:border-line max-wide:[&>div]:px-4 max-wide:[&>div]:py-3 max-wide:[&>div]:text-sm"
-  >
+  <div class="grid grid-cols-2 border-b border-line leading-[1.55] [&>div]:px-7 [&>div]:py-3.5 [&>div+div]:border-l [&>div+div]:border-line max-wide:[&>div]:px-4 max-wide:[&>div]:py-3 max-wide:[&>div]:text-sm">
     <div>
       <p class="mb-3 block text-muted text-sm">Currently</p>
-      Technical Solutions Engineer at <a
-        class={inlineLinkClass}
-        href="https://www.userflow.com/">Userflow</a
-      >
+      Technical Solutions Engineer at{" "}
+      <a class={inlineLinkClass} href="https://www.userflow.com/">
+        Userflow
+      </a>
     </div>
     <div>
       <p class="mb-1 block text-muted text-sm">Socials</p>
@@ -160,39 +160,41 @@ const factIconClass =
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit LinkedIn profile"
-          ><Icon name="simple-icons:linkedin" size={18} aria-hidden="true" /></a
         >
+          <Icon name="simple-icons:linkedin" size={18} aria-hidden="true" />
+        </a>
         <a
           class={socialIconClass}
           href={person.github}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit GitHub profile"
-          ><Icon name="simple-icons:github" size={18} aria-hidden="true" /></a
         >
+          <Icon name="simple-icons:github" size={18} aria-hidden="true" />
+        </a>
         <a
           class={socialIconClass}
           href={person.twitter}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit X profile"
-          ><Icon name="simple-icons:x" size={18} aria-hidden="true" /></a
         >
+          <Icon name="simple-icons:x" size={18} aria-hidden="true" />
+        </a>
         <a
           class={socialIconClass}
           href={person.devdotto}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit DEV profile"
-          ><Icon name="fa6-brands:dev" size={18} aria-hidden="true" /></a
         >
+          <Icon name="fa6-brands:dev" size={18} aria-hidden="true" />
+        </a>
       </div>
     </div>
   </div>
 
-  <div
-    class="space-y-3 px-7 py-6 max-wide:px-4.25 [&_p]:max-w-[64ch] [&_p]:text-pretty"
-  >
+  <div class="space-y-3 px-7 py-6 max-wide:px-4.25 [&_p]:max-w-[64ch] [&_p]:text-pretty">
     <p>
       <strong class="text-accent">Build.</strong> Thoughtful full-stack web
       products, from polished interfaces to the systems behind them.

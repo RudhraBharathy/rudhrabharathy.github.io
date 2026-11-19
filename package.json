@@ -20,6 +20,8 @@
     "@iconify-json/fa6-brands": "^1.2.6",
     "@iconify-json/lucide": "^1.2.152",
     "@iconify-json/simple-icons": "^1.2.101",
+    "prettier": "^3.10.1",
+    "prettier-plugin-astro": "^1.1.2",
     "typescript": "^6.0.3"
   }
 }
