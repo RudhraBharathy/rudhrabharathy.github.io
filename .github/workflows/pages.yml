@@ -38,9 +38,9 @@ jobs:
           PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_ACCESS_KEY }}
           PUBLIC_LIKES_API_URL: ${{ secrets.PUBLIC_LIKES_API_URL }}
           PUBLIC_POSTHOG_PROJECT_TOKEN: ${{ secrets.PUBLIC_POSTHOG_PROJECT_TOKEN }}
-          PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST }}
-          POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
-          POSTHOG_PROJECT_ID: ${{ vars.POSTHOG_PROJECT_ID }}
+          PUBLIC_POSTHOG_HOST: ${{ secrets.PUBLIC_POSTHOG_HOST }}
+          POSTHOG_HOST: ${{ secrets.POSTHOG_HOST }}
+          POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
           POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
       - uses: actions/upload-pages-artifact@v5
         with:
