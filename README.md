@@ -1,5 +1,7 @@
 # Rudhra Bharathy’s portfolio
 
+Website Link: https://rudhrabharathy.github.io/
+
 | Technology                                                                                            | Used for                 |
 | ----------------------------------------------------------------------------------------------------- | ------------------------ |
 | ![Astro](https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=white)                        | Static site framework    |
