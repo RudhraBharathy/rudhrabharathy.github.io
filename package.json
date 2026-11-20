@@ -4,9 +4,12 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check",
-    "build": "astro check && astro build",
-    "preview": "astro preview"
+    "check": "astro check && yarn likes:check",
+    "build": "yarn run check && astro build",
+    "preview": "astro preview",
+    "likes:dev": "wrangler dev --config workers/likes/wrangler.jsonc",
+    "likes:check": "wrangler types workers/likes/worker-configuration.d.ts --config workers/likes/wrangler.jsonc && tsc --project workers/likes/tsconfig.json",
+    "likes:deploy": "wrangler deploy --config workers/likes/wrangler.jsonc"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.1.3",
@@ -24,6 +27,7 @@
     "@posthog/rollup-plugin": "^1.6.4",
     "prettier": "^3.10.1",
     "prettier-plugin-astro": "^1.1.2",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.165.0"
   }
 }

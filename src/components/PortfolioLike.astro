@@ -1,0 +1,259 @@
+---
+import { Icon } from "astro-icon/components";
+import { buttonClass } from "../styles/classes";
+
+const endpoint = import.meta.env.PUBLIC_LIKES_API_URL?.trim() || "";
+---
+
+<div class="max-w-56 flex" data-portfolio-like data-endpoint={endpoint}>
+  <button
+    type="button"
+    class:list={[
+      buttonClass,
+      "disabled:cursor-wait disabled:opacity-60 data-[has-hearts=true]:text-accent aria-disabled:cursor-default",
+    ]}
+    data-like-button
+    aria-label="Give a heart to this portfolio"
+    aria-describedby="portfolio-like-status"
+    disabled
+  >
+    <span class="heart-shape" data-heart-shape aria-hidden="true">
+      <Icon name="lucide:heart" is:inline size={24} class="heart-fill" />
+      <Icon name="lucide:heart" is:inline size={24} />
+      {Array.from({ length: 6 }, (_, index) => (
+        <span
+          class="heart-spark"
+          data-heart-spark
+          style={`--spark-angle: ${index * 60}deg`}
+        ></span>
+      ))}
+    </span>
+    <span data-like-label>Like</span>
+    <span
+      class="min-w-4 border-l border-line pl-2 tabular-nums"
+      data-like-count
+      aria-hidden="true"
+    >
+      —
+    </span>
+  </button>
+  <p
+    id="portfolio-like-status"
+    class="mt-1 text-xs text-muted empty:hidden"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    data-like-status
+  ></p>
+  <noscript>
+    <p class="mt-2 text-xs text-muted">
+      Enable JavaScript to see portfolio likes.
+    </p>
+  </noscript>
+</div>
+
+<style>
+  .heart-shape {
+    position: relative;
+    display: inline-grid;
+  }
+  .heart-shape > :global(svg) {
+    grid-area: 1 / 1;
+  }
+  .heart-fill {
+    clip-path: inset(var(--heart-empty, 100%) 0 0);
+  }
+  .heart-fill :global(path) {
+    fill: currentColor;
+    stroke: none;
+  }
+  .heart-spark {
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 1px);
+    width: 2px;
+    height: 5px;
+    border-radius: 1px;
+    background: currentColor;
+    opacity: 0;
+    rotate: var(--spark-angle);
+    transform-origin: 50% 0;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .heart-fill {
+      transition: clip-path 240ms ease-out;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-portfolio-like]");
+  const button = root?.querySelector<HTMLButtonElement>("[data-like-button]");
+  const label = root?.querySelector<HTMLElement>("[data-like-label]");
+  const count = root?.querySelector<HTMLElement>("[data-like-count]");
+  const heart = root?.querySelector<HTMLElement>("[data-heart-shape]");
+  const status = root?.querySelector<HTMLElement>("[data-like-status]");
+
+  if (root && button && label && count && heart && status) {
+    const endpoint = root.dataset.endpoint || "";
+    const testMode =
+      import.meta.env.DEV ||
+      ["localhost", "127.0.0.1", "[::1]"].includes(window.location.hostname);
+    const sparks = heart.querySelectorAll<HTMLElement>("[data-heart-spark]");
+    // Equal areas of Lucide's heart, rather than its padded SVG box.
+    const emptyLevels = [100, 62.4, 50.5, 40.3, 30.3, 0];
+    // shortcut: browser storage can be cleared; add sign-in if unique people must be enforced.
+    const visitorKey = "rb-portfolio-visitor";
+    const progressKey = `rb-portfolio-hearts:${endpoint}`;
+    let visitorId = "";
+    let given = 0;
+    let desired = 0;
+    let total = 0;
+    let loaded = false;
+    let pending = 0;
+    let failureMessage = "";
+    let storageAvailable = true;
+
+    if (!testMode) {
+      try {
+        visitorId = localStorage.getItem(visitorKey) || crypto.randomUUID();
+        localStorage.setItem(visitorKey, visitorId);
+      } catch {
+        storageAvailable = false;
+      }
+    }
+
+    const render = () => {
+      const displayedTotal = total + desired - given;
+      label.textContent = given === 5 ? "Loved" : "Like";
+      heart.style.setProperty("--heart-empty", `${emptyLevels[desired]}%`);
+      button.dataset.hasHearts = String(desired > 0);
+      button.setAttribute("aria-disabled", String(desired === 5));
+      button.setAttribute("aria-busy", String(pending > 0));
+      button.disabled = !loaded || !storageAvailable;
+      if (loaded) {
+        count.textContent = displayedTotal.toLocaleString();
+        button.setAttribute(
+          "aria-label",
+          `Give a heart. ${desired} of 5 given. ${displayedTotal.toLocaleString()} total likes.`,
+        );
+      }
+    };
+
+    const requestCount = async (target?: number) => {
+      if (testMode) {
+        given = Math.max(given, target ?? 0);
+        desired = Math.max(desired, given);
+        total = given;
+        loaded = true;
+        return;
+      }
+      const headers: Record<string, string> = {};
+      if (visitorId) headers["X-Visitor-ID"] = visitorId;
+      if (target !== undefined) headers["X-Like-Count"] = String(target);
+      const response = await fetch(endpoint, {
+        method: target === undefined ? "GET" : "POST",
+        headers,
+        keepalive: target !== undefined,
+        signal: AbortSignal.timeout(10000),
+        cache: "no-store",
+      });
+      if (!response.ok) throw new Error(String(response.status));
+      const data: unknown = await response.json();
+      if (
+        typeof data !== "object" ||
+        data === null ||
+        !("count" in data) ||
+        typeof data.count !== "number" ||
+        !Number.isSafeInteger(data.count) ||
+        data.count < 0 ||
+        !("given" in data) ||
+        typeof data.given !== "number" ||
+        !Number.isInteger(data.given) ||
+        data.given < 0 ||
+        data.given > 5 ||
+        data.count < data.given ||
+        (target !== undefined && data.given < target)
+      ) {
+        throw new Error("Invalid like count");
+      }
+      total = Math.max(total, data.count);
+      given = Math.max(given, data.given);
+      desired = Math.max(desired, given);
+      loaded = true;
+    };
+
+    const load = async () => {
+      try {
+        await requestCount();
+        status.textContent = storageAvailable
+          ? ""
+          : "Allow browser storage to leave hearts.";
+      } catch {
+        status.textContent = "Likes are unavailable. Reload to try again.";
+      }
+      render();
+    };
+    void load();
+
+    button.addEventListener("click", async () => {
+      if (desired >= 5 || button.disabled) return;
+      const target = ++desired;
+      pending++;
+      status.textContent = "";
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        heart.getAnimations().forEach((animation) => animation.cancel());
+        heart.animate(
+          [
+            { transform: "scale(1)" },
+            { transform: "scale(1.18)" },
+            { transform: "scale(1)" },
+          ],
+          { duration: 260, easing: "ease-out" },
+        );
+        sparks.forEach((spark) => {
+          spark.getAnimations().forEach((animation) => animation.cancel());
+          spark.animate(
+            [
+              { transform: "translateY(-12px) scaleY(0.5)", opacity: 0 },
+              {
+                transform: "translateY(-17px) scaleY(1)",
+                opacity: 0.9,
+                offset: 0.25,
+              },
+              { transform: "translateY(-25px) scaleY(0.2)", opacity: 0 },
+            ],
+            { duration: 360, easing: "ease-out" },
+          );
+        });
+      }
+      render();
+      try {
+        await requestCount(target);
+        try {
+          if (!testMode) localStorage.setItem(progressKey, String(given));
+        } catch {}
+      } catch (error) {
+        failureMessage =
+          error instanceof Error && error.message === "429"
+            ? "Please wait a minute and try again."
+            : "Couldn't save all your hearts. Please try again.";
+      } finally {
+        pending--;
+        if (pending === 0) {
+          status.textContent = desired > given ? failureMessage : "";
+          desired = given;
+        }
+        render();
+      }
+    });
+
+    window.addEventListener("storage", (event) => {
+      if (!testMode && event.key === progressKey && pending === 0) void load();
+    });
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted && pending === 0) void load();
+    });
+  }
+</script>

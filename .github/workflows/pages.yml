@@ -35,6 +35,7 @@ jobs:
           find dist -type f -name '*.map' -delete
         env:
           PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_ACCESS_KEY }}
+          PUBLIC_LIKES_API_URL: ${{ secrets.PUBLIC_LIKES_API_URL }}
           PUBLIC_POSTHOG_PROJECT_TOKEN: ${{ secrets.PUBLIC_POSTHOG_PROJECT_TOKEN }}
           PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST }}
           POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}

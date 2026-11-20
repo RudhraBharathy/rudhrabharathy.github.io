@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { person } from "../data";
+import PortfolioLike from "./PortfolioLike.astro";
 import { headingClass, inlineLinkClass } from "../styles/classes";
 
 const socials = [
@@ -15,26 +16,29 @@ const railLinkClass =
 ---
 
 <footer id="site-footer" class="border-y border-line print:hidden">
-  <div class="flex min-h-32 flex-col items-start justify-center px-7 py-6 max-wide:px-4.25">
-    <a
-      class:list={[
-        headingClass,
-        "text-[clamp(25px,5vw,39px)] leading-[1.12] no-underline",
-      ]}
-      href="/"
-      data-restore-scroll
-      aria-label={`${person.name} home`}
-    >
-      {person.name}
-    </a>
-    <a
-      class:list={[inlineLinkClass, "min-h-7 text-[13px] text-muted"]}
-      href={person.locationLink}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Coimbatore, Tamilnadu, India
-    </a>
+  <div class="flex min-h-32 flex-wrap items-center justify-between gap-5 px-7 py-6 max-wide:px-4.25">
+    <div class="flex flex-col items-start">
+      <a
+        class:list={[
+          headingClass,
+          "text-[clamp(25px,5vw,39px)] leading-[1.12] no-underline",
+        ]}
+        href="/"
+        data-restore-scroll
+        aria-label={`${person.name} home`}
+      >
+        {person.name}
+      </a>
+      <a
+        class:list={[inlineLinkClass, "min-h-7 text-[13px] text-muted"]}
+        href={person.locationLink}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Coimbatore, Tamilnadu, India
+      </a>
+    </div>
+    <PortfolioLike />
   </div>
 
   <nav

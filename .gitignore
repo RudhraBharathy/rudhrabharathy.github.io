@@ -6,3 +6,6 @@ dist/
 .env.*
 !.env.example
 /tasks
+.wrangler/
+.dev.vars*
+/workers/likes/worker-configuration.d.ts
