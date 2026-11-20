@@ -9,15 +9,11 @@ if (token && host && import.meta.env.PROD) {
     posthog.init(token, {
       api_host: host,
       defaults: "2026-08-30",
-      persistence: "memory",
+      persistence: "localStorage+cookie",
       person_profiles: "never",
       capture_pageview: true,
       capture_pageleave: true,
-      autocapture: {
-        dom_event_allowlist: ["click"],
-        element_allowlist: ["a", "button"],
-        capture_copied_text: false,
-      },
+      autocapture: false,
       mask_all_text: true,
       mask_all_element_attributes: true,
       capture_exceptions: {
@@ -62,6 +58,7 @@ const clickEvents = [
 
 type PortfolioEvent =
   | (typeof clickEvents)[number]
+  | "portfolio_like_clicked"
   | "contact_detail_copied"
   | "contact_submit_succeeded"
   | "contact_submit_failed";

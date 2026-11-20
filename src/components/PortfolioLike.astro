@@ -88,6 +88,8 @@ const endpoint = import.meta.env.PUBLIC_LIKES_API_URL?.trim() || "";
 </style>
 
 <script>
+  import { captureEvent } from "../libs/analytics";
+
   const root = document.querySelector<HTMLElement>("[data-portfolio-like]");
   const button = root?.querySelector<HTMLButtonElement>("[data-like-button]");
   const label = root?.querySelector<HTMLElement>("[data-like-label]");
@@ -200,6 +202,7 @@ const endpoint = import.meta.env.PUBLIC_LIKES_API_URL?.trim() || "";
     button.addEventListener("click", async () => {
       if (desired >= 5 || button.disabled) return;
       const target = ++desired;
+      captureEvent("portfolio_like_clicked", { location: "footer" });
       pending++;
       status.textContent = "";
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
