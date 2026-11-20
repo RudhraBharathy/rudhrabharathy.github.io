@@ -17,8 +17,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: yarn
@@ -41,7 +41,7 @@ jobs:
           POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
           POSTHOG_PROJECT_ID: ${{ vars.POSTHOG_PROJECT_ID }}
           POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
   deploy:
@@ -56,4 +56,4 @@ jobs:
     steps:
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
